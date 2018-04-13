@@ -13,7 +13,7 @@ var memberRouter = require('./routes/member.router');
 var adminRouter = require('./routes/admin.router.js');
 var barRouter = require('./routes/bars.router.js');
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 3000;
 
 // Body parser middleware
 app.use(bodyParser.json());
