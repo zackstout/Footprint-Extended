@@ -8,7 +8,16 @@ var pg = require('pg');
 var url = require('url');
 var config = {};
 
-if (process.env.DATABASE_URL) {
+
+if (process.env.RDS_HOSTNAME) {
+  config = {
+    host: process.env.RDS_HOSTNAME,
+    user: process.env.RDS_USERNAME,
+    password: process.env.RDS_PASSWORD,
+    port: process.env.RDS_PORT
+  };
+}
+else if (process.env.DATABASE_URL) {
   // Heroku gives a url, not a connection object
   // https://github.com/brianc/node-pg-pool
   var params = url.parse(process.env.DATABASE_URL);
