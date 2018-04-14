@@ -14,7 +14,9 @@ if (process.env.RDS_HOSTNAME) {
     host: process.env.RDS_HOSTNAME,
     user: process.env.RDS_USERNAME,
     password: process.env.RDS_PASSWORD,
-    port: process.env.RDS_PORT
+    port: process.env.RDS_PORT,
+    // Yep, this was the final piece of this wild ride of a puzzle:
+    database: process.env.RDS_DB_NAME
   };
 }
 else if (process.env.DATABASE_URL) {

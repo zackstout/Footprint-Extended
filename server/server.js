@@ -20,7 +20,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Serve back static files
+
+// NOTE: use this for localhost:
 app.use(express.static('./server/public'));
+// And use this for live version:
+// app.use(express.static('./public'));
+
 
 // Passport Session Configuration
 app.use(sessionConfig);
