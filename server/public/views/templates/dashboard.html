@@ -61,6 +61,8 @@
             <div>
                 <h3>WHICH ONE?</h3>
 
+
+                <!-- should be able to refactor this to one function: -->
                 <md-select ng-show="uc.activeSelectorDonut == 'project'" ng-model="uc.donutParticular">
                     <md-option ng-repeat="x in uc.donutResults" ng-value="x.project">{{x.project}}</md-option>
                 </md-select>
@@ -114,6 +116,7 @@
                     <md-option value="country">Country</md-option>
                 </md-select>
                 <h3>WHICH ONE?</h3>
+                <!-- Similar to donuts above, there must be a way to condense this: -->
                 <md-select ng-show="uc.activeSelector == 'project'" ng-model="uc.barParticular">
                     <md-option ng-repeat="x in uc.barResults" ng-value="x.project">{{x.project}}</md-option>
                 </md-select>

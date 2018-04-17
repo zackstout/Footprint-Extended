@@ -65,6 +65,15 @@ myApp.service('UserService', function ($http, $location){
     });
   } //End of Logout Function
 
+
+
+
+
+
+
+
+
+// moved to projects:
   self.getCountries = function() {
 
     $http.get('/member/countries').then(function(response) {
@@ -75,7 +84,7 @@ myApp.service('UserService', function ($http, $location){
     })
   }
   self.getCountries();
- 
+
 
   //gets the users projects for the projects view
   self.getProjects = function (id) {
@@ -89,6 +98,12 @@ myApp.service('UserService', function ($http, $location){
     });
   };
 
+
+
+
+
+
+// moved to FPs:
   //gets the footprints for selected project
   self.getProjectFootprints = function (id){
     return $http.get('/member/project_footprints/'+ id).then(function (response) {
@@ -99,6 +114,14 @@ myApp.service('UserService', function ($http, $location){
     });
   };
 
+
+
+
+
+
+
+
+// moved to admin:
   //gets all the users for admin page
 self.adminGetUsers = function () {
   // console.log('Getting users for admin');
@@ -112,36 +135,10 @@ self.adminGetUsers = function () {
   });
 };
 
-  self.computeFootprint = function(footprint) {
-
-    var result = {};
-    result.plane = PLANE_CONVERSION * parseInt(footprint[0].plane);
-    result.car = CAR_CONVERSION * parseInt(footprint[0].car);
-    result.train = TRAIN_CONVERSION * parseInt(footprint[0].train);
-    result.air = AIR_CONVERSION * parseInt(footprint[0].air);
-    result.freight_train = FREIGHT_CONVERSION * parseInt(footprint[0].freight_train);
-    result.truck = TRUCK_CONVERSION * parseInt(footprint[0].truck);
-    result.sea = SEA_CONVERSION * parseInt(footprint[0].sea);
-    result.hotel = HOTEL_CONVERSION * parseInt(footprint[0].hotel);
-    result.fuel = FUEL_CONVERSION * parseInt(footprint[0].fuel);
-    result.grid = GRID_CONVERSION * parseInt(footprint[0].grid);
-    result.propane = PROPANE_CONVERSION * parseInt(footprint[0].propane);
-
-    return result;
-  };
 
 
-  self.groupByCategory = function(footprint) {
-    var result = {};
-    // console.log(footprint);
-    result.living = footprint.hotel + footprint.fuel + footprint.grid + footprint.propane;
-    result.shipping = footprint.sea + footprint.air + footprint.truck + footprint.freight_train;
-    result.travel = footprint.plane + footprint.train + footprint.car;
-    self.result = result;
-    // console.log(self.result);
-    return self.result;
-  };
 
+// moved to FPs:
     self.computeFootprint = function(footprint) {
       // console.log(footprint);
       var result = {};
@@ -183,6 +180,13 @@ self.adminGetUsers = function () {
 
   // var fpfp = {};
 
+
+
+
+
+
+// not too sure what these 2 are doing:
+
   self.getFootprintsFootprint = function() {
     return $http.get('/member/footprints_footprint').then(function(response) {
       self.footprintsFootprint = response.data;
@@ -193,8 +197,6 @@ self.adminGetUsers = function () {
       console.log('oh noooooo', err);
     });
   };
-
-
 
   self.computeTrialFootprint = function(footprint) {
 
@@ -208,6 +210,13 @@ self.adminGetUsers = function () {
 
 
 
+
+
+
+
+
+
+// MOVED TO projects:
 //This uploads the data for a new project:
  self.sendProject = function(user){
    var project = user;
@@ -221,6 +230,14 @@ self.adminGetUsers = function () {
    });
 };
 
+
+
+
+
+
+
+
+// REDUNDANT -- USE COMPUTE (FP) AND PARSE (CSV):
 //This function sends edited footprints to the DB.
  self.sendEdits = function (dataIn) {
  var data = dataIn.data;
@@ -304,16 +321,16 @@ self.adminGetUsers = function () {
     propane: 0
   };
 
- }//End send function
+}; //End send function
 
  self.sendEditsOut = function (csvSend) {
    $http.put('/member/project_edit', csvSend).then(function (response) {
 
    }).catch(function (error) {
-     console.log('error sending footprint', error)
-   })
+     console.log('error sending footprint', error);
+   });
 
- }
+ };
 
 
 }); //End of UserService

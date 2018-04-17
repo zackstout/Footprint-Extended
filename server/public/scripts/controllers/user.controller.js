@@ -14,7 +14,6 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
 
 
 
-
   // gets the data for the DASHBOARD lineChart displaying org's carbon impact
   vm.lineChart = function () {
     donutService.getUserFpDividedByPeriod().then(function (response) {
@@ -61,9 +60,20 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
   };
 
 
+
+
+
+
+
   //gets users projects
   vm.userService.getProjects(vm.userObject.id);
   //dashboard dialog
+
+
+
+
+
+
   vm.upload = function (ev, i) {
     // userService.getProjects.selectedIndex = i;
 
@@ -79,6 +89,12 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
     });
   }; //End modal function
 
+
+
+
+
+
+
   //Add new project modal.
   vm.newProject = function (ev, i) {
 
@@ -91,6 +107,10 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
 
     });
   };
+
+
+
+
 
   vm.hide = function () {
     $mdDialog.hide();
@@ -148,6 +168,7 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
 
   };
 
+
   vm.submitBarQuery = function(view, particular) {
 
     var data = {view: view, particular: particular};
@@ -155,6 +176,7 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
 
       var computedFp = UserService.computeFootprint(response.data[0]);
       var bars = [];
+      // MUST BE CLEANER WAY:
       bars.push(Math.round(computedFp.air,1));
       bars.push(Math.round(computedFp.truck,1));
       bars.push(Math.round(computedFp.sea,1));
@@ -194,6 +216,15 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
     console.log(err);
   });
 };
+
+
+
+
+
+
+
+
+
 
 
 
@@ -283,6 +314,17 @@ vm.submitQuery = function(view, particular, slice) {
 };
 
 
+
+
+
+
+
+
+
+
+// SLICES:
+
+
 var chart1, chart2, chart3, chart4, chart5;
 
 //call if they slice by PERIOD:
@@ -315,8 +357,6 @@ function sanitizeByPeriod(resp) {
     totals_period.push($filter('date')(p.period, 'MMM yyyy'));
     totals.push(Math.round(total, 1));
   }
-
-
 
   //well we don't need the following 2 declarations, and we get a weird error, but it does fix the hover bug!:
   var canvas = angular.element(document.getElementById("donutChart"));
@@ -357,6 +397,9 @@ function sanitizeByPeriod(resp) {
   }
 });
 }
+
+
+
 
 
 //call if they slice by PROJECT:
@@ -431,6 +474,10 @@ function sanitizeByProject(resp) {
 }
 
 
+
+
+
+
 //call if they slice by TYPE:
 function sanitizeByType(resp) {
   var allThings = resp;
@@ -495,6 +542,8 @@ function sanitizeByType(resp) {
     }
   });
 }
+
+
 
 
 //call if they slice by COUNTRY:
@@ -566,11 +615,11 @@ function sanitizeByCountry(resp) {
 }
 
 
+
+
+
 //call if they slice by CATEGORY:
 function sanitizeByCategory(resp) {
-
-
-
   var fp = UserService.computeFootprint(resp[0]);
 
 
@@ -622,6 +671,10 @@ function sanitizeByCategory(resp) {
   });
 
 }
+
+
+
+
 
 //call if they view by CATEGORY:
 //no there has to be a better way to do this....it's just ALL their footprints.

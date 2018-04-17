@@ -1,4 +1,5 @@
-// encryption.js
+
+// Had to change this from bcrypt:
 var bcrypt = require('bcrypt-nodejs');
 var SALT_WORK_FACTOR = 10;
 

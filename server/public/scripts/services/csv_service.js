@@ -4,29 +4,41 @@ myApp.service('csvService', function ($http, $location, UserService) {
   var vm = this;
   vm.userFootprint = { userInfo: [], userType: [], dataIn: [] };
 
-  var csv = {
-    plane: 0,
-    car: 0,
-    train_travel: 0,
-    air: 0,
-    train_shipping: 0,
-    truck: 0,
-    sea: 0,
-    hotel: 0,
-    fuel: 0,
-    grid: 0,
-    propane: 0,
-    organization: ''
-  };
+
 
   vm.dataType = '';
 
+
+// Ok we're close to finding the problem. Hotel is getting logged as 10 even though it's 0. We must be looking at the one to the left of what we intend.
+// Nah not quite: but if we take out the Date columns completely, it works.
+// To add back in dates later, trying testing with sample data 1 2 3 etc., This will make it easier to debug.
+// Ok we actually need *one* Date column to make it work as intended.
+
+// moved to CSV:
   //This function parses the data from uploaded CSVs.
   vm.parseData = function (data) {
     var dataNums = data.slice(data.lastIndexOf('kWh'), data.indexOf(',,,,,,,,,,'));
     var arrayOfNums = dataNums.split(',');
 
+// Moving this in here so we don't need to clear it out:
+// Although maybe don't even mess with it because we're going to restructure this whole idea.
+    var csv = {
+      plane: 0,
+      car: 0,
+      train_travel: 0,
+      air: 0,
+      train_shipping: 0,
+      truck: 0,
+      sea: 0,
+      hotel: 0,
+      fuel: 0,
+      grid: 0,
+      propane: 0,
+      organization: ''
+    };
 
+    //Ok we get the correct data......
+    console.log(data);
     //a switch statement would be cleaner here....if anyone is feeling motivated:
     for (var i = 0; i < arrayOfNums.length; i++) {
       var num = arrayOfNums[i];
@@ -55,6 +67,8 @@ myApp.service('csvService', function ($http, $location, UserService) {
       }
     }
 
+    console.log(csv);
+
     if (vm.dataType.type === 'English') {
       // for (var i=0; i<csv.length; i++){
       csv.plane = Math.round((csv.plane * 1.609344));
@@ -74,23 +88,10 @@ myApp.service('csvService', function ($http, $location, UserService) {
     vm.valuesToArray(csv);
 
     vm.trialData = UserService.computeTrialFootprint(csv);
+    // ok and now this is wrong.
+    console.log(vm.trialData);
 
     return $http.post('/admin', csv).then(function (response) {
-
-      csv = {
-        plane: 0,
-        car: 0,
-        train_travel: 0,
-        air: 0,
-        train_shipping: 0,
-        truck: 0,
-        sea: 0,
-        hotel: 0,
-        fuel: 0,
-        grid: 0,
-        propane: 0,
-        organization: ''
-      };
 
       return vm.trialData;
       //how odd that it logs out all as 0s here but posts into the DB ok....asynchonicity man.
@@ -111,6 +112,10 @@ myApp.service('csvService', function ($http, $location, UserService) {
     vm.calculations(result);
   };
 
+
+
+
+// REDUNDANT:
   //  This function will calculate carbon footprint data
   vm.calculations = function (result) {
 
@@ -161,9 +166,16 @@ myApp.service('csvService', function ($http, $location, UserService) {
     propane: 0
   };
 
+
+
+
+
   //This is the start of sending logged in user's info to the database.
   vm.projectOut = { userInfo: [], userType: [], dataIn: [] };
 
+
+
+// REDUNDANT:
   vm.parseFootprint = function (data) {
     var dataNums = data.slice(data.lastIndexOf('kWh'), data.indexOf(',,,,,,,,,,'));
     var arrayOfNums = dataNums.split(',');
@@ -227,6 +239,12 @@ myApp.service('csvService', function ($http, $location, UserService) {
     vm.projectOut.userType = sendData;
 };
 
+
+
+
+
+
+// Moved to Projects:
 //Post route to send projects to the router.
   vm.postProjects = function () {
 

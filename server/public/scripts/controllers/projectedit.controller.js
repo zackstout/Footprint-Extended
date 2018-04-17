@@ -3,7 +3,7 @@ myApp.controller('projecteditdcontroller', function ($http, UserService, csvServ
     vm.userService = UserService;
     vm.userObj = UserService.userObj;
     console.log('project edit controller created');
-    vm.projects = []
+    vm.projects = [];
 
     //This gets the user info into the controller
     vm.populateProjects = function (userObj) {
@@ -11,8 +11,9 @@ myApp.controller('projecteditdcontroller', function ($http, UserService, csvServ
         vm.projects = UserService.selectedProjectFootprints[index];
         // vm.projects = UserService.projectFootprints[index];
 
-    }
+    };
     vm.populateProjects();
+
 
     //Submit the CSV data.
     vm.submitData = function () {
@@ -31,6 +32,6 @@ myApp.controller('projecteditdcontroller', function ($http, UserService, csvServ
 
     vm.hide = function() {
         $mdDialog.hide();
-    }
+    };
 
 });//This is the end of the project edit controller

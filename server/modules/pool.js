@@ -1,14 +1,9 @@
-/**
-* You'll need to use environment variables in order to deploy your
-* pg-pool configuration to Heroku.
-* It will look something like this:
-**/
 
 var pg = require('pg');
 var url = require('url');
 var config = {};
 
-
+// For AWS:
 if (process.env.RDS_HOSTNAME) {
   config = {
     host: process.env.RDS_HOSTNAME,
@@ -19,6 +14,8 @@ if (process.env.RDS_HOSTNAME) {
     database: process.env.RDS_DB_NAME
   };
 }
+
+// For Heroku:
 else if (process.env.DATABASE_URL) {
   // Heroku gives a url, not a connection object
   // https://github.com/brianc/node-pg-pool
@@ -36,6 +33,7 @@ else if (process.env.DATABASE_URL) {
     idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
   };
 
+// For local development environment:
 } else {
   config = {
     user: process.env.PG_USER || null, //env var: PGUSER
