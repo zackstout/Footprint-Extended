@@ -1,5 +1,5 @@
-myApp.service('csvService', function ($http, $location, UserService) {
-  console.log('csvService Loaded');
+myApp.service('FootprintService', function ($http, $location, UserService) {
+  console.log('FPService Loaded');
 
   var vm = this;
 

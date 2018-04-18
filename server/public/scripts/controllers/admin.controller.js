@@ -7,9 +7,6 @@ myApp.controller('AdminController', function (UserService, $http) {
     vm.userProjects = UserService.userProjects;
     vm.allUsers = UserService.users;
 
-
-
-
     vm.computedFps = [];
 
     function checkAdminRoute() {

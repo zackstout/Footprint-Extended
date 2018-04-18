@@ -81,7 +81,7 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
 
 
 
-// Moved these 2 to fpfp controller:
+// Moved these 2 to FPFP controller:
 
   // start doughnut
   vm.donutDataSet = function(){
@@ -167,7 +167,7 @@ vm.lineChart();
 
 
 
-
+// Moving to Auth controller:
 vm.login = function() {
   console.log('LoginController -- login');
   if(vm.user.username === '' || vm.user.password === '') {
@@ -205,10 +205,10 @@ vm.registerUser = function() {
       $location.path('/home');
     }).catch(function(response) {
       // console.log('LoginController -- registerUser -- error');
-      vm.message = "Please try again."
+      vm.message = "Please try again.";
     });
   }
-}
+};
 
 
 
@@ -219,7 +219,7 @@ vm.getUserData = function(user) {
 
   csvService.userData(user);
 
-}
+};
 
 
 vm.dataType = function(data) {

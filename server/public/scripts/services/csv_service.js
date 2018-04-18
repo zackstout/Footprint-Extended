@@ -145,6 +145,7 @@ myApp.service('csvService', function ($http, $location, UserService) {
     vm.userFootprint.userInfo.push({ selectedOrganization: user.selectedOrganization });
 
   };
+  // when called????
 //Send data to the userfootprint object.
   vm.typeData = function (sendData) {
     vm.userFootprint.userType = sendData;

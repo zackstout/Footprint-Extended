@@ -1,5 +1,5 @@
-myApp.service('csvService', function ($http, $location, UserService) {
-  console.log('csvService Loaded');
+myApp.service('ChartDivisionService', function ($http, $location, UserService) {
+  console.log('chartService Loaded');
 
   var vm = this;
 
@@ -41,5 +41,5 @@ myApp.service('csvService', function ($http, $location, UserService) {
     self.getUserFpDividedByPeriod = curryDivisions('/member/footprint_by_period');
 
 
-    
+
 });

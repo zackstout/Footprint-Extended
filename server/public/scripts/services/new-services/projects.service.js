@@ -1,5 +1,5 @@
-myApp.service('csvService', function ($http, $location, UserService) {
-  console.log('csvService Loaded');
+myApp.service('ProjectService', function ($http, $location, UserService) {
+  console.log('projectService Loaded');
 
   var vm = this;
 

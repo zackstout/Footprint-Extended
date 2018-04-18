@@ -28,11 +28,11 @@ myApp.controller('ProjectDialogController', function (UserService, csvService, $
     vm.getUserData = function(user){
         vm.userService.sendProject(user);
 
-        
+
     };
 
     vm.hide = function() {
         $mdDialog.hide();
-    }
+    };
 
 });//End Project Dialog Controller

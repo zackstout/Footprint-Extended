@@ -1,5 +1,5 @@
 
-myApp.controller('LoginController', function ($http, $location, $timeout, $filter, UserService, donutService, csvService, $mdDialog) {
+myApp.controller('FpfpController', function ($http, $location, $timeout, $filter, UserService, donutService, csvService, $mdDialog) {
 
 
 

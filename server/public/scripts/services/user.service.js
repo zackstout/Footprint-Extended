@@ -52,7 +52,7 @@ myApp.service('UserService', function ($http, $location){
     },function(response){
       console.log('UserService -- getuser -- failure: ', response);
       $location.path("/home");
-    })
+    });
   }, //End get user function
 
   //Function that logs out user
@@ -63,7 +63,7 @@ myApp.service('UserService', function ($http, $location){
       window.location.href = '/#/home';
       // $location.path("/home");
     });
-  } //End of Logout Function
+  }; //End of Logout Function
 
 
 

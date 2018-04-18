@@ -1,11 +1,9 @@
-myApp.service('csvService', function ($http, $location, UserService) {
-  console.log('csvService Loaded');
+myApp.service('CsvService2', function ($http, $location, UserService) {
+  console.log('csvService2 Loaded');
 
   var vm = this;
 
-
   vm.dataType = '';
-
 
   vm.uploadFile = function () {
     var f = document.getElementById('file').files[0];

@@ -1,4 +1,4 @@
-myApp.controller('LoginController', function ($http, $location, $timeout, $filter, UserService, donutService, csvService, $mdDialog) {
+myApp.controller('TrialController', function ($http, $location, $timeout, $filter, UserService, donutService, csvService, $mdDialog) {
 
   //re-draws the donut graph with trial data:
   vm.donutDataSetTrial = function(x){

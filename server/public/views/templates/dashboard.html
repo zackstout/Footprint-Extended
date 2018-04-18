@@ -2,7 +2,7 @@
 
 <md-content class="container">
     <div layout="row" layout-align="start start" class="navigateback">
-        <md-button ng-show="uc.showButton" ng-click="uc.navigate()">Back to Admin Dashboard</md-button>
+        <md-button aria-label=" " ng-show="uc.showButton" ng-click="uc.navigate()">Back to Admin Dashboard</md-button>
     </div>
     <div id="dashheader" layout="row" layout-align="center center">
 
@@ -25,7 +25,7 @@
             <md-card id="recent">
                 <h3 ng-repeat="userProject in uc.userService.userProjects">
 
-                    <md-button ng-click="uc.showProject($event, $index)" layout-align="left">{{userProject.name}}</md-button>
+                    <md-button aria-label=" " ng-click="uc.showProject($event, $index)" layout-align="left">{{userProject.name}}</md-button>
                     </md-button>
                 </h3>
 
@@ -44,7 +44,7 @@
                 </h3>
                 <md-input-container>
 
-                    <md-select ng-model="uc.viewBy" ng-change="uc.changeView()">
+                    <md-select aria-label=" " ng-model="uc.viewBy" ng-change="uc.changeView()">
                         <md-option value="project">Project</md-option>
                         <md-option value="period">Period</md-option>
                         <md-option value="category">Category</md-option>
@@ -63,19 +63,19 @@
 
 
                 <!-- should be able to refactor this to one function: -->
-                <md-select ng-show="uc.activeSelectorDonut == 'project'" ng-model="uc.donutParticular">
+                <md-select aria-label=" " ng-show="uc.activeSelectorDonut == 'project'" ng-model="uc.donutParticular">
                     <md-option ng-repeat="x in uc.donutResults" ng-value="x.project">{{x.project}}</md-option>
                 </md-select>
-                <md-select ng-show="uc.activeSelectorDonut == 'period'" ng-model="uc.donutParticular">
+                <md-select aria-label=" " ng-show="uc.activeSelectorDonut == 'period'" ng-model="uc.donutParticular">
                     <md-option ng-repeat="x in uc.donutResults" ng-value="x.period">{{x.period | date: "MMM yyyy"}}</md-option>
                 </md-select>
-                <md-select ng-show="uc.activeSelectorDonut == 'type'" ng-model="uc.donutParticular">
+                <md-select aria-label=" " ng-show="uc.activeSelectorDonut == 'type'" ng-model="uc.donutParticular">
                     <md-option ng-repeat="x in uc.donutResults" ng-value="x.type">{{x.type}}</md-option>
                 </md-select>
-                <md-select ng-show="uc.activeSelectorDonut == 'country'" ng-model="uc.donutParticular">
+                <md-select aria-label=" " ng-show="uc.activeSelectorDonut == 'country'" ng-model="uc.donutParticular">
                     <md-option ng-repeat="x in uc.donutResults" ng-value="x.country">{{x.country}}</md-option>
                 </md-select>
-                <md-select ng-show="uc.activeSelectorDonut == 'category'" ng-model="uc.donutParticular">
+                <md-select aria-label=" " ng-show="uc.activeSelectorDonut == 'category'" ng-model="uc.donutParticular">
                     <md-option value="living">Living</md-option>
                     <md-option value="shipping">Shipping</md-option>
                     <md-option value="travel">Travel</md-option>
@@ -84,14 +84,14 @@
 
             <div>
                 <h3>DIVIDED BY:</h3>
-                <md-select ng-model="uc.sliceBy">
+                <md-select aria-label=" " ng-model="uc.sliceBy">
                     <md-option ng-value="uc.viewByObject.one">{{uc.viewByObject.one}}</md-option>
                     <md-option ng-hide="uc.choseProj" ng-value="uc.viewByObject.two">{{uc.viewByObject.two}}</md-option>
                     <md-option ng-hide="uc.choseProj" ng-value="uc.viewByObject.three">{{uc.viewByObject.three}}</md-option>
                     <md-option ng-value="uc.viewByObject.four">{{uc.viewByObject.four}}</md-option>
                 </md-select>
             </div>
-            <md-button class="md-raised md-accent" ng-click="uc.submitQuery(uc.viewBy, uc.donutParticular, uc.sliceBy)">View Chart</md-button>
+            <md-button aria-label=" " class="md-raised md-accent" ng-click="uc.submitQuery(uc.viewBy, uc.donutParticular, uc.sliceBy)">View Chart</md-button>
 
         </div>
 
@@ -109,7 +109,7 @@
             <div>
                 <h3>VIEW BY:
                 </h3>
-                <md-select ng-model="uc.barBy" ng-change="uc.changeBarView()">
+                <md-select aria-label=" " ng-model="uc.barBy" ng-change="uc.changeBarView()">
                     <md-option value="project">Project</md-option>
                     <md-option value="period">Period</md-option>
                     <md-option value="type">Type</md-option>
@@ -117,20 +117,20 @@
                 </md-select>
                 <h3>WHICH ONE?</h3>
                 <!-- Similar to donuts above, there must be a way to condense this: -->
-                <md-select ng-show="uc.activeSelector == 'project'" ng-model="uc.barParticular">
+                <md-select aria-label=" " ng-show="uc.activeSelector == 'project'" ng-model="uc.barParticular">
                     <md-option ng-repeat="x in uc.barResults" ng-value="x.project">{{x.project}}</md-option>
                 </md-select>
-                <md-select ng-show="uc.activeSelector == 'period'" ng-model="uc.barParticular">
+                <md-select aria-label=" " ng-show="uc.activeSelector == 'period'" ng-model="uc.barParticular">
                     <md-option ng-repeat="x in uc.barResults" ng-value="x.period">{{x.period | date: "MMM yyyy"}}</md-option>
                 </md-select>
-                <md-select ng-show="uc.activeSelector == 'type'" ng-model="uc.barParticular">
+                <md-select aria-label=" " ng-show="uc.activeSelector == 'type'" ng-model="uc.barParticular">
                     <md-option ng-repeat="x in uc.barResults" ng-value="x.type">{{x.type}}</md-option>
                 </md-select>
-                <md-select ng-show="uc.activeSelector == 'country'" ng-model="uc.barParticular">
+                <md-select aria-label=" " ng-show="uc.activeSelector == 'country'" ng-model="uc.barParticular">
                     <md-option ng-repeat="x in uc.barResults" ng-value="x.country">{{x.country}}</md-option>
                 </md-select>
             </div>
-            <md-button class="md-raised md-accent" ng-click="uc.submitBarQuery(uc.barBy, uc.barParticular)">View Chart</md-button>
+            <md-button aria-label=" " class="md-raised md-accent" ng-click="uc.submitBarQuery(uc.barBy, uc.barParticular)">View Chart</md-button>
         </div>
 
 

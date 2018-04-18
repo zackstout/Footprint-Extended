@@ -1,5 +1,5 @@
-myApp.service('csvService', function ($http, $location, UserService) {
-  console.log('csvService Loaded');
+myApp.service('AdminService', function ($http, $location, UserService) {
+  console.log('AdminService Loaded');
 
   var vm = this;
 
@@ -16,5 +16,5 @@ myApp.service('csvService', function ($http, $location, UserService) {
     });
   };
 
-  
+
 });
