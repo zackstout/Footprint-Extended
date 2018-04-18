@@ -176,7 +176,7 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
 
       var computedFp = UserService.computeFootprint(response.data[0]);
       var bars = [];
-      // MUST BE CLEANER WAY:
+      // MUST BE CLEANER WAY TO LOOP THROUGH AN OBJECT:
       bars.push(Math.round(computedFp.air,1));
       bars.push(Math.round(computedFp.truck,1));
       bars.push(Math.round(computedFp.sea,1));
@@ -724,7 +724,7 @@ function viewByCategory(resp) {
   } else if (vm.sliceBy == 'Project') {
     sanitizeByProject(resp);
   }
-}
+} // end viewByCategory
 
 
   vm.lineChart();
@@ -734,13 +734,13 @@ function viewByCategory(resp) {
     if(vm.userObject.id === 1){
       vm.showButton = true;
     }
-  }
+  };
 
 vm.checkAdmin();
 
   vm.navigate = function(){
     $location.path('/admin');
-  }
+  };
 
 
 });

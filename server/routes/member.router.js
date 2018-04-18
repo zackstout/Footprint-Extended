@@ -280,7 +280,7 @@ router.post('/bars_numbers', function (req, res) {
   // }
 });
 
-
+// Get all footprints for a project:
 router.get('/project_footprints/:projectId', function (req, res) {
   if (req.isAuthenticated()) {
     console.log('Get Footprints');

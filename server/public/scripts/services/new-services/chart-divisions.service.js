@@ -3,10 +3,9 @@ myApp.service('ChartDivisionService', function ($http, $location, UserService) {
 
   var vm = this;
 
-
     function curryDivisions(url) {
       return (() => {
-        const type = url.includes('period') ? 'period' : 'name';
+        const TYPE = url.includes('period') ? 'period' : 'name';
         return $http.get(url).then(function(response) {
           //because the sql query gives us rows with repeated info, we have to sanitize it, i.e. put it in a form that the compute-conversion function can eat:
           var allTheStuff = response.data;
@@ -18,7 +17,7 @@ myApp.service('ChartDivisionService', function ($http, $location, UserService) {
           for (var i=1; i<allTheStuff.length; i++) {
             var current = allTheStuff[i];
             var prev = allTheStuff[i - 1];
-            if (current[type] !== prev[type]) {
+            if (current[TYPE] !== prev[TYPE]) {
               cleanedStuff.push(current);
             }
           }
@@ -39,7 +38,4 @@ myApp.service('ChartDivisionService', function ($http, $location, UserService) {
     self.getFpDividedByProject = curryDivisions('/member/footprint_by_project');
     self.getFpDividedByPeriod = curryDivisions('/member/footprints_footprint_by_period');
     self.getUserFpDividedByPeriod = curryDivisions('/member/footprint_by_period');
-
-
-
 });
