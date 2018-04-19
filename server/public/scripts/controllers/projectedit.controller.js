@@ -24,7 +24,10 @@ myApp.controller('projecteditdcontroller', function ($http, UserService, csvServ
             var data = {data: e.target.result};
             data.project = vm.projects;
 
-            UserService.sendEdits(data);
+            // changing this to clean up services:
+            var parsed = csvService.masterParse(data.data);
+
+            UserService.sendEdits(data, parsed);
         };
         result.readAsBinaryString(file);
 
