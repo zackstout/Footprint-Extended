@@ -316,7 +316,7 @@ router.post('/project_submit', function (req, res) {
   if (req.isAuthenticated()) {
     var info = req.body.userInfo;
     var dataIn = req.body.dataIn;
-    console.log("INFO: ", info, "DATA: ", dataIn);
+    console.log("INFO!!!!!!: ", info, "DATA: ", dataIn);
     pool.connect(function (err, db, done) {
       if (err) {
         console.log('error connecting', err);

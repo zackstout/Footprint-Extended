@@ -33,14 +33,16 @@ myApp.service('UserService', function ($http, $location){
   const TON_MI_TO_TONNE_KM = 1.460;
 
   // good seems to work:
+  // Ok applying .toFixed breaks the Trial upload, and doesn't even solve our problem.
   self.changeToImperial = function(csv) {
-      csv.plane = Math.round((csv.plane * MI_TO_KM));
-      csv.car = Math.round((csv.car * MI_TO_KM));
-      csv.train_travel = Math.round((csv.train_travel * MI_TO_KM));
-      csv.air = Math.round((csv.air * TON_MI_TO_TONNE_KM));
-      csv.train_shipping = Math.round((csv.train_shipping * TON_MI_TO_TONNE_KM));
-      csv.truck = Math.round((csv.truck * TON_MI_TO_TONNE_KM));
-      csv.sea = Math.round((csv.sea * TON_MI_TO_TONNE_KM));
+    // Very interesting, this has to be an integer. Won't work as a float.
+      csv.plane = parseInt((csv.plane * MI_TO_KM));
+      csv.car = parseInt((csv.car * MI_TO_KM));
+      csv.train_travel = parseInt((csv.train_travel * MI_TO_KM));
+      csv.air = parseInt((csv.air * TON_MI_TO_TONNE_KM));
+      csv.train_shipping = parseInt((csv.train_shipping * TON_MI_TO_TONNE_KM));
+      csv.truck = parseInt((csv.truck * TON_MI_TO_TONNE_KM));
+      csv.sea = parseInt((csv.sea * TON_MI_TO_TONNE_KM));
       return csv;
   };
 
