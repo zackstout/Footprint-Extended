@@ -15,7 +15,7 @@ myApp.controller('DashboardDialogController', function ($http, UserService, csvS
 
   // OUTSOURCE TO PROJECTS SERVICE ?
   vm.getUserProjects = function() {
-    $http.get('/member/allprojects').then(function(response) {
+    $http.get('/project/allprojects').then(function(response) {
 
       vm.userProjects = response.data;
     }).catch(function(err) {

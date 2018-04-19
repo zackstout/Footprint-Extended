@@ -9,9 +9,10 @@ var sessionConfig = require('./modules/session.config');
 // Route includes
 
 // OLD ROUTES:
-var indexRouter = require('./routes/index.router');
+var indexRouter = require('./routes/index.router'); // will need this
+var registerRouter = require('./routes/register.router'); // and also this
+
 var userRouter = require('./routes/user.router');
-var registerRouter = require('./routes/register.router');
 var memberRouter = require('./routes/member.router');
 var adminRouter = require('./routes/admin.router.js');
 var barRouter = require('./routes/bars.router.js');
@@ -19,8 +20,8 @@ var barRouter = require('./routes/bars.router.js');
 // NEW ROUTES:
 var adminRouter2 = require('./routes/new-routes/admin.router');
 var chartDivisionRouter = require('./routes/new-routes/chart-divisions.router');
-var csvRouter = require('./routes/new-routes/csv.router');
-var donorRouter = require('./routes/new-routes/donor.router');
+var csvRouter = require('./routes/new-routes/csv.router'); // useless
+var donorRouter = require('./routes/new-routes/donor.router'); // so far, useless
 var footprintRouter = require('./routes/new-routes/footprints.router.js');
 var projectRouter = require('./routes/new-routes/projects.router.js');
 var userRouter2 = require('./routes/new-routes/user.router.js');
@@ -48,19 +49,19 @@ app.use(passport.session());
 
 // Routes
 // OLD ROUTES:
-app.use('/register', registerRouter);
+app.use('/register', registerRouter); // still used.
+
 app.use('/user', userRouter);
 app.use('/member', memberRouter);
 app.use('/admin', adminRouter);
 app.use('/bar', barRouter);
-
 
 // NEW ROUTES:
 app.use('/admin2', adminRouter2);
 app.use('/chart', chartDivisionRouter);
 app.use('/csv', csvRouter);
 app.use('/donor', donorRouter);
-app.use('/footprint', footprintRouter);
+app.use('/footprints', footprintRouter);
 app.use('/project', projectRouter);
 app.use('/user2', userRouter2);
 

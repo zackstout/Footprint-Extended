@@ -10,7 +10,7 @@ myApp.controller('AdminController', function (UserService, $http) {
     vm.computedFps = [];
 
     function checkAdminRoute() {
-      $http.get('/admin/users').then(function(response) {
+      $http.get('/admin2/users').then(function(response) {
         for (var i=0; i < response.data.totals.length; i++) {
           var fp = response.data.totals[i];
           var fpComp = UserService.computeFootprint(fp);

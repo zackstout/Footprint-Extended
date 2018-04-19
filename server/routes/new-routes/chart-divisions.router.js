@@ -5,6 +5,8 @@ var passport = require('passport');
 var path = require('path');
 var pool = require('../../modules/pool.js');
 
+// NOT SURE WHAT'S GOING ON -- MANY ROUTES ARE APPARENTLY NOT CALLED?
+
 //Gets all of the user's footprints that are of a certain kind (e.g. all periods, all projects) to populate dropdown for bar graph, and for donut chart:
 router.post('/bars', function (req, res) {
   if (req.isAuthenticated()) {
@@ -91,7 +93,7 @@ router.post('/bars_numbers', function (req, res) {
   // }
 });
 
-
+// THIS DOESN'T SEEM TO BE CALLED ANYWHERE?
 //Prepare line graph:
 router.get('/linegraph', function (req, res) {
   if (req.isAuthenticated()) {
@@ -121,6 +123,7 @@ router.get('/linegraph', function (req, res) {
 
 
 
+// THIS DOESN'T SEEM TO BE CALLED??? called in self.getDonut, which we commented out, maybe mistakenly....
 
 //Gets all the compiled data for footprints of a certain kind (e.g. period) and sliced in a certain way (e.g. by category):
 router.post('/donut', function (req, res) {
@@ -198,6 +201,8 @@ router.post('/donut', function (req, res) {
   // }
 });
 
+// ALSO DOESN'T SEEM TO BE CALLED??
+
 //slices a user's total footprint by projects..which now that I think about it is not the most useful thing, but it is a skeleton for more useful things:
 router.get('/footprint_by_project', function (req, res) {
   // if (req.isAuthenticated()) {
@@ -223,6 +228,8 @@ router.get('/footprint_by_project', function (req, res) {
   //   res.sendStatus(401)
   // }
 });
+
+// ALSO NOT CALLED??
 
 //Slices total footprint of an organization by period, used for line graph on home page (FP's fp):
 router.get('/footprints_footprint_by_period', function (req, res) {
@@ -251,6 +258,9 @@ router.get('/footprints_footprint_by_period', function (req, res) {
   //   res.sendStatus(401);
   // }
 });
+
+
+// SAME SHIT, NOT CALLED, AS FAR AS VS CODE PROJECT SEARCH IS CONCERNED:
 
 //Slices total footprint of an organization by period, used for line graph on home page (FP's fp):
 router.get('/footprint_by_period', function (req, res) {

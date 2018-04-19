@@ -5,6 +5,7 @@ var passport = require('passport');
 var path = require('path');
 var pool = require('../../modules/pool.js');
 
+//SUCCESSFULLY TRANSFERRED ROUTES:
 
 router.post('/', function(req, res) {
   // console.log("BODY: ", req.body);

@@ -117,6 +117,8 @@ router.get('/allprojects', function (req, res) {
   }
 });
 
+
+
 // Get all footprints for a project:
 router.get('/project_footprints/:projectId', function (req, res) {
   if (req.isAuthenticated()) {
@@ -176,6 +178,8 @@ router.get('/userprojects/:userId', function (req, res) {
     res.sendStatus(401);
   }
 });
+
+
 
 // Edit a project by uploading a new CSV for a certain month:
 router.put('/project_edit', function (req, res) {

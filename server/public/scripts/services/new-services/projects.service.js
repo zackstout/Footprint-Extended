@@ -7,7 +7,7 @@ myApp.service('ProjectService', function ($http, $location, UserService) {
 
     self.getCountries = function() {
 
-      $http.get('/member/countries').then(function(response) {
+      $http.get('/project/countries').then(function(response) {
         var countries = response.data.rows;
 
         self.countries.data = countries;
@@ -64,7 +64,7 @@ myApp.service('ProjectService', function ($http, $location, UserService) {
         var project = user;
         project.project = self.countryIn;
 
-        $http.post('/member/newproject', project).then(function(response) {
+        $http.post('/project/newproject', project).then(function(response) {
 
           self.getProjects();
         }).catch(function(error) {

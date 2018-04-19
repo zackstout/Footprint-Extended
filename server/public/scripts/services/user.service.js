@@ -93,7 +93,8 @@ myApp.service('UserService', function ($http, $location){
   //Get user function
   self.getuser = function(){
     console.log('UserService -- getuser');
-    $http.get('/user').then(function(response) {
+    // wait what route is this pinging???? Ohhh we changed the url.
+    $http.get('/user2/user').then(function(response) {
       if(response.data.username) {
         // user has a current session on the server
 
@@ -118,7 +119,7 @@ myApp.service('UserService', function ($http, $location){
   //Function that logs out user
   self.logout = function() {
     console.log('UserService -- logout');
-    $http.get('/user/logout').then(function(response) {
+    $http.get('/user2/logout').then(function(response) {
       console.log('UserService -- logout -- logged out');
       window.location.href = '/#/home';
       // $location.path("/home");
@@ -149,7 +150,7 @@ myApp.service('UserService', function ($http, $location){
   //gets the users projects for the projects view
   self.getProjects = function (id) {
 
-    return $http.get('member/userprojects/' + id).then(function (response) {
+    return $http.get('project/userprojects/' + id).then(function (response) {
       return self.userProjects = response.data;
       self.selectedProjectFootprints = response.data;
 
@@ -164,7 +165,7 @@ myApp.service('UserService', function ($http, $location){
   // moved to FPs:
   //gets the footprints for selected project
   self.getProjectFootprints = function (id){
-    return $http.get('/member/project_footprints/'+ id).then(function (response) {
+    return $http.get('/project/project_footprints/'+ id).then(function (response) {
 
       return self.selectedProjectFootprints = response.data.rows;
     }).catch(function (err) {
@@ -195,7 +196,7 @@ myApp.service('UserService', function ($http, $location){
   // not too sure what these 2 are doing:
 
   self.getFootprintsFootprint = function() {
-    return $http.get('/member/footprints_footprint').then(function(response) {
+    return $http.get('/admin2/footprints_footprint').then(function(response) {
       self.footprintsFootprint = response.data;
       //ahhhhh yes back to basics over here, chris reminds me that we need to pass this returned value into the next function:
       var data = self.computeFootprint(self.footprintsFootprint[0]);
@@ -228,7 +229,7 @@ myApp.service('UserService', function ($http, $location){
     var project = user;
     project.project = self.countryIn;
 
-    $http.post('/member/newproject', project).then(function(response) {
+    $http.post('/project/newproject', project).then(function(response) {
 
       self.getProjects();
     }).catch(function(error) {
@@ -244,7 +245,6 @@ myApp.service('UserService', function ($http, $location){
   self.sendEdits = function (dataIn, parsed) {
     var data = dataIn.data;
     var footprintInfo = dataIn.project;
-
     // console.log(parsed);
 
     // Mutate it directly:
@@ -252,21 +252,16 @@ myApp.service('UserService', function ($http, $location){
       this.changeToImperial(parsed);
     }
 
-
     parsed.projectInfo = footprintInfo;
-
     self.sendEditsOut(parsed);
 
   }; //End send function
 
   self.sendEditsOut = function (csvSend) {
-    $http.put('/member/project_edit', csvSend).then(function (response) {
-
+    $http.put('/project/project_edit', csvSend).then(function (response) {
     }).catch(function (error) {
       console.log('error sending footprint', error);
     });
-
   };
-
 
 }); //End of UserService

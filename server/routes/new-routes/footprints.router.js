@@ -5,6 +5,9 @@ var passport = require('passport');
 var path = require('path');
 var pool = require('../../modules/pool.js');
 
+//SUCCESSFULLY TRANSFERRED ROUTES:
+
+
 // Delete a footprint:
 router.delete('/delete/:id', function (req, res) {
   if (req.isAuthenticated()) {

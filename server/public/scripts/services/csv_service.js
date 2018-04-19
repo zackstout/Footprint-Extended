@@ -73,11 +73,10 @@ myApp.service('csvService', function ($http, $location, UserService) {
     // so we pushed it onto this array just to grab it here??
     csv.organization = vm.userFootprint.userInfo[0].selectedOrganization;
 
-
     // GOAL: COMPUTE THE FOOTPRINT SO WE CAN SAVE IT TO THE DATABASE:
     vm.trialData = UserService.computeTrialFootprint(csv);
 
-    return $http.post('/admin', csv).then(function (response) {
+    return $http.post('/admin2', csv).then(function (response) {
       // WHY ARE WE RETURNING THIS?????? ASYNC??
       return vm.trialData;
       //how odd that it logs out all as 0s here but posts into the DB ok....asynchonicity man.
@@ -135,7 +134,7 @@ myApp.service('csvService', function ($http, $location, UserService) {
 // Post new FP to DB:
   vm.postProjects = function (proj) {
     console.log('postin', proj);
-    $http.post('/member/project_submit', proj).then(function (response) {
+    $http.post('/footprints/project_submit', proj).then(function (response) {
 
       vm.projectOut.userInfo = [];
       vm.projectOut.userType = [];

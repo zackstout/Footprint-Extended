@@ -91,7 +91,7 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
       $mdDialog.show(confirm).then(function() {
 
 
-        $http.delete('/member/delete/' + x).then(function(response) {
+        $http.delete('/footprints/delete/' + x).then(function(response) {
 
           for (var i=0; i<vm.projectFootprints.length; i++) {
             var fp = vm.projectFootprints[i];

@@ -155,7 +155,7 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
   //i have truly no idea what changed to make it start working...
   vm.changeBarView = function() {
     var data = {view: vm.barBy};
-    $http.post('/member/bars', data).then(function(response) {
+    $http.post('/chart/bars', data).then(function(response) {
 
       vm.barResults = response.data;
 
@@ -172,7 +172,7 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
   vm.submitBarQuery = function(view, particular) {
 
     var data = {view: view, particular: particular};
-    $http.post('/member/bars_numbers', data).then(function(response) {
+    $http.post('/chart/bars_numbers', data).then(function(response) {
 
       var computedFp = UserService.computeFootprint(response.data[0]);
       var bars = [];
@@ -281,7 +281,7 @@ vm.changeView = function() {
 
   var data = {view: vm.viewBy};
   if (vm.activeSelectorDonut != 'category') {
-  $http.post('member/bars', data).then(function(response) {
+  $http.post('chart/bars', data).then(function(response) {
 
     vm.donutResults = response.data;
   }).catch(function(err) {
