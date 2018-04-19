@@ -334,7 +334,7 @@ router.post('/project_submit', function (req, res) {
             var mon = info[0].selectedMonth;
             var month = months.indexOf(info[0].selectedMonth) + 1;
             if (mon == 'October' || mon == 'November' || mon == 'December') {
-              // month = months.indexOf(info[0].selectedMonth) + 1;
+              month = months.indexOf(info[0].selectedMonth) + 1;
             } else {
               month = '0' + month;
             }

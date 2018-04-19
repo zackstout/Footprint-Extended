@@ -5,6 +5,10 @@ var passport = require('passport');
 var path = require('path');
 var pool = require('../../modules/pool.js');
 
+//SUCCESSFULLY TRANSFERRED ROUTES:
+
+
+
 // Get all countries:
 router.get('/countries', function (req, res) {
 

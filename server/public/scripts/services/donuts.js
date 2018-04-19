@@ -46,20 +46,20 @@ myApp.service('donutService', function($http, $location, UserService) {
   // self.getFpDividedByProject();
 
 
-// ?????
+// Definitely need this for drawing the user's customized donut chart:
 //testing the donut function:
-  // self.getDonut = function(view, particular, slice) {
-  //   if (view == 'period') {
-  //     particular = particular.slice(0, 10);
-  //   }
-  //   var instructions = {view: view, particular: particular, slice: slice};
-  //
-  //   return $http.post('/member/donut/', instructions).then(function(response) {
-  //
-  //     return response;
-  //   }).catch(function(err) {
-  //     console.log(err);
-  //   });
-  // };
+  self.getDonut = function(view, particular, slice) {
+    if (view == 'period') {
+      particular = particular.slice(0, 10);
+    }
+    var instructions = {view: view, particular: particular, slice: slice};
+
+    return $http.post('/project/donut/', instructions).then(function(response) {
+
+      return response;
+    }).catch(function(err) {
+      console.log(err);
+    });
+  };
 
 });
