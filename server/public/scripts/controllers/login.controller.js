@@ -30,6 +30,10 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
     var r = new FileReader();
     r.onloadend = function (e) {
       var data = e.target.result;
+      //  No, call it from within the service itself:
+      // csvService.masterParse(data).then(function(response) {
+      //   console.log("LC: ", response);
+      // });
 
       csvService.parseData(data).then(function(response) {
 

@@ -3,14 +3,16 @@
 
   <!-- , $index -->
    <span flex></span>
+   <!-- Should be able to get rid of this contoller: -->
   <div ng-controller="UserController as uc">
-      <md-button  ng-click="uc.newProject($event)"  aria-label="Open Dialog" id="dashdialog">
+      <md-button ng-click="uc.newProject($event)"  aria-label="Open Dialog" id="dashdialog">
           Create Project
         </md-button>
     <md-button  ng-click="uc.upload($event)"  aria-label="Open Dialog"
       id="dashdialog">
       Upload New Month for existing project
     </md-button>
-    <md-button  id="log" ng-click="uc.userService.logout()">Log Out</md-button>
+
+    <md-button id="log" ng-click="uc.userService.logout()">Log Out</md-button>
   </div>
 </md-nav-bar>

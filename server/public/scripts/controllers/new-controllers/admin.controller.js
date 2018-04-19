@@ -1,4 +1,4 @@
-myApp.controller('AdminController', function (UserService, $http) {
+myApp.controller('AdminController2', function (UserService, $http) {
     console.log('AdminController created');
     var vm = this;
     vm.userService = UserService;

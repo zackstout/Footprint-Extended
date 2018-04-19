@@ -17,7 +17,6 @@ var adminRouter = require('./routes/admin.router.js');
 var barRouter = require('./routes/bars.router.js');
 
 // NEW ROUTES:
-var indexRouter = require('./routes/index.router'); // still gonna need this guy
 var adminRouter2 = require('./routes/new-routes/admin.router');
 var chartDivisionRouter = require('./routes/new-routes/chart-divisions.router');
 var csvRouter = require('./routes/new-routes/csv.router');

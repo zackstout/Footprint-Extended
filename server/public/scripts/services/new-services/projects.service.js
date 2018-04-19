@@ -60,9 +60,6 @@ myApp.service('ProjectService', function ($http, $location, UserService) {
       };
 
 
-
-
-
       self.sendProject = function(user){
         var project = user;
         project.project = self.countryIn;

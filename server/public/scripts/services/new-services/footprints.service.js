@@ -1,7 +1,7 @@
 myApp.service('FootprintService', function ($http, $location, UserService) {
   console.log('FPService Loaded');
 
-  var vm = this;
+  var self = this;
 
   const PLANE_CONVERSION = 0.18026;
   const CAR_CONVERSION = 0.18568;
@@ -15,7 +15,28 @@ myApp.service('FootprintService', function ($http, $location, UserService) {
   const GRID_CONVERSION = 0.35156;
   const PROPANE_CONVERSION = 0.1864;
 
+  const MI_TO_KM = 1.609344;
+  const TON_MI_TO_TONNE_KM = 1.460;
 
+
+  self.checkMeasure = function() {
+    if (vm.dataType.type === 'English') {
+      // for (var i=0; i<csv.length; i++){
+      csv.plane = Math.round((csv.plane * MI_TO_KM));
+      csv.car = Math.round((csv.car * MI_TO_KM));
+      csv.train_travel = Math.round((csv.train_travel * MI_TO_KM));
+      csv.air = Math.round((csv.air * TON_MI_TO_TONNE_KM));
+      csv.train_shipping = Math.round((csv.train_shipping * TON_MI_TO_TONNE_KM));
+      csv.truck = Math.round((csv.truck * TON_MI_TO_TONNE_KM));
+      csv.sea = Math.round((csv.sea * TON_MI_TO_TONNE_KM));
+      // so we pushed it onto this array just to grab it here??
+      csv.organization = (vm.userFootprint.userInfo[0].selectedOrganization);
+
+    } else {
+      csv.organization = (vm.userFootprint.userInfo[0].selectedOrganization);
+
+    }
+  };
 
 
   //gets the footprints for selected project

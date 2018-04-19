@@ -15,6 +15,8 @@ myApp.service('UserService', function ($http, $location){
   self.userObj = { selectedIndex: 0 };
   self.selectedProjectFootprints = [];
 
+
+
   const PLANE_CONVERSION = 0.18026;
   const CAR_CONVERSION = 0.18568;
   const TRAIN_CONVERSION = 0.01225;
@@ -22,10 +24,32 @@ myApp.service('UserService', function ($http, $location){
   const FREIGHT_CONVERSION = 2.60016;
   const TRUCK_CONVERSION = 0.10559;
   const SEA_CONVERSION = 0.008979;
-  const HOTEL_CONVERSION = 31.1;
+  const HOTEL_CONVERSION = 31.1; // Wow this is huge!
   const FUEL_CONVERSION = 2.60016;
   const GRID_CONVERSION = 0.35156;
   const PROPANE_CONVERSION = 0.1864;
+
+  const MI_TO_KM = 1.609344;
+  const TON_MI_TO_TONNE_KM = 1.460;
+
+  // good seems to work:
+  self.changeToImperial = function(csv) {
+      csv.plane = Math.round((csv.plane * MI_TO_KM));
+      csv.car = Math.round((csv.car * MI_TO_KM));
+      csv.train_travel = Math.round((csv.train_travel * MI_TO_KM));
+      csv.air = Math.round((csv.air * TON_MI_TO_TONNE_KM));
+      csv.train_shipping = Math.round((csv.train_shipping * TON_MI_TO_TONNE_KM));
+      csv.truck = Math.round((csv.truck * TON_MI_TO_TONNE_KM));
+      csv.sea = Math.round((csv.sea * TON_MI_TO_TONNE_KM));
+      return csv;
+  };
+
+
+
+  self.masterCompute = function(footprint) {
+
+  };
+
 
   var fpfp = {};
 
@@ -127,6 +151,8 @@ self.adminGetUsers = function () {
   // console.log('Getting users for admin');
   return $http.get('admin/users').then(function(response) {
     // console.log(response.data);
+
+    // why are we saving this to self.users???
     self.users = response.data;
     return self.users;
     // console.log('users for admin', self.users);
@@ -157,8 +183,11 @@ self.adminGetUsers = function () {
       result.name = footprint.name;
       result.type_id = footprint.type_id;
       result.country_id = footprint.country_id;
-      result.organization = footprint.organization
-      // console.log(result);
+      result.organization = footprint.organization;
+
+      // why called so many times on page load???
+      // THIS IS A KEY QUESTION -- WHY?? On both dashboard and home page!
+      console.log("USERSERVICE compute Footprint result: ", result);
       return result;
     };
 
@@ -169,7 +198,7 @@ self.adminGetUsers = function () {
       result.shipping = footprint.sea + footprint.air + footprint.truck + footprint.freight_train;
       result.travel = footprint.plane + footprint.train + footprint.car;
       self.result = result;
-      // console.log(self.result);
+      console.log("USERSERVICE groupByCat result: ", self.result);
       return self.result;
     };
 
@@ -197,6 +226,8 @@ self.adminGetUsers = function () {
       console.log('oh noooooo', err);
     });
   };
+
+
 
   self.computeTrialFootprint = function(footprint) {
 
@@ -236,7 +267,7 @@ self.adminGetUsers = function () {
 
 
 
-
+// (3)
 // REDUNDANT -- USE COMPUTE (FP) AND PARSE (CSV):
 //This function sends edited footprints to the DB.
  self.sendEdits = function (dataIn) {

@@ -13,7 +13,6 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
   vm.showButton=false;
 
 
-
   // gets the data for the DASHBOARD lineChart displaying org's carbon impact
   vm.lineChart = function () {
     donutService.getUserFpDividedByPeriod().then(function (response) {
@@ -33,6 +32,7 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
         periodArray.push(month);
 
       }
+
 
       new Chart(document.getElementById("linechart"), {
         type: 'line',
@@ -189,6 +189,7 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
       bars.push(Math.round(computedFp.grid, 1));
       bars.push(Math.round(computedFp.propane, 1));
       var canvas = document.getElementById("barChart");
+
 
 
       new Chart(document.getElementById("barChart"), {
@@ -376,6 +377,7 @@ function sanitizeByPeriod(resp) {
     chart5.destroy();
   }
 
+
   chart1= new Chart(document.getElementById("donutChart").getContext("2d"), {
     type: 'line',
     data: {
@@ -451,6 +453,8 @@ function sanitizeByProject(resp) {
   canvas.remove();
   var canvasContainer = angular.element(document.querySelector("#donutChartContainer"));
   canvasContainer.append("<canvas id='donutChart' height=225 width=400></canvas>");
+
+
   chart2= new Chart(document.getElementById("donutChart").getContext("2d"), {
     type: 'doughnut',
     data: {

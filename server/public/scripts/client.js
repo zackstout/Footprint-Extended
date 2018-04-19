@@ -9,14 +9,18 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
     .when('/home', {
       templateUrl: '/views/templates/home.html',
       controller: 'LoginController as lc',
+      // controller: 'TrialController as tc',
+      // Other part of home page will be FPFP controller.
     })
     .when('/register', {
       templateUrl: '/views/templates/register.html',
-      controller: 'LoginController as lc'
+      controller: 'LoginController as lc',
+      // controller: 'AuthController as ac',
     })
     .when('/user', {
       templateUrl: '/views/templates/dashboard.html',
       controller: 'UserController as uc',
+      // controller: 'DashboardController as dc',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();
@@ -26,24 +30,26 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
     .when('/projects', {
       templateUrl: '/views/templates/projects.html',
       controller: 'ProjectController as pc',
+      // controller: 'ProjectDashboardController as pdc',
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();
         }
       }
     })
-    .when('/info', {
-      templateUrl: '/views/templates/info.html',
-      controller: 'InfoController',
-      resolve: {
-        getuser : function(UserService){
-          return UserService.getuser();
-        }
-      }
-    })
+    // .when('/info', {
+    //   templateUrl: '/views/templates/info.html',
+    //   controller: 'InfoController',
+    //   resolve: {
+    //     getuser : function(UserService){
+    //       return UserService.getuser();
+    //     }
+    //   }
+    // })
     .when('/admin', {
       templateUrl: '/views/templates/admin.html',
       controller: 'AdminController as ac',
+      // controller: 'AdminController2 as ac',
       resolve: {
         getuser: function (UserService) {
           return UserService.getuser();

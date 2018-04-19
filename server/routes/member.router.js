@@ -95,6 +95,7 @@ router.get('/countries', function (req, res) {
 * HTTP/1.1 201 OK
 */
 
+
 //Posts a new project to the database, inserting into "projects" and "project_type":
 router.post('/newproject', function (req, res) {
   if (req.isAuthenticated()) {
