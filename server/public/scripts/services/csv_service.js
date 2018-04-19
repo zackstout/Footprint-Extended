@@ -50,7 +50,7 @@ myApp.service('csvService', function ($http, $location, UserService) {
         csv.propane += Number(num);
       }
     }
-    
+
     return csv;
   };
 

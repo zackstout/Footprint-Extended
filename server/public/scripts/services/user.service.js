@@ -32,7 +32,7 @@ myApp.service('UserService', function ($http, $location){
   const MI_TO_KM = 1.609344;
   const TON_MI_TO_TONNE_KM = 1.460;
 
-  // good seems to work:
+  // THE MAIN 3 bits of functionality (computing parsed CSVs):
   // Ok applying .toFixed breaks the Trial upload, and doesn't even solve our problem.
   self.changeToImperial = function(csv) {
     // Very interesting, this has to be an integer. Won't work as a float.
@@ -46,15 +46,49 @@ myApp.service('UserService', function ($http, $location){
     return csv;
   };
 
+  // moved to FPs:
+  self.computeFootprint = function(footprint) {
+    // console.log(footprint);
+    var result = {};
+    result.plane = PLANE_CONVERSION * parseInt(footprint.plane);
+    result.car = CAR_CONVERSION * parseInt(footprint.car);
+    result.train = TRAIN_CONVERSION * parseInt(footprint.train);
+    result.air = AIR_CONVERSION * parseInt(footprint.air);
+    result.freight_train = FREIGHT_CONVERSION * parseInt(footprint.freight_train);
+    result.truck = TRUCK_CONVERSION * parseInt(footprint.truck);
+    result.sea = SEA_CONVERSION * parseInt(footprint.sea);
+    result.hotel = HOTEL_CONVERSION * parseInt(footprint.hotel);
+    result.fuel = FUEL_CONVERSION * parseInt(footprint.fuel);
+    result.grid = GRID_CONVERSION * parseInt(footprint.grid);
+    result.propane = PROPANE_CONVERSION * parseInt(footprint.propane);
+    result.period = footprint.period;
+    result.name = footprint.name;
+    result.type_id = footprint.type_id;
+    result.country_id = footprint.country_id;
+    result.organization = footprint.organization;
 
+    // why called so many times on page load???
+    // THIS IS A KEY QUESTION -- WHY?? On both dashboard and home page!
+    console.log("USERSERVICE compute Footprint result: ", result);
+    return result;
+  };
 
-  self.masterCompute = function(footprint) {
-
+  self.groupByCategory = function(footprint) {
+    var result = {};
+    // console.log(footprint);
+    result.living = footprint.hotel + footprint.fuel + footprint.grid + footprint.propane;
+    result.shipping = footprint.sea + footprint.air + footprint.truck + footprint.freight_train;
+    result.travel = footprint.plane + footprint.train + footprint.car;
+    self.result = result;
+    console.log("USERSERVICE groupByCat result: ", self.result);
+    return self.result;
   };
 
 
-  var fpfp = {};
 
+
+
+  var fpfp = {};
 
   //Get user function
   self.getuser = function(){
@@ -127,8 +161,6 @@ myApp.service('UserService', function ($http, $location){
 
 
 
-
-
   // moved to FPs:
   //gets the footprints for selected project
   self.getProjectFootprints = function (id){
@@ -139,11 +171,6 @@ myApp.service('UserService', function ($http, $location){
       console.log('problem getting project footprints', err);
     });
   };
-
-
-
-
-
 
 
 
@@ -162,57 +189,6 @@ myApp.service('UserService', function ($http, $location){
       console.log('problem getting all users for admin', err);
     });
   };
-
-
-
-
-  // moved to FPs:
-  self.computeFootprint = function(footprint) {
-    // console.log(footprint);
-    var result = {};
-    result.plane = PLANE_CONVERSION * parseInt(footprint.plane);
-    result.car = CAR_CONVERSION * parseInt(footprint.car);
-    result.train = TRAIN_CONVERSION * parseInt(footprint.train);
-    result.air = AIR_CONVERSION * parseInt(footprint.air);
-    result.freight_train = FREIGHT_CONVERSION * parseInt(footprint.freight_train);
-    result.truck = TRUCK_CONVERSION * parseInt(footprint.truck);
-    result.sea = SEA_CONVERSION * parseInt(footprint.sea);
-    result.hotel = HOTEL_CONVERSION * parseInt(footprint.hotel);
-    result.fuel = FUEL_CONVERSION * parseInt(footprint.fuel);
-    result.grid = GRID_CONVERSION * parseInt(footprint.grid);
-    result.propane = PROPANE_CONVERSION * parseInt(footprint.propane);
-    result.period = footprint.period;
-    result.name = footprint.name;
-    result.type_id = footprint.type_id;
-    result.country_id = footprint.country_id;
-    result.organization = footprint.organization;
-
-    // why called so many times on page load???
-    // THIS IS A KEY QUESTION -- WHY?? On both dashboard and home page!
-    console.log("USERSERVICE compute Footprint result: ", result);
-    return result;
-  };
-
-  self.groupByCategory = function(footprint) {
-    var result = {};
-    // console.log(footprint);
-    result.living = footprint.hotel + footprint.fuel + footprint.grid + footprint.propane;
-    result.shipping = footprint.sea + footprint.air + footprint.truck + footprint.freight_train;
-    result.travel = footprint.plane + footprint.train + footprint.car;
-    self.result = result;
-    console.log("USERSERVICE groupByCat result: ", self.result);
-    return self.result;
-  };
-
-  // var computeFpfp = function() {
-  //   self.computeFootprint(self.footprintsFootprint);
-  // };
-
-
-  // var fpfp = {};
-
-
-
 
 
 
@@ -246,9 +222,6 @@ myApp.service('UserService', function ($http, $location){
 
 
 
-
-
-
   // MOVED TO projects:
   //This uploads the data for a new project:
   self.sendProject = function(user){
@@ -266,65 +239,13 @@ myApp.service('UserService', function ($http, $location){
 
 
 
-
-
-
-  // (3)
-  // REDUNDANT -- USE COMPUTE (FP) AND PARSE (CSV):
+  // (3) EDITING A FP:
   //This function sends edited footprints to the DB.
   self.sendEdits = function (dataIn, parsed) {
     var data = dataIn.data;
     var footprintInfo = dataIn.project;
 
-    //  var csvSend = {
-    //    plane: 0,
-    //    car: 0,
-    //    train_travel: 0,
-    //    air: 0,
-    //    train_shipping: 0,
-    //    truck: 0,
-    //    sea: 0,
-    //    hotel: 0,
-    //    fuel: 0,
-    //    grid: 0,
-    //    propane: 0
-    //  };
-    //
-    //  var dataNums = data.slice(data.lastIndexOf('kWh'), data.indexOf(',,,,,,,,,,'));
-    //  //  console.log(dataNums);
-    //
-    //  var arrayOfNums = dataNums.split(',');
-    //
-    //
-    //  for (var i = 0; i < arrayOfNums.length; i++) {
-    //    var num = arrayOfNums[i];
-    //    if (i % 11 == 1 && num !== '') {
-    //     csvSend.plane += Number(num);
-    //    } else if (i % 11 == 2 && num !== '') {
-    //     csvSend.car += Number(num);
-    //    } else if (i % 11 == 3 && num !== '') {
-    //     csvSend.train_travel += Number(num);
-    //    } else if (i % 11 == 4 && num !== '') {
-    //     csvSend.air += Number(num);
-    //    } else if (i % 11 == 5 && num !== '') {
-    //     csvSend.train_shipping += Number(num);
-    //    } else if (i % 11 == 6 && num !== '') {
-    //     csvSend.truck += Number(num);
-    //    } else if (i % 11 == 7 && num !== '') {
-    //     csvSend.sea += Number(num);
-    //    } else if (i % 11 == 8 && num !== '') {
-    //     csvSend.hotel += Number(num);
-    //    } else if (i % 11 == 9 && num !== '') {
-    //     csvSend.fuel += Number(num);
-    //    } else if (i % 11 == 10 && num !== '') {
-    //     csvSend.grid += Number(num);
-    //    } else if (i % 11 == 0 && num !== '' && i > 1) {
-    //     csvSend.propane += Number(num);
-    //    }
-    //  }
-
-
-    console.log(parsed);
+    // console.log(parsed);
 
     // Mutate it directly:
     if (parsed.type === 'English') {
@@ -332,36 +253,9 @@ myApp.service('UserService', function ($http, $location){
     }
 
 
-    //  if (csvSend.type === 'English') {
-    //    csvSend.plane = Math.round((csvSend.plane * 1.609344));
-    //    csvSend.car = Math.round((csvSend.car * 1.609344));
-    //    csvSend.train_travel = Math.round((csvSend.train_travel * 1.609344));
-    //    csvSend.air = Math.round((csvSend.air * 1.460));
-    //    csvSend.train_shipping = Math.round((csvSend.train_shipping * 1.460));
-    //    csvSend.truck = Math.round((csvSend.truck * 1.460));
-    //    csvSend.sea = Math.round((csvSend.sea * 1.460));
-    //  }
-
-
-
-
     parsed.projectInfo = footprintInfo;
 
     self.sendEditsOut(parsed);
-
-    // csvSend = {
-    //   plane: 0,
-    //   car: 0,
-    //   train_travel: 0,
-    //   air: 0,
-    //   train_shipping: 0,
-    //   truck: 0,
-    //   sea: 0,
-    //   hotel: 0,
-    //   fuel: 0,
-    //   grid: 0,
-    //   propane: 0
-    // };
 
   }; //End send function
 
