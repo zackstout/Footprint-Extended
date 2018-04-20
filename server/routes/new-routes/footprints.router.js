@@ -61,7 +61,7 @@ router.delete('/delete/:id', function (req, res) {
 });
 
 
-//Posts a footprint to "footprints", also inserting into "shipping", "travel" and "living":
+//Posts a footprint to "footprints" table, also inserting into "shipping", "travel" and "living":
 router.post('/project_submit', function (req, res) {
   if (req.isAuthenticated()) {
     var info = req.body.userInfo;

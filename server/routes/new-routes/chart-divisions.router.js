@@ -42,6 +42,7 @@ router.post('/bars', function (req, res) {
   }
 });
 
+
 //Gets the requested footprint data, summed into one row:
 router.post('/bars_numbers', function (req, res) {
   // if (req.isAuthenticated()) {
@@ -95,7 +96,7 @@ router.post('/bars_numbers', function (req, res) {
 
 
 
-
+// The root issue is that my curyDivisions function isn't working as expected. All the user-built charts are broken. 
 
 
 // THIS DOESN'T SEEM TO BE CALLED ANYWHERE?
