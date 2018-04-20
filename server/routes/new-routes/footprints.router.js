@@ -7,6 +7,8 @@ var pool = require('../../modules/pool.js');
 
 //SUCCESSFULLY TRANSFERRED ROUTES:
 
+var months = ['January', "February", 'March', "April", 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 
 // Delete a footprint:
 router.delete('/delete/:id', function (req, res) {

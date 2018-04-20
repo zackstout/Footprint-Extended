@@ -7,6 +7,7 @@ var pool = require('../../modules/pool.js');
 
 //SUCCESSFULLY TRANSFERRED ROUTES:
 
+var types = ['Health', "Food/Nutrition", "Education", 'Non-Food Items (NFI)', "Shelter", "Conflict", "Migration/Camp Management", "Faith-based", "Research", "Governance", "Business/Entrepreneur", "Donor"];
 
 
 // Get all countries:

@@ -87,7 +87,6 @@ myApp.service('UserService', function ($http, $location){
 
 
 
-
   var fpfp = {};
 
   //Get user function
@@ -124,7 +123,9 @@ myApp.service('UserService', function ($http, $location){
       window.location.href = '/#/home';
       // $location.path("/home");
     });
-  }; //End of Logout Function
+  }; //End of Logout Function /// what is the error???
+
+
 
 
 

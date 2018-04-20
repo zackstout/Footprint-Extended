@@ -6,6 +6,8 @@ myApp.service('csvService', function ($http, $location, UserService) {
 
   vm.dataType = '';
 
+  // all good but for those two pairs of hanger-ons
+
   vm.masterParse = function(data) {
     var dataNums = data.slice(data.lastIndexOf('kWh'), data.indexOf(',,,,,,,,,,'));
     var arrayOfNums = dataNums.split(',');
@@ -58,8 +60,8 @@ myApp.service('csvService', function ($http, $location, UserService) {
   // (1) TRIAL DATA:
   //This function parses the data from uploaded CSVs.
   vm.parseData = function (data) {
-    var dataNums = data.slice(data.lastIndexOf('kWh'), data.indexOf(',,,,,,,,,,'));
-    var arrayOfNums = dataNums.split(',');
+    // var dataNums = data.slice(data.lastIndexOf('kWh'), data.indexOf(',,,,,,,,,,'));
+    // var arrayOfNums = dataNums.split(',');
 
     // good this works:
     var csv = this.masterParse(data);
