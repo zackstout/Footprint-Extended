@@ -43,15 +43,23 @@ myApp.controller('CalcController', function (UserService, $http) {
     vm.calculateDieselUse = () => (vm.size * (vm.hours/24) * (vm.load/100)).toFixed(2);
     vm.changeDieselUse = () => { vm.dieselUsage = vm.calculateDieselUse(); };
 
+
+
     vm.calculateDailyLiters = () => (24 * (vm.dieselUsage / 15)).toFixed(2);
     // Ok let's definitely CURRY this:
-    vm.changeDieselCost = () => { vm.dailyLiters = vm.calculateDailyLiters(); };
+    vm.changeDieselCost = () => {
+      vm.dailyLiters = vm.calculateDailyLiters();
+      vm.changeMonthlyCost();
+    };
 
     vm.calculateMonthlyCost = () => (30 * vm.dailyLiters * vm.costPerLiter).toFixed(2);
-    vm.changeMonthlyCost = () => { vm.month = vm.calculateMonthlyCost(); };
+    vm.changeMonthlyCost = () => {
+      vm.month = vm.calculateMonthlyCost();
+      vm.year = vm.calculateAnnualCost();
+    };
 
     vm.calculateAnnualCost = () =>(vm.month * 12).toFixed(2);
-    vm.changeAnnualCost = () => { vm.year = vm.calculateAnnualCost(); };
+    // vm.changeAnnualCost = () => { vm.year = vm.calculateAnnualCost(); };
 
     // but we're not even accounting for the 2 percentages.
     vm.calculateSolarSize = () => (vm.dieselUsage/25 + vm.dieselUsage/500).toFixed(1);
