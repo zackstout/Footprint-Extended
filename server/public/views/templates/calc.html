@@ -1,0 +1,75 @@
+<div class="calcContainer" >
+  <!-- style="position: relative; width: 100%; height: 700px; text-align: center;" -->
+
+  <!-- <canvas id="calcCanvas" style="width:85%; height: 80%"></canvas> -->
+
+
+  <!-- DIESEL SYSTEM: -->
+  <div layout="row" layout-align="center center">
+
+    <div layout="column" flex="20" class="inputCol">
+      <h2>Diesel System:</h2>
+      Size (kW): <input type="text" ng-model="cc.size">
+      Hours/day running: <input type="text" ng-model="cc.hours">
+      Percentage load: <input type="text" ng-model="cc.load">
+    </div>
+
+    <div layout="column" flex="20" class="outputCol">
+      <p>Usage (kWh/day):</p>
+      <p class="output" id="dieselUsage">{{cc.dieselUsage}} kWh/day</p>
+    </div>
+
+    <div layout="column" flex="5"></div>
+
+    <div layout="column" flex="20" class="inputCol">
+      <h2>Diesel Cost:</h2>
+      Liters/day: <input type="text" ng-model="cc.dailyLiters">
+      Cost/liter: <input type="text" ng-model="cc.costPerLiter">
+    </div>
+
+    <div layout="column" flex="20" class="outputCol">
+      <p>Monthly cost:</p>
+      <p class="output" id="month">${{cc.month}}</p>
+      <p>Annual cost: </p>
+      <p class="output" id="year">${{cc.year}}</p>
+      <p>Annual carbon footprint:</p>
+      <p class="output" id="carbonOut">{{cc.carbon}} tonnes</p>
+    </div>
+
+  </div>
+
+<br>
+
+<!-- SOLAR SYSTEM: -->
+  <div layout="row" layout-align="center center">
+
+    <div layout="column" flex="20" class="inputCol">
+      <h2>Solar System:</h2>
+      How much power used during daytime (%): <input type="text" ng-model="cc.dayPower">
+      Overspec (account for cloudy days) (%): <input type="text" ng-model="cc.overspec">
+    </div>
+
+    <div layout="column" flex="20" class="outputCol">
+      <p>Estimated size needed (kW):</p>
+      <p class="output" id="solarSize">{{cc.solarSize}} kW</p>
+    </div>
+
+    <div layout="column" flex="5"></div>
+
+    <div layout="column" flex="20" class="inputCol">
+      <h2>Solar Cost:</h2>
+      Budget per battery: <input type="text" ng-model="cc.budget">
+    </div>
+
+    <div layout="column" flex="20" class="outputCol">
+      <p>Cost of solar system:</p>
+      <p class="output" id="solarCost">${{cc.solarCost}}</p>
+      <p>Time to cover costs:</p>
+      <p class="output" id="cover">{{cc.coverTime}} days</p>
+      <p>Savings after 5 years:</p>
+      <p class="output" id="savings">${{cc.savings}}</p>
+    </div>
+
+  </div>
+
+</div>

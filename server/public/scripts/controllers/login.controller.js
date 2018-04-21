@@ -20,6 +20,9 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
   vm.hide = false;
 
 
+  vm.toCalculator = function() {
+    $location.path('/calc');
+  };
 
 
   // OUTSOURCE TO CSV SERVICE ()

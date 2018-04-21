@@ -11,5 +11,5 @@
 - [ ] Add response to user when footprint or project has been successfully posted/edited.
 - [ ] Disallow user from uploading new month for already-uploaded month.
 - [ ] Would be nice to fix the page refresh issue (cacheing, etc.).
-- [ ] Add "Give us feedback" functionality to back up the bluff text.
-- [ ] Split up controllers and services further. 
+- [ ] Split up controllers and services further.
+- [ ] Make "Give us feedback" more button-like.

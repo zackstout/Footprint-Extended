@@ -7,6 +7,7 @@ myApp.service('donutService', function($http, $location, UserService) {
   var self = this;
 
   function curryDivisions(url) {
+    // it's possible we have one too many returns in here...
     return (() => {
       const type = url.includes('period') ? 'period' : 'name';
       return $http.get(url).then(function(response) {
