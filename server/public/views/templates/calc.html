@@ -13,9 +13,10 @@
           Enter information about your diesel system to determine your total energy usage.
         </p>
         <h2>Diesel-powered System:</h2>
-        Size (kW): <input type="text" ng-model="cc.size">
-        Hours/day running: <input type="text" ng-model="cc.hours">
-        Percentage load: <input type="text" ng-model="cc.load">
+        <!-- Note that you do need the parentheses in this ng-change: -->
+        Size (kW): <input type="text" ng-model="cc.size" ng-change="cc.changeDieselUse()">
+        Hours/day running: <input type="text" ng-model="cc.hours" ng-change="cc.changeDieselUse()">
+        Percentage load: <input type="text" ng-model="cc.load" ng-change="cc.changeDieselUse()">
         <md-button ng-click="cc.submit(0)">Submit</md-button>
       </div>
 
@@ -34,8 +35,8 @@
           We've estimated your diesel consumption. Enter your cost per liter to compute total costs:
         </p>
         <h2>Diesel Cost:</h2>
-        Liters/day: <input type="text" ng-model="cc.dailyLiters">
-        Cost/liter: <input type="text" ng-model="cc.costPerLiter">
+        Liters/day: <input type="text" ng-model="cc.dailyLiters" ng-change="cc.changeDieselCost()">
+        Cost/liter: <input type="text" ng-model="cc.costPerLiter" ng-change="cc.changeDieselCost()">
         <md-button ng-click="cc.submit(1)">Submit</md-button>
       </div>
 
