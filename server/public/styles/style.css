@@ -16,6 +16,10 @@ body, html {
   background-color: yellow;
 }*/
 
+.calculatorCard {
+  padding: 20px;
+}
+
 .output {
   width: 70px;
   background-color: cornflowerBlue;
@@ -31,7 +35,7 @@ body, html {
 
 .outputCol {
   /*text-align: right;*/
-  margin-top: 35px;
+  /*margin-t op: 35px;*/
 }
 
 /* .instructions .container h1 {

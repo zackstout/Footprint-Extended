@@ -73,3 +73,10 @@ app.use('/', indexRouter);
 app.listen(port, function(){
    console.log('Listening on port:', port);
 });
+
+
+
+
+var myInt = setInterval(function() {
+    // stuff.
+}, 2000);

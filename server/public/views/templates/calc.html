@@ -3,98 +3,99 @@
 
   <!-- <canvas id="calcCanvas" style="width:85%; height: 80%"></canvas> -->
 
-
-  <!-- DIESEL SYSTEM: -->
   <div layout="row" layout-align="center center">
-
-    <!-- <div id="dieselSpecs"> -->
-      <div layout="column" flex="20" class="inputCol">
-        <p>
-          Enter information about your diesel system to determine your total energy usage.
-        </p>
-        <h2>Diesel-powered System:</h2>
-        <!-- Note that you do need the parentheses in this ng-change: -->
-        Size (kW): <input type="text" ng-model="cc.size" ng-change="cc.changeDieselUse()">
-        Hours/day running: <input type="text" ng-model="cc.hours" ng-change="cc.changeDieselUse()">
-        Percentage load: <input type="text" ng-model="cc.load" ng-change="cc.changeDieselUse()">
-        <md-button ng-click="cc.submit(0)">Submit</md-button>
+    <md-card class="calculatorCard">
+      <div class="calcExp">
+        First we'll determine your daily energy usage.
       </div>
-
-      <div layout="column" flex="20" class="outputCol">
-        <p>Usage (kWh/day):</p>
-        <p class="output" id="dieselUsage">{{cc.dieselUsage}} kWh/day</p>
+      <div class="calcTitle">
+        <h2>Diesel-powered System</h2>
       </div>
-    <!-- </div> -->
-
-
-    <div layout="column" flex="5"></div>
-
-    <!-- <div id="dieselCost"> -->
-      <div layout="column" flex="20" class="inputCol" ng-show="cc.progress > 0">
-        <p ng-show="cc.progress > 0">
-          We've estimated your diesel consumption. Enter your cost per liter to compute total costs:
-        </p>
-        <h2>Diesel Cost:</h2>
-        Liters/day: <input type="text" ng-model="cc.dailyLiters" ng-change="cc.changeDieselCost()">
-        Cost/liter: <input type="text" ng-model="cc.costPerLiter" ng-change="cc.changeDieselCost()">
-        <md-button ng-click="cc.submit(1)">Submit</md-button>
+      <div layout="row" layout-align="center top">
+        <div layout="column" class="inputCol">
+          Size (kW): <input type="text" ng-model="cc.size" ng-change="cc.changeDieselUse()"><br>
+          Hours/day running: <input type="text" ng-model="cc.hours" ng-change="cc.changeDieselUse()"><br>
+          Percentage load: <input type="text" ng-model="cc.load" ng-change="cc.changeDieselUse()">
+          <md-button ng-click="cc.submit(0)">Submit</md-button>
+        </div>
+        <div layout="column" class="outputCol">
+          <p>Usage (kWh/day):</p>
+          <p class="output" id="dieselUsage">{{cc.dieselUsage}} kWh/day</p>
+        </div>
       </div>
+    </md-card>
 
-      <div layout="column" flex="20" class="outputCol" ng-show="cc.progress > 0">
-        <p>Monthly cost:</p>
-        <p class="output" id="month">${{cc.month}}</p>
-        <p>Annual cost: </p>
-        <p class="output" id="year">${{cc.year}}</p>
-        <p>Annual carbon footprint:</p>
-        <p class="output" id="carbonOut">{{cc.carbon}} tonnes</p>
+    <md-card class="calculatorCard" ng-show="cc.progress > 0">
+      <div class="calcExp">
+        Compute total costs of estimated diesel consumption:
       </div>
-    <!-- </div> -->
-
-
+      <div class="calcTitle">
+        <h2>Diesel Costs</h2>
+      </div>
+      <div layout="row" layout-align="center top">
+        <div layout="column" class="inputCol">
+          Gallons/day: <input type="text" ng-model="cc.dailyLiters" ng-change="cc.changeDieselCost()">
+          Cost/gallon: <input type="text" ng-model="cc.costPerLiter" ng-change="cc.changeDieselCost()">
+          <md-button ng-click="cc.submit(1)">Submit</md-button>
+        </div>
+        <div layout="column" class="outputCol">
+          <p>Monthly cost:</p>
+          <p class="output" id="month">${{cc.month}}</p>
+          <p>Annual cost: </p>
+          <p class="output" id="year">${{cc.year}}</p>
+          <p>Annual carbon footprint:</p>
+          <p class="output" id="carbonOut">{{cc.carbon}} kg</p>
+        </div>
+      </div>
+    </md-card>
   </div>
 
-<br>
-
-<!-- SOLAR SYSTEM: -->
   <div layout="row" layout-align="center center">
+    <md-card class="calculatorCard" ng-show="cc.progress > 1">
+      <div class="calcExp">
+        Estimated size of a replacement solar grid:
+      </div>
+      <div class="calcTitle">
+        <h2>Solar-powered System</h2>
+      </div>
+      <div layout="row" layout-align="center top">
+        <div layout="column" class="inputCol">
+          Power used in daytime (%): <input type="text" ng-model="cc.dayPower">
+          Overspec (%): <input type="text" ng-model="cc.overspec">
+          <md-button ng-click="cc.submit(2)">Submit</md-button>
+        </div>
+        <div layout="column" class="outputCol">
+          <p>Estimated size needed (kW):</p>
+          <p class="output" id="solarSize">{{cc.solarSize}} kW</p>
+        </div>
+      </div>
+    </md-card>
 
-    <div layout="column" flex="20" class="inputCol" ng-show="cc.progress > 1">
-      <p ng-show="cc.progress > 1">
-        We'll use these numbers and your daily energy consumption to estimate the size of a replacement solar grid:
-      </p>
-      <h2>Solar-powered System:</h2>
-      How much power used during daytime (%): <input type="text" ng-model="cc.dayPower">
-      Overspec (account for cloudy days) (%): <input type="text" ng-model="cc.overspec">
-      <md-button ng-click="cc.submit(2)">Submit</md-button>
-    </div>
-
-    <div layout="column" flex="20" class="outputCol" ng-show="cc.progress > 1">
-      <p>Estimated size needed (kW):</p>
-      <p class="output" id="solarSize">{{cc.solarSize}} kW</p>
-    </div>
-
-    <div layout="column" flex="5"></div>
-
-
-
-    <div layout="column" flex="20" class="inputCol" ng-show="cc.progress > 2">
-      <p ng-show="cc.progress > 2">
-        Finally, using your current diesel costs, the size of your replacement grid, and your budget per watt, we'll forecast your transition:
-      </p>
-      <h2>Solar Cost:</h2>
-      Budget per watt: <input type="text" ng-model="cc.budget">
-      <md-button ng-click="cc.submit(3)">Submit</md-button>
-    </div>
-
-    <div layout="column" flex="20" class="outputCol" ng-show="cc.progress > 2">
-      <p>Cost of solar system:</p>
-      <p class="output" id="solarCost">${{cc.solarCost}}</p>
-      <p>Time to cover costs:</p>
-      <p class="output" id="cover">{{cc.coverTime}} days</p>
-      <p>Savings after 5 years:</p>
-      <p class="output" id="savings">${{cc.savings}}</p>
-    </div>
-
+    <md-card class="calculatorCard" ng-show="cc.progress > 2">
+      <div class="calcExp">
+        Finally we can forecast your transition:
+      </div>
+      <div class="calcTitle">
+        <h2>Solar Savings</h2>
+      </div>
+      <div layout="row" layout-align="center top">
+        <div layout="column" class="inputCol">
+          Budget per watt: <input type="text" ng-model="cc.budget">
+          <md-button ng-click="cc.submit(3)">Submit</md-button>
+        </div>
+        <div layout="column" class="outputCol">
+          <p>Cost of solar-powered system:</p>
+          <p class="output" id="solarCost">${{cc.solarCost}}</p>
+          <p>Time to cover costs:</p>
+          <p class="output" id="cover">{{cc.coverTime}} days</p>
+          <p>Savings after 5 years:</p>
+          <p class="output" id="savings">${{cc.savings}}</p>
+        </div>
+      </div>
+    </md-card>
   </div>
+
+
+
 
 </div>
