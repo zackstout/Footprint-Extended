@@ -20,12 +20,17 @@ body, html {
   padding: 20px;
 }
 
+.calcTitle {
+  text-align: center;
+}
+
 .output {
-  width: 70px;
-  background-color: cornflowerBlue;
+  /*width: 70px;*/
+  /*background-color: cornflowerBlue;*/
   margin-top: 3px;
   margin-bottom: 3px;
   margin-left: 22px;
+  font-size: 19px;
 }
 
 .inputCol, .outputCol {
