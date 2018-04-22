@@ -3,9 +3,11 @@ myApp.controller('CalcController', function (UserService, $http) {
     console.log('CalcController created');
     var vm = this;
 
+    // "'require' is not defined" ugh:
+    // var clean = require('../../../modules/cleanNumber.js');
+
     //Hmm I wonder whether ng-changes can be chained, so that changing inputs could change one output, whose change could trigger other changes. Probably!
     // NO! Thwarted! "The ng-change event is only triggered if there is a actual change in the input value, and not if the change was made from a JavaScript."
-
     function cleanNumber(n) {
       const str = n.toString();
       const dot = str.includes('.');
@@ -28,6 +30,7 @@ myApp.controller('CalcController', function (UserService, $http) {
       }
       return res;
     }
+
 
     console.log(cleanNumber(12434));
 
@@ -75,12 +78,34 @@ myApp.controller('CalcController', function (UserService, $http) {
     // we should just put dailyCost in its over variable but whatever
     vm.calculateSavings = () => ((5 * 365 - vm.coverTime) * vm.dailyLiters * vm.costPerLiter).toFixed(2);
 
+
+
     // Handle changes to input fields:
     vm.changeDieselUse = () => {
       vm.dieselUsage = vm.calculateDieselUse();
+      // or do we want to call change functions.... yeah.
+      // vm.dailyLiters = vm.calculateDailyLiters();
+      // vm.solarSize = vm.calculateSolarSize();
+      vm.changeDailyLiters();
+      vm.changeSolarSize();
 
+    };
 
+    vm.changeSolarSize = () => {
+      vm.solarSize = vm.calculateSolarSize();
+      vm.changeSolarCost();
+    };
 
+    vm.changeSolarCost = () => {
+      vm.solarCost = vm.calculateSolarCost();
+      vm.coverTime = vm.calculateCoverTime();
+      vm.savings = vm.calculateSavings();
+    };
+
+    vm.changeDailyLiters = () => {
+      vm.dailyLiters = vm.calculateDailyLiters();
+      vm.changeMonthlyCost();
+      vm.changeSolarCost();
     };
 
     // This is gallons, not liters, per day, and only a rough estimate based on the chart (http://www.dieselserviceandsupply.com/Diesel_Fuel_Consumption.aspx):
@@ -88,11 +113,13 @@ myApp.controller('CalcController', function (UserService, $http) {
     vm.changeDieselCost = () => {
       vm.dailyLiters = vm.calculateDailyLiters();
       vm.changeMonthlyCost();
+      vm.changeSolarCost();
     };
 
     vm.changeMonthlyCost = () => {
       vm.month = vm.calculateMonthlyCost();
       vm.year = vm.calculateAnnualCost();
+      vm.carbon = vm.calculateCarbon();
     };
 
 
