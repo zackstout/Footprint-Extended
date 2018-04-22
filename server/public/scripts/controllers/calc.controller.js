@@ -58,7 +58,10 @@ myApp.controller('CalcController', function (UserService, $http) {
       vm.dailyLiters = vm.calculateDailyLiters();
 
       // Maybe we *make* them click submit on 3 before showing values? Then we can save to DB.
-      // console.log(prog);
+      console.log(prog);
+
+      var card1 = document.getElementById('card1');
+      card1.classList.add("card1");
     };
 
 

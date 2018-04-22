@@ -18,10 +18,22 @@ body, html {
 
 .calculatorCard {
   padding: 20px;
+  transition: transform 300ms ease-in-out;
+
 }
 
 .calcTitle {
   text-align: center;
+}
+
+.card {
+}
+
+.card1 {
+  /*Damn i kinda like that:*/
+  background-color: teal;
+
+  transform: translate(-100px, 0px);
 }
 
 .output {
