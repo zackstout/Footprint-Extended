@@ -1,7 +1,11 @@
 
-myApp.controller('CalcController', function (UserService, $http) {
+myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $http, $location, $anchorScroll, $timeout) {
     console.log('CalcController created');
     var vm = this;
+
+    vm.toHome = function() {
+      $location.path('/home');
+    };
 
     // "'require' is not defined" ugh:
     // var clean = require('../../../modules/cleanNumber.js');
@@ -49,6 +53,7 @@ myApp.controller('CalcController', function (UserService, $http) {
     // We're going to have to attach this to each user's session -- but they have't even logged in yet... Do we force them to?
     vm.progress = 0;
 
+    // Submit function -- should prob just split into 4:
     vm.submit = function(prog) {
       // increment hide/show progress:
       // is this going to break if multiple users doing it at once? Probably.
@@ -59,6 +64,19 @@ myApp.controller('CalcController', function (UserService, $http) {
 
       // Maybe we *make* them click submit on 3 before showing values? Then we can save to DB.
       console.log(prog);
+
+      if (prog == 1) {
+        // Ok, needs to be wrapped in $timeout.... And still not animating the scroll.
+        $timeout(function() {
+        //   $location.hash('card3');
+        //   $anchorScroll();
+        $location.hash('card3');
+        anchorSmoothScroll.scrollTo('card3');
+        });
+
+
+
+      }
 
       var card1 = document.getElementById('card1');
       card1.classList.add("card1");

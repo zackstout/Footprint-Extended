@@ -1,5 +1,11 @@
 <div class="calcContainer" >
 
+  <div class="">
+    <md-button type="button" name="button" ng-click="cc.toHome()">Back to Home</md-button>
+  </div>
+
+  <p id="instruct">Enter information about your current diesel-powered system to generate stats about a conversion to a solar grid.</p>
+  <br>
   <!-- DIESEL: -->
   <div layout="row" layout-align="center center">
     <md-card class="calculatorCard" id="card1">
@@ -49,10 +55,10 @@
     </md-card>
   </div>
 
-
+<br><br>
 <!-- SOLAR: -->
   <div layout="row" layout-align="center center">
-    <md-card class="calculatorCard" ng-show="cc.progress > 1">
+    <md-card class="calculatorCard" ng-show="cc.progress > 1" id="card3">
       <div class="calcExp">
         Estimated size of a replacement solar grid:
       </div>

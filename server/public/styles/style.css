@@ -21,6 +21,11 @@ body, html {
   transition: transform 300ms ease-in-out;
 }
 
+#instruct {
+  padding-left: 100px;
+  font-size: 18px;
+}
+
 /*.calculatorCard2 {
   padding: 20px;
   transition: transform 300ms ease-in-out;
