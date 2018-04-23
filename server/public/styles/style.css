@@ -19,10 +19,21 @@ body, html {
 .calculatorCard {
   padding: 20px;
   transition: transform 300ms ease-in-out;
+  margin-bottom: 25px;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.solarCard {
+  transition: transform 300ms ease-in-out;
+}
+
+.goHome {
+  padding-left: 70px;
 }
 
 #instruct {
-  padding-left: 100px;
+  padding-left: 70px;
   font-size: 18px;
 }
 
@@ -32,6 +43,10 @@ body, html {
 
 }*/
 
+.green {
+  background-color: teal;
+}
+
 #calcContainer {
   position: relative;
 }
@@ -40,10 +55,20 @@ body, html {
   text-align: center;
 }
 
-
 #card2 {
+  margin-top: -2px;
+}
+
+
+#card2, #card4 {
   position: absolute;
   right: 100px;
+  /*top: 5px;*/
+  /*down: 20px;*/
+}
+
+#card4 {
+  down: 40px;
 }
 
 /*.card2 {

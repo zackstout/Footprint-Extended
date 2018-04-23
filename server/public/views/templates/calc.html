@@ -1,6 +1,6 @@
 <div class="calcContainer" >
 
-  <div class="">
+  <div class="goHome">
     <md-button type="button" name="button" ng-click="cc.toHome()">Back to Home</md-button>
   </div>
 
@@ -57,7 +57,7 @@
 
 <br><br>
 <!-- SOLAR: -->
-  <div layout="row" layout-align="center center">
+  <div layout="row" layout-align="center center" id="solarRow">
     <md-card class="calculatorCard" ng-show="cc.progress > 1" id="card3">
       <div class="calcExp">
         Estimated size of a replacement solar grid:
@@ -78,7 +78,7 @@
       </div>
     </md-card>
 
-    <md-card class="calculatorCard" ng-show="cc.progress > 2">
+    <md-card class="calculatorCard solarCard" ng-show="cc.progress > 2" id="card4">
       <div class="calcExp">
         Finally we can forecast your transition:
       </div>

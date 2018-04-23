@@ -7,9 +7,6 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
       $location.path('/home');
     };
 
-    // "'require' is not defined" ugh:
-    // var clean = require('../../../modules/cleanNumber.js');
-
     //Hmm I wonder whether ng-changes can be chained, so that changing inputs could change one output, whose change could trigger other changes. Probably!
     // NO! Thwarted! "The ng-change event is only triggered if there is a actual change in the input value, and not if the change was made from a JavaScript."
     function cleanNumber(n) {
@@ -66,23 +63,32 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
       console.log(prog);
 
       if (prog == 1) {
+
+        var card2 = document.getElementById('card2');
+        card2.classList.add('green');
+
         // Ok, needs to be wrapped in $timeout.... And still not animating the scroll.
         $timeout(function() {
-        //   $location.hash('card3');
-        //   $anchorScroll();
-        $location.hash('card3');
-        anchorSmoothScroll.scrollTo('card3');
+          // Hmm seems to not work when you come from Home page and try immediately.
+          $location.hash('card3');
+          anchorSmoothScroll.scrollTo('card3');
         });
 
+      }
 
+      if (prog == 2) {
+        var card3 = document.getElementById('card3');
+        card3.classList.add('card1');
+      }
 
+      if (prog == 3) {
+        // we'll need to grab the data here, and hide results until click.
+        var card4 = document.getElementById('card4');
+        card4.classList.add('green');
       }
 
       var card1 = document.getElementById('card1');
       card1.classList.add("card1");
-
-      var card2 = document.getElementById('card2');
-      card2.classList.add('card2');
     };
 
     // ===========================
@@ -90,11 +96,12 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
     // ===========================
 
     vm.calculateDieselUse = () => (vm.size * vm.hours * vm.load/100).toFixed(2); // Oh big mistake, *don't* divide by 24. Because we want kWh/day.
-    vm.calculateDailyLiters = () => (24 * (vm.dieselUsage / 15)).toFixed(2);
+    vm.calculateDailyLiters = () => (vm.dieselUsage / 15).toFixed(2); // Also *don't* multiply by 24 here.
     vm.calculateMonthlyCost = () => (30 * vm.dailyLiters * vm.costPerLiter).toFixed(2);
     vm.calculateAnnualCost = () => (vm.month * 12).toFixed(2);
     // 2.8 kg carbon per liter. 3.8 liters per gallon.
     vm.calculateCarbon = () => (vm.dailyLiters * 3.8 * 2.8 * 365).toFixed(0);
+
     // I'm doing the strange /25 + /500 thing because 1000 gets taken to 42.
     var sunFactor = 80; // 1000/125, by experiment
     var overspecFactor = 240; // 1000/42, by experiment
@@ -102,7 +109,11 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
     vm.calculateSolarCost = () => (vm.solarSize * 1000 * vm.budget).toFixed(2);
     vm.calculateCoverTime = () => (vm.solarCost / (vm.dailyLiters * vm.costPerLiter)).toFixed(0);
     // we should just put dailyCost in its own variable but whatever
-    vm.calculateSavings = () => ((5 * 365 - vm.coverTime) * vm.dailyLiters * vm.costPerLiter).toFixed(2);
+    vm.calculateSavings = (x) => ((x * 365 - vm.coverTime) * vm.dailyLiters * vm.costPerLiter).toFixed(2);
+
+
+    // BUG: if gas costs more, the time to cover costs should always get higher, no matter what. bUt that is not occuring. NO! That's false! If the cost increases, we'd expect it to pay itself back FASTER. Duh.
+    // The real BUG is that size of solar grid is not appropriately sensitive to dayPower -- it *might* be fine for overspec.
 
 
     // ===========================
@@ -127,7 +138,7 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
     vm.changeSolarCost = () => {
       vm.solarCost = vm.calculateSolarCost();
       vm.coverTime = vm.calculateCoverTime();
-      vm.savings = vm.calculateSavings();
+      vm.savings = vm.calculateSavings(5);
     };
 
     vm.changeDailyLiters = () => {
@@ -163,6 +174,6 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
     vm.solarCost = vm.calculateSolarCost();
     vm.carbon = vm.calculateCarbon();
     vm.coverTime = vm.calculateCoverTime();
-    vm.savings = vm.calculateSavings();
+    vm.savings = vm.calculateSavings(5);
 
 });

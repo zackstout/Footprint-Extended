@@ -16,4 +16,6 @@
 - [ ] Add animations for the user-customizable charts, to ensure that there's not so much gaping white space before charts are generated. Move two large buttons to two tabs on the left when user clicks one.
 - [ ] Let user view current CSV when editing or deleting -- or for that matter, show them on hover on the page or something.
 - [ ] Add more instructions for the user on how to navigate through the site.
-- [ ] Bug: adding new CSV doesn't seem to be affecting totals graph, unless the numbers are too small to be affecting it. 
+- [ ] Bug: adding new CSV doesn't seem to be affecting totals graph, unless the numbers are too small to be affecting it.
+- [ ] Bug: we broke graphs when refactoring.
+- [ ] Store user-entered data about diesel systems (like with trial footprints) for admin to view.
