@@ -62,10 +62,15 @@ myApp.controller('CalcController', function (UserService, $http) {
 
       var card1 = document.getElementById('card1');
       card1.classList.add("card1");
+
+      var card2 = document.getElementById('card2');
+      card2.classList.add('card2');
     };
 
-
+    // ===========================
     // Calculations for outputs:
+    // ===========================
+
     vm.calculateDieselUse = () => (vm.size * vm.hours * vm.load/100).toFixed(2); // Oh big mistake, *don't* divide by 24. Because we want kWh/day.
     vm.calculateDailyLiters = () => (24 * (vm.dieselUsage / 15)).toFixed(2);
     vm.calculateMonthlyCost = () => (30 * vm.dailyLiters * vm.costPerLiter).toFixed(2);
@@ -75,15 +80,17 @@ myApp.controller('CalcController', function (UserService, $http) {
     // I'm doing the strange /25 + /500 thing because 1000 gets taken to 42.
     var sunFactor = 80; // 1000/125, by experiment
     var overspecFactor = 240; // 1000/42, by experiment
-    vm.calculateSolarSize = () => ((vm.dieselUsage/25 + vm.dieselUsage/500) + ((100 - vm.dayPower)/100 * vm.dieselUsage / sunFactor) + (vm.overspec * vm.dieselUsage / overspecFactor)).toFixed(1);
+    vm.calculateSolarSize = () => ((vm.dieselUsage/25 + vm.dieselUsage/500) + ((100 - vm.dayPower)/100 * vm.dieselUsage / sunFactor) + ((vm.overspec/10) * vm.dieselUsage / overspecFactor)).toFixed(1); // ok vm.overspec/10 seems to offer most realistic results, but why on earth that rather than /100 or /1?
     vm.calculateSolarCost = () => (vm.solarSize * 1000 * vm.budget).toFixed(2);
     vm.calculateCoverTime = () => (vm.solarCost / (vm.dailyLiters * vm.costPerLiter)).toFixed(0);
-    // we should just put dailyCost in its over variable but whatever
+    // we should just put dailyCost in its own variable but whatever
     vm.calculateSavings = () => ((5 * 365 - vm.coverTime) * vm.dailyLiters * vm.costPerLiter).toFixed(2);
 
 
-
+    // ===========================
     // Handle changes to input fields:
+    // ===========================
+
     vm.changeDieselUse = () => {
       vm.dieselUsage = vm.calculateDieselUse();
       // or do we want to call change functions.... yeah.
@@ -126,8 +133,10 @@ myApp.controller('CalcController', function (UserService, $http) {
     };
 
 
-
+    // ===========================
     // Initialize outputs:
+    // ===========================
+
     vm.dieselUsage = vm.calculateDieselUse(); // note: this is actually kWh/day
     vm.dailyLiters = vm.calculateDailyLiters(); // note: this is actually gallons/day
     vm.month = vm.calculateMonthlyCost();

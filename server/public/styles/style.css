@@ -19,21 +19,38 @@ body, html {
 .calculatorCard {
   padding: 20px;
   transition: transform 300ms ease-in-out;
+}
 
+/*.calculatorCard2 {
+  padding: 20px;
+  transition: transform 300ms ease-in-out;
+
+}*/
+
+#calcContainer {
+  position: relative;
 }
 
 .calcTitle {
   text-align: center;
 }
 
-.card {
+
+#card2 {
+  position: absolute;
+  right: 100px;
 }
+
+/*.card2 {
+  background-color: teal;
+  transform: translate(00px, 000px);
+}*/
 
 .card1 {
   /*Damn i kinda like that:*/
   background-color: teal;
 
-  transform: translate(-100px, 0px);
+  transform: translate(-280px, 0px);
 }
 
 .output {
