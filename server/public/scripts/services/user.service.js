@@ -69,7 +69,9 @@ myApp.service('UserService', function ($http, $location){
 
     // why called so many times on page load???
     // THIS IS A KEY QUESTION -- WHY?? On both dashboard and home page!
-    console.log("USERSERVICE compute Footprint result: ", result);
+
+    
+    // console.log("USERSERVICE compute Footprint result: ", result);
     return result;
   };
 
@@ -80,7 +82,7 @@ myApp.service('UserService', function ($http, $location){
     result.shipping = footprint.sea + footprint.air + footprint.truck + footprint.freight_train;
     result.travel = footprint.plane + footprint.train + footprint.car;
     self.result = result;
-    console.log("USERSERVICE groupByCat result: ", self.result);
+    // console.log("USERSERVICE groupByCat result: ", self.result);
     return self.result;
   };
 

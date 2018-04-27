@@ -39,9 +39,12 @@ myApp.service('donutService', function($http, $location, UserService) {
     });
   }
   // INTERESTING, breaks if you comment out second one, but not the first one!
-  self.getFpDividedByProject = curryDivisions('/member/footprint_by_project');
-  self.getFpDividedByPeriod = curryDivisions('/member/footprints_footprint_by_period');
-  self.getUserFpDividedByPeriod = curryDivisions('/member/footprint_by_period');
+  self.getFpDividedByProject = curryDivisions('/chart/footprint_by_project');
+  self.getFpDividedByPeriod = curryDivisions('/chart/footprints_footprint_by_period');
+  self.getUserFpDividedByPeriod = curryDivisions('/chart/footprint_by_period');
+  console.log(self.getFpDividedByProject);
+  console.log(self.getFpDividedByPeriod);
+  console.log(self.getUserFpDividedByPeriod);
 
 // HMM it would appear we don't have to call this....not sure why:
   // self.getFpDividedByProject();
@@ -55,7 +58,7 @@ myApp.service('donutService', function($http, $location, UserService) {
     }
     var instructions = {view: view, particular: particular, slice: slice};
 
-    return $http.post('/project/donut/', instructions).then(function(response) {
+    return $http.post('/chart/donut/', instructions).then(function(response) {
 
       return response;
     }).catch(function(err) {

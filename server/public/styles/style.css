@@ -16,12 +16,16 @@ body, html {
   background-color: yellow;
 }*/
 
+.calcExp {
+  font-style: italic;
+}
+
 .calculatorCard {
   padding: 20px;
   transition: transform 300ms ease-in-out;
   margin-bottom: 25px;
   margin-top: 20px;
-  font-size: 20px;
+  font-size: 15.6px;
 }
 
 .solarCard {
