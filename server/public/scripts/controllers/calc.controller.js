@@ -90,6 +90,18 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
       card4.classList.add('green');
       vm.allDone = true;
 
+      data = {
+        size: vm.size,
+        hours: vm.hours,
+        load: vm.load,
+        cost: vm.costPerLiter,
+        overspec: vm.overspec,
+        dayPower: vm.dayPower,
+        budget: vm.budget
+      };
+
+      UserService.uploadTransition(data);
+
     }
 
     var card1 = document.getElementById('card1');
@@ -180,7 +192,7 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
     vm.monthString = cleanNumber(vm.calculateMonthlyCost());
     vm.yearString = cleanNumber(vm.calculateAnnualCost());
     vm.carbonString = cleanNumber(vm.calculateCarbon());
-    
+
     vm.month = vm.calculateMonthlyCost();
     vm.year = vm.calculateAnnualCost();
     vm.carbon = vm.calculateCarbon();

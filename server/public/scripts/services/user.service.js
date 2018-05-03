@@ -116,6 +116,7 @@ myApp.service('UserService', function ($http, $location){
       $location.path("/home");
     });
   }, //End get user function
+  // WHY DOES IT WANT A COMMA HERE???
 
   //Function that logs out user
   self.logout = function() {
@@ -131,6 +132,13 @@ myApp.service('UserService', function ($http, $location){
 
 
 
+
+  self.uploadTransition = function(data) {
+    $http.post('/csv/trial_transition', data).then(function(res) {
+      // odd that we don't see this, but whatever, appears to be working:
+      console.log('allo');
+    });
+  };
 
 
 
