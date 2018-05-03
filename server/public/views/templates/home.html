@@ -11,8 +11,14 @@
             <canvas id="line-chart" width="400" height="225"></canvas>
         </div>
     </div>
-    <div layout="row" layout-align="center center">
+
+    <br><hr>
+    
+    <div layout="column" layout-align="center center">
         <h1 class="md-primary">NOW TRY IT FOR YOUR OWN ORGANIZATION</h1>
+        <p>
+          Download our template and enter your data to calculate your mission's carbon footprint:
+        </p>
     </div>
 
     <div layout="row" layout-align="space-around center" id="homeform">
@@ -47,9 +53,23 @@
                 </div>
     </div>
 
-    <div class="">
-      <md-button type="button" name="button" ng-click="lc.toCalculator()">Try our Diesel-to-Solar Calculator!</md-button>
+    <br><hr>
+
+    <div layout="row" layout-align="center center">
+        <h1 class="md-primary">TRY OUR DIESEL-TO-SOLAR CALCULATOR</h1>
     </div>
+
+    <div layout="column" layout-align="center center" class="margins">
+        <p>
+          Estimate the cost (and ultimate savings) of transitioning to a solar-powered grid:
+        </p>
+        <p>
+          <md-button type="button" class="md-primary md-raised" ng-click="lc.toCalculator()">Try our Diesel-to-Solar Calculator!</md-button>
+        </p>
+
+    </div>
+
+    <hr>
 
     </md-card>
     <div layout="row" layout-align="space-between center">

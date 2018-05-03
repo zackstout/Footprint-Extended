@@ -16,6 +16,11 @@ body, html {
   background-color: yellow;
 }*/
 
+.margins {
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
 .calcExp {
   font-style: italic;
 }

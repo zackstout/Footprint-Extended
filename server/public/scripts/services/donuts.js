@@ -39,6 +39,8 @@ myApp.service('donutService', function($http, $location, UserService) {
     });
   }
   // INTERESTING, breaks if you comment out second one, but not the first one!
+
+  // Is it going to be an issue that the original of this first function doesn't return anything?
   self.getFpDividedByProject = curryDivisions('/chart/footprint_by_project');
   self.getFpDividedByPeriod = curryDivisions('/chart/footprints_footprint_by_period');
   self.getUserFpDividedByPeriod = curryDivisions('/chart/footprint_by_period');

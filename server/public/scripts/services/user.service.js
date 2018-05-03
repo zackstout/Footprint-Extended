@@ -70,7 +70,7 @@ myApp.service('UserService', function ($http, $location){
     // why called so many times on page load???
     // THIS IS A KEY QUESTION -- WHY?? On both dashboard and home page!
 
-    
+
     // console.log("USERSERVICE compute Footprint result: ", result);
     return result;
   };
@@ -140,7 +140,7 @@ myApp.service('UserService', function ($http, $location){
   // moved to projects:
   self.getCountries = function() {
 
-    $http.get('/member/countries').then(function(response) {
+    $http.get('/project/countries').then(function(response) {
       var countries = response.data.rows;
 
       self.countries.data = countries;
@@ -182,7 +182,7 @@ myApp.service('UserService', function ($http, $location){
   //gets all the users for admin page
   self.adminGetUsers = function () {
     // console.log('Getting users for admin');
-    return $http.get('admin/users').then(function(response) {
+    return $http.get('admin2/users').then(function(response) {
       // console.log(response.data);
 
       // why are we saving this to self.users???

@@ -3,6 +3,8 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
     console.log('CalcController created');
     var vm = this;
 
+    vm.allDone = false;
+
     vm.toHome = function() {
       $location.path('/home');
     };
@@ -85,6 +87,8 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
         // we'll need to grab the data here, and hide results until click.
         var card4 = document.getElementById('card4');
         card4.classList.add('green');
+        vm.allDone = true;
+
       }
 
       var card1 = document.getElementById('card1');

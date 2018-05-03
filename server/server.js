@@ -12,10 +12,10 @@ var sessionConfig = require('./modules/session.config');
 var indexRouter = require('./routes/index.router'); // will need this
 var registerRouter = require('./routes/register.router'); // and also this
 
-var userRouter = require('./routes/user.router');
-var memberRouter = require('./routes/member.router');
-var adminRouter = require('./routes/admin.router.js');
-var barRouter = require('./routes/bars.router.js');
+var userRouter = require('./routes/user.router'); // ODD: we needed this old user router to make logging in work......
+// var memberRouter = require('./routes/member.router');
+// var adminRouter = require('./routes/admin.router.js');
+// var barRouter = require('./routes/bars.router.js');
 
 // NEW ROUTES:
 var adminRouter2 = require('./routes/new-routes/admin.router');
@@ -52,9 +52,9 @@ app.use(passport.session());
 app.use('/register', registerRouter); // still used.
 
 app.use('/user', userRouter);
-app.use('/member', memberRouter);
-app.use('/admin', adminRouter);
-app.use('/bar', barRouter);
+// app.use('/member', memberRouter);
+// app.use('/admin', adminRouter);
+// app.use('/bar', barRouter);
 
 // NEW ROUTES:
 app.use('/admin2', adminRouter2);
@@ -73,10 +73,3 @@ app.use('/', indexRouter);
 app.listen(port, function(){
    console.log('Listening on port:', port);
 });
-
-
-
-
-var myInt = setInterval(function() {
-    // stuff.
-}, 2000);
