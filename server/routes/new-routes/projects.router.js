@@ -13,25 +13,25 @@ var types = ['Health', "Food/Nutrition", "Education", 'Non-Food Items (NFI)', "S
 // Get all countries:
 router.get('/countries', function (req, res) {
 
-    console.log('Get Countries');
-    pool.connect(function (err, db, done) {
-      if (err) {
-        console.log("Error connecting: ", err);
-        res.sendStatus(500);
-      }
-      else {
-        var queryText = 'SELECT * FROM "countries";';
-        db.query(queryText, function (errorMakingQuery, result) {
-          done();
-          if (errorMakingQuery) {
-            console.log('Error with country GET', errorMakingQuery);
-            res.sendStatus(501);
-          } else {
-            res.send(result);
-          }
-        });
-      }
-    });
+  console.log('Get Countries');
+  pool.connect(function (err, db, done) {
+    if (err) {
+      console.log("Error connecting: ", err);
+      res.sendStatus(500);
+    }
+    else {
+      var queryText = 'SELECT * FROM "countries";';
+      db.query(queryText, function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('Error with country GET', errorMakingQuery);
+          res.sendStatus(501);
+        } else {
+          res.send(result);
+        }
+      });
+    }
+  });
 
 });
 

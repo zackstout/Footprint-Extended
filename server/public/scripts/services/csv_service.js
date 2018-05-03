@@ -133,7 +133,7 @@ myApp.service('csvService', function ($http, $location, UserService) {
 
 
 
-// Post new FP to DB:
+  // Post new FP to DB:
   vm.postProjects = function (proj) {
     console.log('postin', proj);
     $http.post('/footprints/project_submit', proj).then(function (response) {

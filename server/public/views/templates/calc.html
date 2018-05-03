@@ -4,7 +4,7 @@
     <md-button type="button" class="md-primary md-raised" ng-click="cc.toHome()">Back to Home</md-button>
   </div>
 
-  <p id="instruct">Enter information about your current diesel-powered system to generate stats about a conversion to a solar grid.</p>
+  <p layout="row" layout-align="center center" id="instruct">Let's forecast your transition from a diesel-powered system to a solar grid:</p>
   <br>
   <!-- DIESEL: -->
   <div layout="row" layout-align="center center">
@@ -62,7 +62,7 @@
 <br><br>
 
 
-
+<hr>
 
 <!-- SOLAR: -->
 <div layout="row" layout-align="center center" ng-show="cc.progress > 1">
@@ -109,6 +109,10 @@
           <p>Time to cover costs:</p>
           <p class="output" id="cover">{{cc.coverTimeString}} days</p>
           <p>Savings after 5 years:</p>
+          <p class="output" id="savings">${{cc.savingsString}}</p>
+          <p>Savings after 10 years:</p>
+          <p class="output" id="savings">${{cc.savingsString}}</p>
+          <p>Carbon footprint avoided after 10 years:</p>
           <p class="output" id="savings">${{cc.savingsString}}</p>
         </div>
       </div>

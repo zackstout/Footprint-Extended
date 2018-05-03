@@ -131,7 +131,7 @@ myApp.service('UserService', function ($http, $location){
 
 
 
-
+  
 
   self.uploadTransition = function(data) {
     $http.post('/csv/trial_transition', data).then(function(res) {

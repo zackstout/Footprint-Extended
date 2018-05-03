@@ -3,7 +3,7 @@ myApp.service('donutService', function($http, $location, UserService) {
   console.log('donutService Loaded');
   // var self = this;
 
-//amateur hour over here, i forgot to assign the crucial variable:
+  //amateur hour over here, i forgot to assign the crucial variable:
   var self = this;
 
   function curryDivisions(url) {
@@ -48,12 +48,12 @@ myApp.service('donutService', function($http, $location, UserService) {
   console.log(self.getFpDividedByPeriod);
   console.log(self.getUserFpDividedByPeriod);
 
-// HMM it would appear we don't have to call this....not sure why:
+  // HMM it would appear we don't have to call this....not sure why:
   // self.getFpDividedByProject();
 
 
-// Definitely need this for drawing the user's customized donut chart:
-//testing the donut function:
+  // Definitely need this for drawing the user's customized donut chart:
+  //testing the donut function:
   self.getDonut = function(view, particular, slice) {
     if (view == 'period') {
       particular = particular.slice(0, 10);
