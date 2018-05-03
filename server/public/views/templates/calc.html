@@ -28,7 +28,7 @@
         </div>
         <div layout="column" class="outputCol">
           <p>Usage (kWh/day):</p>
-          <p class="output" id="dieselUsage">{{cc.dieselUsage}} kWh/day</p>
+          <p class="output" id="dieselUsage">{{cc.dieselUsageString}} kWh/day</p>
         </div>
       </div>
     </md-card>
@@ -49,11 +49,11 @@
         </div>
         <div layout="column" class="outputCol">
           <p>Monthly cost:</p>
-          <p class="output" id="month">${{cc.month}}</p>
+          <p class="output" id="month">${{cc.monthString}}</p>
           <p>Annual cost: </p>
-          <p class="output" id="year">${{cc.year}}</p>
+          <p class="output" id="year">${{cc.yearString}}</p>
           <p>Annual carbon footprint:</p>
-          <p class="output" id="carbonOut">{{cc.carbon}} kg</p>
+          <p class="output" id="carbonOut">{{cc.carbonString}} kg</p>
         </div>
       </div>
     </md-card>
@@ -86,7 +86,7 @@
         </div>
         <div layout="column" class="outputCol">
           <p>Estimated size needed (kW):</p>
-          <p class="output" id="solarSize">{{cc.solarSize}} kW</p>
+          <p class="output" id="solarSize">{{cc.solarSizeString}} kW</p>
         </div>
       </div>
     </md-card>
@@ -105,11 +105,11 @@
         </div>
         <div layout="column" class="outputCol" ng-show="cc.allDone">
           <p>Cost of solar-powered system:</p>
-          <p class="output" id="solarCost">${{cc.solarCost}}</p>
+          <p class="output" id="solarCost">${{cc.solarCostString}}</p>
           <p>Time to cover costs:</p>
-          <p class="output" id="cover">{{cc.coverTime}} days</p>
+          <p class="output" id="cover">{{cc.coverTimeString}} days</p>
           <p>Savings after 5 years:</p>
-          <p class="output" id="savings">${{cc.savings}}</p>
+          <p class="output" id="savings">${{cc.savingsString}}</p>
         </div>
       </div>
     </md-card>
