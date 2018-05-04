@@ -26,7 +26,9 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
     vm.dashBarShow = true;
   };
 
-
+  vm.toCalculator = function() {
+    $location.path('/calc');
+  };
 
   // gets the data for the DASHBOARD lineChart displaying org's carbon impact
   vm.lineChart = function () {
