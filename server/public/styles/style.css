@@ -6,6 +6,15 @@ body, html {
 
 }
 
+.underline {
+  text-decoration: underline;
+}
+
+.transitionTitle {
+  /*background-color: orange;*/
+  margin-bottom: 90px;
+}
+
 /*.calcContainer {
   position: relative;
   width: 90%;
@@ -23,6 +32,7 @@ body, html {
 
 .calcExp {
   font-style: italic;
+  font-size: 18px;
 }
 
 .calculatorCard {
@@ -43,7 +53,24 @@ body, html {
 
 #instruct {
   padding-left: 70px;
-  font-size: 18px;
+  font-size: 21px;
+}
+
+.carbonButton {
+  background-color: pink;
+  border-radius: 10px;
+  width: 30%;
+  height: 120px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 100px;
+  font-size: 25px;
+  padding: 27px;
+}
+
+.carbonButton:hover {
+  cursor: pointer;
+  background-color: lightpink;
 }
 
 /*.calculatorCard2 {

@@ -6,15 +6,11 @@
     <md-button aria-label=" " ng-show="uc.showButton" ng-click="uc.navigate()">Back to Admin Dashboard</md-button>
   </div>
 
-
   <div id="dashheader" layout="row" layout-align="center center">
     <h1>{{uc.userObject.organization}} DASHBOARD</h1>
     <!-- <img id="globe" src="images/globe.png"> -->
   </div>
 
-
-
-  
 
   <div layout="row">
     <div id="dashline" flex="70">
@@ -22,7 +18,6 @@
 
       <canvas id="linechart" width="400" height="225"></canvas>
       <!-- <canvas id="line-chart" width="400" height="225"></canvas> -->
-
     </div>
 
     <div flex="25">
@@ -40,12 +35,32 @@
 </div>
 
 
+<br>
+<br>
+<hr>
+
+<h1 layout layout-align="center center">VISUALIZE YOUR IMPACT</h1>
 
 
 
-<h1>VISUALIZE YOUR IMPACT</h1>
+
+
+<div layout="row" layout-align="center center">
+  <div ng-click="uc.dashDonut()" class="carbonButton" layout layout-align="center center">
+    CUSTOMIZE YOUR VIEW
+  </div>
+  <div ng-click="uc.dashBar()" class="carbonButton" layout layout-align="center center">
+    VIEW BY CATEGORY OF USE
+  </div>
+</div>
+
+
+
+
+
+<!-- Initially hidden: -->
 <!-- DONUTS: -->
-<div id="dashdonut" layout="row" flex>
+<div id="dashdonut" ng-show="uc.dashDonutShow" layout="row" flex>
   <div layout="column" flex="15">
     <h2>TARGET YOUR IMPACT, CUSTOMIZE YOUR VIEW</h2>
     <div>
@@ -111,8 +126,13 @@
 
 
 
+
+
+
+
+
 <!-- BARS: -->
-<div id="dashbar" layout="row" flex>
+<div id="dashbar" ng-show="uc.dashBarShow" layout="row" flex>
   <div layout="column" flex="15">
     <h2>VIEW IMPACT BY CATEGORY OF USE</h2>
     <div>
@@ -148,5 +168,11 @@
     <canvas id="barChart" width="400" height="225"></canvas>
   </div>
 </div>
+
+<br>
+<hr>
+
+<h1 layout layout-align="center center">TRANSITION TO SOLAR</h1>
+
 
 </md-content>

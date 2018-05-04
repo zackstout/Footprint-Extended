@@ -13,6 +13,21 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
   vm.showButton=false;
 
 
+  vm.dashBarShow = false;
+  vm.dashDonutShow = false;
+
+  vm.dashDonut = function() {
+    vm.dashBarShow = false;
+    vm.dashDonutShow = true;
+  };
+
+  vm.dashBar = function() {
+    vm.dashDonutShow = false;
+    vm.dashBarShow = true;
+  };
+
+
+
   // gets the data for the DASHBOARD lineChart displaying org's carbon impact
   vm.lineChart = function () {
     donutService.getUserFpDividedByPeriod().then(function (response) {

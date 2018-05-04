@@ -51,13 +51,14 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
   vm.budget = 3.25;
 
   // We're going to have to attach this to each user's session -- but they have't even logged in yet... Do we force them to?
+  // Actually it seems like maybe Angular is smart enough to make this OK?
   vm.progress = 0;
 
   // Submit function -- should prob just split into 4:
   vm.submit = function(prog) {
     // increment hide/show progress:
     // is this going to break if multiple users doing it at once? Probably.
-    vm.progress = prog + 1;
+    vm.progress = prog + 1; // why am i passing an argument for this?
 
     //update values of outputs -- Or maybe this is unnecessary given the ng-changes?:
     vm.dailyLiters = vm.calculateDailyLiters();
@@ -164,10 +165,12 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
     vm.solarCostString = cleanNumber(vm.calculateSolarCost());
     vm.coverTimeString = cleanNumber(vm.calculateCoverTime());
     vm.savingsString = cleanNumber(vm.calculateSavings(5));
+    vm.savingsTenString = cleanNumber(vm.calculateSavings(10));
 
     vm.solarCost = vm.calculateSolarCost();
     vm.coverTime = vm.calculateCoverTime();
     vm.savings = vm.calculateSavings(5);
+    vm.savingsTen = vm.calculateSavings(10);
   };
 
   vm.changeDailyLiters = () => {
@@ -189,13 +192,15 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
   };
 
   vm.changeMonthlyCost = () => {
-    vm.monthString = cleanNumber(vm.calculateMonthlyCost());
-    vm.yearString = cleanNumber(vm.calculateAnnualCost());
-    vm.carbonString = cleanNumber(vm.calculateCarbon());
-
     vm.month = vm.calculateMonthlyCost();
     vm.year = vm.calculateAnnualCost();
     vm.carbon = vm.calculateCarbon();
+    vm.savingsCarbon = 10 * vm.carbon;
+
+    vm.monthString = cleanNumber(vm.calculateMonthlyCost());
+    vm.yearString = cleanNumber(vm.calculateAnnualCost());
+    vm.carbonString = cleanNumber(vm.calculateCarbon());
+    vm.savingsCarbonString = cleanNumber(10 * vm.carbon);
   };
 
 
@@ -212,6 +217,9 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
   vm.carbon = vm.calculateCarbon();
   vm.coverTime = vm.calculateCoverTime();
   vm.savings = vm.calculateSavings(5);
+  vm.savingsTen = vm.calculateSavings(10);
+  vm.savingsCarbon = vm.carbon * 10;
+
 
   vm.dieselUsageString = cleanNumber(vm.calculateDieselUse()); // note: this is actually kWh/day
   vm.dailyLitersString = cleanNumber(vm.calculateDailyLiters()); // note: this is actually gallons/day
@@ -222,5 +230,7 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
   vm.carbonString = cleanNumber(vm.calculateCarbon());
   vm.coverTimeString = cleanNumber(vm.calculateCoverTime());
   vm.savingsString = cleanNumber(vm.calculateSavings(5));
+  vm.savingsTenString = cleanNumber(vm.calculateSavings(10));
+  vm.savingsCarbonString = cleanNumber(vm.carbon * 10);
 
 });

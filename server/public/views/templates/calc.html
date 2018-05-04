@@ -6,10 +6,12 @@
 
   <p layout="row" layout-align="center center" id="instruct">Let's forecast your transition from a diesel-powered system to a solar grid:</p>
   <br>
+  <hr>
   <!-- DIESEL: -->
   <div layout="row" layout-align="center center">
-    <h1>Diesel-powered System</h1>
+    <h1 class="underline">Diesel-powered System</h1>
   </div>
+
 
   <div layout="row" layout-align="center center">
     <md-card class="calculatorCard" id="card1">
@@ -66,7 +68,7 @@
 
 <!-- SOLAR: -->
 <div layout="row" layout-align="center center" ng-show="cc.progress > 1">
-  <h1>Solar-powered System</h1>
+  <h1 class="transitionTitle underline">Solar-powered System</h1>
 </div>
 <br><br>
 
@@ -112,9 +114,9 @@
           <p>Savings after 5 years:</p>
           <p class="output" id="savings">${{cc.savingsString}}</p>
           <p>Savings after 10 years:</p>
-          <p class="output" id="savings">${{cc.savingsString}}</p>
-          <p>Carbon footprint avoided after 10 years:</p>
-          <p class="output" id="savings">${{cc.savingsString}}</p>
+          <p class="output" id="savings">${{cc.savingsTenString}}</p>
+          <p>Carbon savings after 10 years:</p>
+          <p class="output" id="savings">{{cc.savingsCarbonString}} kg</p>
         </div>
       </div>
     </md-card>
