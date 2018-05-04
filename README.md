@@ -11,12 +11,12 @@
 - [ ] Add response to user when footprint or project has been successfully posted/edited.
 - [ ] Disallow user from uploading new month for already-uploaded month.
 - [ ] Would be nice to fix the page refresh issue (cacheing, etc.).
-- [ ] Split up controllers and services further.
-- [ ] Add animations for the diesel-to-solar calculator.
+- [ ] Split up controllers and services further (especially user controller and user service).
+- [x] Add animations for the diesel-to-solar calculator.
 - [ ] Add animations for the user-customizable charts, to ensure that there's not so much gaping white space before charts are generated. Move two large buttons to two tabs on the left when user clicks one.
 - [ ] Let user view current CSV when editing or deleting -- or for that matter, show them on hover on the page or something.
-- [ ] Add more instructions for the user on how to navigate through the site.
+- [x] Add more instructions for the user on how to navigate through the site.
 - [ ] Bug: adding new CSV doesn't seem to be affecting totals graph, unless the numbers are too small to be affecting it.
 - [ ] Bug: we broke graphs when refactoring. -- Almost fixed (had to change route URLs).
-- [ ] Store user-entered data about diesel systems (like with trial footprints) for admin to view.
+- [x] Store user-entered data about diesel systems (like with trial footprints) for admin to view.
 - [ ] Bug with `md-options` and duplicate values. Just clear all values on submit?
