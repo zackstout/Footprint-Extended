@@ -5,31 +5,18 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
 
   vm.allDone = false;
 
-  // vm.userService = UserService;
+  vm.toggle = true;
 
   vm.toHome = function() {
     $location.path('/home');
   };
 
-  // In case they came to the tool from user dashboard:
-  // vm.toDash = function() {
-  //   $location.path('/user');
-  // };
-
-  // Well this locks them out if not a user....
-  // UserService.getuser();
-
-  // Ok this is all we need -- check if empty:
-  // console.log(UserService.userObject.userName);
+  vm.toggleClick = function() {
+    vm.toggle = !vm.toggle;
+  };
 
   // almost working: the problem is we aren't clearing out userObject on logout:
   vm.userAuthenticated = UserService.userObject.userName != undefined;
-
-  // console.log(vm.userAuthenticated);
-
-
-
-
 
   //Hmm I wonder whether ng-changes can be chained, so that changing inputs could change one output, whose change could trigger other changes. Probably!
   // NO! Thwarted! "The ng-change event is only triggered if there is a actual change in the input value, and not if the change was made from a JavaScript."
@@ -58,8 +45,6 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
   }
 
 
-  // console.log(cleanNumber(12434.24));
-
   // going to have to fix this, probably (multiple users problem):
   vm.progress = 0;
 
@@ -73,7 +58,7 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
   vm.budget = 3.25;
 
   // We're going to have to attach this to each user's session -- but they have't even logged in yet... Do we force them to?
-  // Actually it seems like maybe Angular is smart enough to make this OK?
+  // Actually it seems like maybe Angular is smart enough to make this OK? Maybe because it's just on the CLIENT?
   vm.progress = 0;
 
   // Submit function -- should prob just split into 4:
@@ -83,7 +68,8 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
     vm.progress = prog + 1; // why am i passing an argument for this?
 
     //update values of outputs -- Or maybe this is unnecessary given the ng-changes?:
-    vm.dailyLiters = vm.calculateDailyLiters();
+    // vm.dailyLiters = vm.calculateDailyLiters();
+    // Hmm, does seem unnecessary. Doesn't fix the binding problem though.
 
     // Maybe we *make* them click submit on 3 before showing values? Then we can save to DB.
     console.log(prog);
@@ -123,7 +109,6 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
         budget: vm.budget,
         userId: UserService.userObject.id
       };
-
 
       UserService.uploadTransition(data);
 

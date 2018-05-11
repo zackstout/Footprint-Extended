@@ -1,15 +1,10 @@
 <div class="calcContainer" >
 
-  <!-- <div class="goHome">
-  </div> -->
-
   <div layout="row" layout-align="start start" class="navigateback">
     <md-button ng-show="cc.userAuthenticated" href="/#/user">BACK TO DASHBOARD</md-button><span flex></span>
     <md-button ng-hide="cc.userAuthenticated" class="md-primary md-raised" ng-click="cc.toHome()">Back to Home</md-button>
-
   </div>
 
-  <!-- NOTE: ABOVE BUTTON WILL HAVE TO GO BACK TO DASHBOARD, FOR AUTHENTICATED USER. -->
 
   <p layout="row" layout-align="center center" id="instruct">Let's forecast your transition from a diesel-powered system to a solar grid:</p>
   <br>
@@ -38,6 +33,10 @@
         <div layout="column" class="outputCol">
           <p>Usage (kWh/day):</p>
           <p class="output" id="dieselUsage">{{cc.dieselUsageString}} kWh/day</p>
+
+          <!-- <p ng-click="cc.toggleClick()" ng-show="cc.toggle" class="output" id="dieselUsage">{{cc.dieselUsageString}} kWh/day</p> -->
+          <!-- No, thwarted again by two-way binding! To use ng-change, we need ng-model, but that fixes it. -->
+          <!-- <input ng-change="cc.changeDieselUse()" ng-model="cc.dieselUsage" ng-hide="cc.toggle" type="text" name="" value="{{cc.dieselUsage}}"> -->
         </div>
       </div>
     </md-card>
