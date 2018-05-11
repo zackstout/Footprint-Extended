@@ -28,4 +28,27 @@ router.post('/trial_transition', function (req, res) {
   });
 });
 
+// Post authenticated user's data to DB:
+router.post('/user_transition', function (req, res) {
+  // Oh duh, we don't wanna check whether user is authenticated here!
+  console.log("BODY: ", req.body);
+  var data = req.body;
+  pool.connect(function (err, db, done) {
+    if (err) {
+      console.log('Error connecting', err);
+      res.sendStatus(500);
+    } else {
+      var queryText = 'INSERT INTO "user_transitions" (size, hours, load, "costPerLiter", overspec, "dayPower", budget, "userId") VALUES ($1, $2, $3, $4, $5, $6, $7, $8);'; // remember, need quote marks for case-sensitive col names.
+
+      db.query(queryText, [data.size, data.hours, data.load, data.cost, data.overspec, data.dayPower, data.budget, parseInt(data.userId)], function (errorMakingQuery, result) {
+        if (errorMakingQuery) {
+          console.log('Error with country GET', errorMakingQuery);
+        } else {
+          res.sendStatus(201);
+        }
+      });
+    }
+  });
+});
+
 module.exports = router;

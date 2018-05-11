@@ -121,7 +121,7 @@ myApp.service('UserService', function ($http, $location){
   //Function that logs out user
   self.logout = function() {
     console.log('UserService -- logout');
-    
+
     // clear out the user object:
     self.userObject = {};
     $http.get('/user2/logout').then(function(response) {
@@ -137,10 +137,21 @@ myApp.service('UserService', function ($http, $location){
 
 
   self.uploadTransition = function(data) {
-    $http.post('/csv/trial_transition', data).then(function(res) {
-      // odd that we don't see this, but whatever, appears to be working:
-      console.log('allo'); // Hmm, now we do...
-    });
+    // check whether user is logged in:
+    if (data.userId == undefined) {
+      $http.post('/csv/trial_transition', data).then(function(res) {
+        // console.log(data);
+        // odd that we don't see this, but whatever, appears to be working:
+        console.log('allo'); // Hmm, now we do...
+      });
+    } else {
+      $http.post('/csv/user_transition', data).then(function(res) {
+        // console.log(data);
+        // odd that we don't see this, but whatever, appears to be working:
+        console.log('allo mate'); // Hmm, now we do...
+      });
+    }
+
   };
 
 

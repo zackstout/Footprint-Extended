@@ -1,11 +1,11 @@
 
-myApp.controller('CalcController', function (transitionService, anchorSmoothScroll, UserService, $http, $location, $anchorScroll, $timeout) {
+myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $http, $location, $anchorScroll, $timeout) {
   console.log('CalcController created');
   var vm = this;
 
   vm.allDone = false;
 
-  vm.userService = UserService;
+  // vm.userService = UserService;
 
   vm.toHome = function() {
     $location.path('/home');
@@ -20,12 +20,12 @@ myApp.controller('CalcController', function (transitionService, anchorSmoothScro
   // UserService.getuser();
 
   // Ok this is all we need -- check if empty:
-  console.log(UserService.userObject.userName);
+  // console.log(UserService.userObject.userName);
 
   // almost working: the problem is we aren't clearing out userObject on logout:
   vm.userAuthenticated = UserService.userObject.userName != undefined;
 
-  console.log(vm.userAuthenticated);
+  // console.log(vm.userAuthenticated);
 
 
 
@@ -120,8 +120,10 @@ myApp.controller('CalcController', function (transitionService, anchorSmoothScro
         cost: vm.costPerLiter,
         overspec: vm.overspec,
         dayPower: vm.dayPower,
-        budget: vm.budget
+        budget: vm.budget,
+        userId: UserService.userObject.id
       };
+
 
       UserService.uploadTransition(data);
 
