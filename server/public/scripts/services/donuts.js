@@ -44,9 +44,9 @@ myApp.service('donutService', function($http, $location, UserService) {
   self.getFpDividedByProject = curryDivisions('/chart/footprint_by_project');
   self.getFpDividedByPeriod = curryDivisions('/chart/footprints_footprint_by_period');
   self.getUserFpDividedByPeriod = curryDivisions('/chart/footprint_by_period');
-  console.log(self.getFpDividedByProject);
-  console.log(self.getFpDividedByPeriod);
-  console.log(self.getUserFpDividedByPeriod);
+  // console.log(self.getFpDividedByProject);
+  // console.log(self.getFpDividedByPeriod);
+  // console.log(self.getUserFpDividedByPeriod);
 
   // HMM it would appear we don't have to call this....not sure why:
   // self.getFpDividedByProject();

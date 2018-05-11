@@ -1,13 +1,35 @@
 
-myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $http, $location, $anchorScroll, $timeout) {
+myApp.controller('CalcController', function (transitionService, anchorSmoothScroll, UserService, $http, $location, $anchorScroll, $timeout) {
   console.log('CalcController created');
   var vm = this;
 
   vm.allDone = false;
 
+  vm.userService = UserService;
+
   vm.toHome = function() {
     $location.path('/home');
   };
+
+  // In case they came to the tool from user dashboard:
+  // vm.toDash = function() {
+  //   $location.path('/user');
+  // };
+
+  // Well this locks them out if not a user....
+  // UserService.getuser();
+
+  // Ok this is all we need -- check if empty:
+  console.log(UserService.userObject.userName);
+
+  // almost working: the problem is we aren't clearing out userObject on logout:
+  vm.userAuthenticated = UserService.userObject.userName != undefined;
+
+  console.log(vm.userAuthenticated);
+
+
+
+
 
   //Hmm I wonder whether ng-changes can be chained, so that changing inputs could change one output, whose change could trigger other changes. Probably!
   // NO! Thwarted! "The ng-change event is only triggered if there is a actual change in the input value, and not if the change was made from a JavaScript."
@@ -36,7 +58,7 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
   }
 
 
-  console.log(cleanNumber(12434.24));
+  // console.log(cleanNumber(12434.24));
 
   // going to have to fix this, probably (multiple users problem):
   vm.progress = 0;

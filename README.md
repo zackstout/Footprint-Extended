@@ -14,6 +14,7 @@
 - [ ] Change gallons/day to input.
 - [ ] Let user get to transition tool and save their data.
 - [ ] Bug: adding new CSV doesn't seem to be affecting totals graph, unless the numbers are too small to be affecting it.
+- [ ] Bug: sometimes controller reloads when you submit second part of transition tool (???).
 - [ ] Bug: we broke graphs when refactoring. -- Almost fixed (had to change route URLs).
 - [ ] Bug with `md-options` and duplicate values. Just clear all values on submit?
 - [ ] Bug: When budget per watt is higher, time to cover costs should also be higher (since cost of solar grid is higher). We see the opposite effect. Yeah, time-to-cover-cost function is definitely broken.

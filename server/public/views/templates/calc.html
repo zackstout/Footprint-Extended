@@ -1,7 +1,12 @@
 <div class="calcContainer" >
 
-  <div class="goHome">
-    <md-button type="button" class="md-primary md-raised" ng-click="cc.toHome()">Back to Home</md-button>
+  <!-- <div class="goHome">
+  </div> -->
+
+  <div layout="row" layout-align="start start" class="navigateback">
+    <md-button ng-show="cc.userAuthenticated" href="/#/user">BACK TO DASHBOARD</md-button><span flex></span>
+    <md-button ng-hide="cc.userAuthenticated" class="md-primary md-raised" ng-click="cc.toHome()">Back to Home</md-button>
+
   </div>
 
   <!-- NOTE: ABOVE BUTTON WILL HAVE TO GO BACK TO DASHBOARD, FOR AUTHENTICATED USER. -->
@@ -48,7 +53,7 @@
         <div layout="column" class="inputCol">
 
           <!-- NOTE: Though this presents as an input, the user cannot change it!!!! -->
-          
+
           Gallons/day: <input type="text" ng-model="cc.dailyLiters" ng-change="cc.changeDailyLiters()">
           Cost/gallon: <input type="text" ng-model="cc.costPerLiter" ng-change="cc.changeDieselCost()">
           <md-button class="md-primary md-raised" ng-click="cc.submit(1)">Submit</md-button>

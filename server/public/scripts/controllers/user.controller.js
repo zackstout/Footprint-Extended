@@ -1,4 +1,4 @@
-myApp.controller('UserController', function (UserService, $mdDialog, $http, $filter, donutService, $location) {
+myApp.controller('UserController', function (transitionService, UserService, $mdDialog, $http, $filter, donutService, $location) {
   console.log('UserController created');
   var vm = this;
   vm.userService = UserService;

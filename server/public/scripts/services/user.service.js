@@ -121,6 +121,9 @@ myApp.service('UserService', function ($http, $location){
   //Function that logs out user
   self.logout = function() {
     console.log('UserService -- logout');
+    
+    // clear out the user object:
+    self.userObject = {};
     $http.get('/user2/logout').then(function(response) {
       console.log('UserService -- logout -- logged out');
       window.location.href = '/#/home';
@@ -131,12 +134,12 @@ myApp.service('UserService', function ($http, $location){
 
 
 
-  
+
 
   self.uploadTransition = function(data) {
     $http.post('/csv/trial_transition', data).then(function(res) {
       // odd that we don't see this, but whatever, appears to be working:
-      console.log('allo');
+      console.log('allo'); // Hmm, now we do...
     });
   };
 
