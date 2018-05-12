@@ -25,6 +25,7 @@
       </div>
       <div layout="row" layout-align="center top">
         <div layout="column" class="inputCol">
+          <!-- ng blur? -->
           Size (kW): <input type="text" ng-model="cc.size" ng-change="cc.changeDieselUse()"><br>
           Hours/day running: <input type="text" ng-model="cc.hours" ng-change="cc.changeDieselUse()"><br>
           Percentage load: <input type="text" ng-model="cc.load" ng-change="cc.changeDieselUse()">
@@ -43,7 +44,7 @@
 
     <md-card class="calculatorCard" ng-show="cc.progress > 0" id="card2">
       <div class="calcExp">
-        Compute costs of estimated diesel consumption:
+        Compute costs of estimated diesel consumption (or enter your own if you know it):
       </div>
       <div class="calcTitle">
         <h2>Diesel Costs</h2>
@@ -52,16 +53,19 @@
         <div layout="column" class="inputCol">
 
           <!-- NOTE: Though this presents as an input, the user cannot change it!!!! -->
-
-          Gallons/day: <input type="text" ng-model="cc.dailyLiters" ng-change="cc.changeDailyLiters()">
+          <!-- Ugh, if we take away ng-change, we can alter the input text...but it affects nothing. -->
+          Gallons/day (est.): <input type="text" ng-model="cc.dailyLiters" ng-change="cc.changeDieselCost()">
+          Gallons/day (known): <input type="text" ng-model="cc.dailyLitersKnown" ng-change="cc.changeDailyLitersKnown()">
           Cost/gallon: <input type="text" ng-model="cc.costPerLiter" ng-change="cc.changeDieselCost()">
           <md-button class="md-primary md-raised" ng-click="cc.submit(1)">Submit</md-button>
         </div>
         <div layout="column" class="outputCol">
           <p>Monthly cost:</p>
           <p class="output" id="month">${{cc.monthString}}</p>
+
           <p>Annual cost: </p>
           <p class="output" id="year">${{cc.yearString}}</p>
+
           <p>Annual carbon footprint:</p>
           <p class="output" id="carbonOut">{{cc.carbonString}} kg</p>
         </div>
@@ -117,12 +121,16 @@
         <div layout="column" class="outputCol" ng-show="cc.allDone">
           <p>Cost of solar-powered system:</p>
           <p class="output" id="solarCost">${{cc.solarCostString}}</p>
+
           <p>Time to cover costs:</p>
           <p class="output" id="cover">{{cc.coverTimeString}} days</p>
-          <p>Savings after 5 years:</p>
-          <p class="output" id="savings">${{cc.savingsString}}</p>
-          <p>Savings after 10 years:</p>
-          <p class="output" id="savings">${{cc.savingsTenString}}</p>
+
+          <p ng-show="cc.savings > 0">Savings after 5 years:</p>
+          <p ng-show="cc.savings > 0" class="output" id="savings">${{cc.savingsString}}</p>
+
+          <p ng-show="cc.savingsTen > 0">Savings after 10 years:</p>
+          <p ng-show="cc.savingsTen > 0" class="output" id="savings">${{cc.savingsTenString}}</p>
+
           <p>Carbon savings after 10 years:</p>
           <p class="output" id="savings">{{cc.savingsCarbonString}} kg</p>
         </div>

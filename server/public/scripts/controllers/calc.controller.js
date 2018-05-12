@@ -1,9 +1,12 @@
 
-myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $http, $location, $anchorScroll, $timeout) {
+myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserService, $http, $location, $anchorScroll, $timeout) {
+
   console.log('CalcController created');
   var vm = this;
 
   vm.allDone = false;
+
+  $scope.ngModel = '=';
 
   vm.toggle = true;
 
@@ -57,6 +60,8 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
   vm.dayPower = 75;
   vm.budget = 3.25;
 
+  vm.dailyLitersKnown = 0;
+
   // We're going to have to attach this to each user's session -- but they have't even logged in yet... Do we force them to?
   // Actually it seems like maybe Angular is smart enough to make this OK? Maybe because it's just on the CLIENT?
   vm.progress = 0;
@@ -79,9 +84,9 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
       var card2 = document.getElementById('card2');
       card2.classList.add('green');
 
-      // Ok, needs to be wrapped in $timeout.... And still not animating the scroll.
+      // Ok, needs to be wrapped in $timeout.... And still not animating the scroll (sometimes??).
       $timeout(function() {
-        // Hmm seems to not work when you come from Home page and try immediately.
+        // Hmm seems to not work when you come from Home page and try immediately. The controller reloads sometimes (?) in that case.
         $location.hash('card3');
         anchorSmoothScroll.scrollTo('card3');
       });
@@ -151,16 +156,87 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
   // Handle changes to input fields:
   // ===========================
 
+  // vm.changeDieselUse = () => {
+  //   vm.dieselUsageString = cleanNumber(vm.calculateDieselUse());
+  //   vm.dieselUsage = vm.calculateDieselUse();
+  //
+  //   vm.changeDailyLiters();
+  //   vm.changeSolarSize();
+  // };
+  //
+  // vm.changeSolarSize = () => {
+  //   vm.solarSizeString = cleanNumber(vm.calculateSolarSize());
+  //   vm.solarSize = vm.calculateSolarSize();
+  //
+  //   vm.changeSolarCost();
+  // };
+  //
+  // vm.changeSolarCost = () => {
+  //   vm.solarCostString = cleanNumber(vm.calculateSolarCost());
+  //   vm.coverTimeString = cleanNumber(vm.calculateCoverTime());
+  //   vm.savingsString = cleanNumber(vm.calculateSavings(5));
+  //   vm.savingsTenString = cleanNumber(vm.calculateSavings(10));
+  //
+  //   vm.solarCost = vm.calculateSolarCost();
+  //   vm.coverTime = vm.calculateCoverTime();
+  //   vm.savings = vm.calculateSavings(5);
+  //   vm.savingsTen = vm.calculateSavings(10);
+  // };
+  //
+  // vm.changeDailyLiters = () => {
+  //   vm.dailyLitersString = cleanNumber(vm.calculateDailyLiters());
+  //   vm.dailyLiters = vm.calculateDailyLiters();
+  //
+  //   vm.changeMonthlyCost();
+  //   vm.changeSolarCost();
+  // };
+  //
+  // // This is gallons, not liters, per day, and only a rough estimate based on the chart (http://www.dieselserviceandsupply.com/Diesel_Fuel_Consumption.aspx):
+  // // This should also be called when any of first 3 inputs are changed:
+  // vm.changeDieselCost = () => {
+  //   vm.dailyLitersString = cleanNumber(vm.calculateDailyLiters());
+  //   vm.dailyLiters = vm.calculateDailyLiters();
+  //
+  //   vm.changeMonthlyCost();
+  //   vm.changeSolarCost();
+  // };
+  //
+  // vm.changeMonthlyCost = () => {
+  //   vm.month = vm.calculateMonthlyCost();
+  //   vm.year = vm.calculateAnnualCost();
+  //   vm.carbon = vm.calculateCarbon();
+  //   vm.savingsCarbon = 10 * vm.carbon;
+  //
+  //   vm.monthString = cleanNumber(vm.calculateMonthlyCost());
+  //   vm.yearString = cleanNumber(vm.calculateAnnualCost());
+  //   vm.carbonString = cleanNumber(vm.calculateCarbon());
+  //   vm.savingsCarbonString = cleanNumber(10 * vm.carbon);
+  // };
+
+
+
+
+
+
+
+
+
+
+
+
+  vm.changeDailyLitersKnown = () => {
+    vm.dailyLiters = vm.dailyLitersKnown;
+
+    vm.changeMonthlyCost();
+    vm.changeSolarCost();
+  };
+
   vm.changeDieselUse = () => {
     vm.dieselUsageString = cleanNumber(vm.calculateDieselUse());
     vm.dieselUsage = vm.calculateDieselUse();
 
-    // or do we want to call change functions.... yeah.
-    // vm.dailyLiters = vm.calculateDailyLiters();
-    // vm.solarSize = vm.calculateSolarSize();
-    vm.changeDailyLiters();
+    vm.changeDieselCost();
     vm.changeSolarSize();
-
   };
 
   vm.changeSolarSize = () => {
@@ -182,22 +258,24 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
     vm.savingsTen = vm.calculateSavings(10);
   };
 
-  vm.changeDailyLiters = () => {
-    vm.dailyLitersString = cleanNumber(vm.calculateDailyLiters());
-    vm.dailyLiters = vm.calculateDailyLiters();
-
-    vm.changeMonthlyCost();
-    vm.changeSolarCost();
-  };
+  // vm.changeDailyLiters = (value) => {
+  //   $scope.ngModel = value;
+  //   vm.dailyLiters = vm.calculateDailyLiters();
+  //
+  //   vm.changeMonthlyCost();
+  //   vm.changeSolarCost();
+  //   // vm.load = 95;
+  // };
 
   // This is gallons, not liters, per day, and only a rough estimate based on the chart (http://www.dieselserviceandsupply.com/Diesel_Fuel_Consumption.aspx):
   // This should also be called when any of first 3 inputs are changed:
   vm.changeDieselCost = () => {
-    vm.dailyLitersString = cleanNumber(vm.calculateDailyLiters());
     vm.dailyLiters = vm.calculateDailyLiters();
 
     vm.changeMonthlyCost();
     vm.changeSolarCost();
+    // This blocks us from altering that value. so it's because the value is being fixed in the controller.
+    // vm.load = 95;
   };
 
   vm.changeMonthlyCost = () => {
@@ -231,7 +309,6 @@ myApp.controller('CalcController', function (anchorSmoothScroll, UserService, $h
 
 
   vm.dieselUsageString = cleanNumber(vm.calculateDieselUse()); // note: this is actually kWh/day
-  vm.dailyLitersString = cleanNumber(vm.calculateDailyLiters()); // note: this is actually gallons/day
   vm.monthString = cleanNumber(vm.calculateMonthlyCost());
   vm.yearString = cleanNumber(vm.calculateAnnualCost());
   vm.solarSizeString = cleanNumber(vm.calculateSolarSize());
