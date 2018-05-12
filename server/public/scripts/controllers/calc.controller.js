@@ -6,16 +6,8 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
 
   vm.allDone = false;
 
-  $scope.ngModel = '=';
-
-  vm.toggle = true;
-
   vm.toHome = function() {
     $location.path('/home');
-  };
-
-  vm.toggleClick = function() {
-    vm.toggle = !vm.toggle;
   };
 
   // almost working: the problem is we aren't clearing out userObject on logout:
@@ -47,8 +39,7 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
     return res;
   }
 
-
-  // going to have to fix this, probably (multiple users problem):
+  // All on the client, so this is fine:
   vm.progress = 0;
 
   // Inputs:
@@ -62,19 +53,10 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
 
   vm.dailyLitersKnown = 0;
 
-  // We're going to have to attach this to each user's session -- but they have't even logged in yet... Do we force them to?
-  // Actually it seems like maybe Angular is smart enough to make this OK? Maybe because it's just on the CLIENT?
-  vm.progress = 0;
-
   // Submit function -- should prob just split into 4:
   vm.submit = function(prog) {
     // increment hide/show progress:
-    // is this going to break if multiple users doing it at once? Probably.
     vm.progress = prog + 1; // why am i passing an argument for this?
-
-    //update values of outputs -- Or maybe this is unnecessary given the ng-changes?:
-    // vm.dailyLiters = vm.calculateDailyLiters();
-    // Hmm, does seem unnecessary. Doesn't fix the binding problem though.
 
     // Maybe we *make* them click submit on 3 before showing values? Then we can save to DB.
     console.log(prog);
@@ -99,7 +81,7 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
     }
 
     if (prog == 3) {
-      // we'll need to grab the data here, and hide results until click.
+      // Need to grab the data here, and hide results until click.
       var card4 = document.getElementById('card4');
       card4.classList.add('green');
       vm.allDone = true;
@@ -130,8 +112,8 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
   // Calculations for outputs:
   // ===========================
 
-  vm.calculateDieselUse = () => (vm.size * vm.hours * vm.load/100).toFixed(2); // Oh big mistake, *don't* divide by 24. Because we want kWh/day.
-  vm.calculateDailyLiters = () => (vm.dieselUsage / 15).toFixed(2); // Also *don't* multiply by 24 here.
+  vm.calculateDieselUse = () => (vm.size * vm.hours * vm.load/100).toFixed(2);
+  vm.calculateDailyLiters = () => (vm.dieselUsage / 15).toFixed(2);
   vm.calculateMonthlyCost = () => (30 * vm.dailyLiters * vm.costPerLiter).toFixed(2);
   vm.calculateAnnualCost = () => (vm.month * 12).toFixed(2);
   // 2.8 kg carbon per liter. 3.8 liters per gallon.
@@ -147,10 +129,7 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
   vm.calculateSavings = (x) => ((x * 365 - vm.coverTime) * vm.dailyLiters * vm.costPerLiter).toFixed(2);
 
 
-  // BUG: if gas costs more, the time to cover costs should always get higher, no matter what. bUt that is not occuring. NO! That's false! If the cost increases, we'd expect it to pay itself back FASTER. Duh.
   // The real BUG is that size of solar grid is not appropriately sensitive to dayPower -- it *might* be fine for overspec.
-
-
 
 
   // ===========================
@@ -162,7 +141,7 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
   vm.changeDailyLitersKnown = () => {
     vm.dailyLiters = vm.dailyLitersKnown;
 
-    // we'll also want to change the future stuff.... E.g. size of needed solar grid.
+    // Change the future stuff.... E.g. size of needed solar grid:
     vm.dieselUsage = (15 * vm.dailyLiters).toFixed(2);
     vm.dieselUsageString = cleanNumber(vm.dieselUsage);
 
@@ -205,8 +184,6 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
 
     vm.changeMonthlyCost();
     vm.changeSolarCost();
-    // This blocks us from altering that value. so it's because the value is being fixed in the controller.
-    // vm.load = 95;
   };
 
   vm.changeMonthlyCost = () => {
