@@ -17,7 +17,8 @@
 
 ## Next Steps:
 - [ ] Change DB posts to reflect our workaround (user can alter dailyGallons).
-- [ ] Look into Excel formatting (??).
+- [ ] Look into Excel formatting -- ugh, turning into a big headache.
+- [ ] As is deployment...why isn't it working anymore???
 - [ ] Bug: All charts work; the issue is with changing to a new query after having viewed one chart. So it's an Angular/Chart.js issue, not an issue with the logic. (Same) bug with `md-options` and duplicate values. Just clear all values on submit?
 - [ ] Bug: sometimes controller reloads when you submit second part of transition tool (???).
 - [ ] Bug: When budget per watt is higher, time to cover costs should also be higher (since cost of solar grid is higher). We see the opposite effect. Yeah, time-to-cover-cost function is definitely broken. *I am fairly confident this is because of an ordering problem* -- because on the happy path, if you happen to do things in the right order, the math works out.
