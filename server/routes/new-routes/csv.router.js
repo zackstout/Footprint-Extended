@@ -5,6 +5,10 @@ var passport = require('passport');
 var path = require('path');
 var pool = require('../../modules/pool.js');
 
+
+// NOTE: Will have to add DailyLiters to the tables, to reflect our shitty workaround. (actually would have to do it no matter what..)
+
+
 // Post user's trial transition data to DB:
 router.post('/trial_transition', function (req, res) {
   // Oh duh, we don't wanna check whether user is authenticated here!

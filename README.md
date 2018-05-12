@@ -12,15 +12,18 @@
 - [x] Let user get to transition tool and save their data; display proper return-button and post to proper table in database.
 - [x] Fixed graphs that were broken in refactoring by changing route URLs.
 - [x] Only display fiscal savings if it's a positive number.
+- [x] Added a workaround (second input) for now. [Problem: Change gallons/day to input (and probably also kWh/ day). Seems to be a 2-way binding issue. Yeesh... a lot of research into angular is turning up nothing for fixing this. There must be an easy fix.]
 
 
 ## Next Steps:
-- [ ] Change gallons/day to input (and probably also kWh/ day). Seems to be a 2-way binding issue. Yeesh... a lot of research into angular is turning up nothing for fixing this. There must be an easy fix.
+- [ ] Change DB posts to reflect our workaround (user can alter dailyGallons).
 - [ ] Look into Excel formatting (??).
 - [ ] Bug: All charts work; the issue is with changing to a new query after having viewed one chart. So it's an Angular/Chart.js issue, not an issue with the logic. (Same) bug with `md-options` and duplicate values. Just clear all values on submit?
 - [ ] Bug: sometimes controller reloads when you submit second part of transition tool (???).
-- [ ] Bug: When budget per watt is higher, time to cover costs should also be higher (since cost of solar grid is higher). We see the opposite effect. Yeah, time-to-cover-cost function is definitely broken.
+- [ ] Bug: When budget per watt is higher, time to cover costs should also be higher (since cost of solar grid is higher). We see the opposite effect. Yeah, time-to-cover-cost function is definitely broken. *I am fairly confident this is because of an ordering problem* -- because on the happy path, if you happen to do things in the right order, the math works out.
 - [ ] Bug: adding new CSV doesn't seem to be affecting totals graph, unless the numbers are too small to be affecting it.
+- [ ] Make sure to test uploading test CSVs and see that graphs properly reflect them.
+
 
 ## Quality of Life Improvements:
 - [ ] Add response to user when footprint or project has been successfully posted/edited.
@@ -33,3 +36,5 @@
 - [ ] Let user choose metric or non for transition tool.
 - [ ] Add hover text to clarify the meaning of overspec and day Power.
 - [ ] Add a "no data for this query" image or text, so there's more than just an error in the console.
+- [ ] Should probably just remove Start date/End date columns from the CSV altogether.
+- [ ] Ensure there are hover-changes on *every* button.

@@ -112,7 +112,8 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
         overspec: vm.overspec,
         dayPower: vm.dayPower,
         budget: vm.budget,
-        userId: UserService.userObject.id
+        userId: UserService.userObject.id,
+        liters: vm.dailyLiters
       };
 
       UserService.uploadTransition(data);
@@ -156,79 +157,17 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
   // Handle changes to input fields:
   // ===========================
 
-  // vm.changeDieselUse = () => {
-  //   vm.dieselUsageString = cleanNumber(vm.calculateDieselUse());
-  //   vm.dieselUsage = vm.calculateDieselUse();
-  //
-  //   vm.changeDailyLiters();
-  //   vm.changeSolarSize();
-  // };
-  //
-  // vm.changeSolarSize = () => {
-  //   vm.solarSizeString = cleanNumber(vm.calculateSolarSize());
-  //   vm.solarSize = vm.calculateSolarSize();
-  //
-  //   vm.changeSolarCost();
-  // };
-  //
-  // vm.changeSolarCost = () => {
-  //   vm.solarCostString = cleanNumber(vm.calculateSolarCost());
-  //   vm.coverTimeString = cleanNumber(vm.calculateCoverTime());
-  //   vm.savingsString = cleanNumber(vm.calculateSavings(5));
-  //   vm.savingsTenString = cleanNumber(vm.calculateSavings(10));
-  //
-  //   vm.solarCost = vm.calculateSolarCost();
-  //   vm.coverTime = vm.calculateCoverTime();
-  //   vm.savings = vm.calculateSavings(5);
-  //   vm.savingsTen = vm.calculateSavings(10);
-  // };
-  //
-  // vm.changeDailyLiters = () => {
-  //   vm.dailyLitersString = cleanNumber(vm.calculateDailyLiters());
-  //   vm.dailyLiters = vm.calculateDailyLiters();
-  //
-  //   vm.changeMonthlyCost();
-  //   vm.changeSolarCost();
-  // };
-  //
-  // // This is gallons, not liters, per day, and only a rough estimate based on the chart (http://www.dieselserviceandsupply.com/Diesel_Fuel_Consumption.aspx):
-  // // This should also be called when any of first 3 inputs are changed:
-  // vm.changeDieselCost = () => {
-  //   vm.dailyLitersString = cleanNumber(vm.calculateDailyLiters());
-  //   vm.dailyLiters = vm.calculateDailyLiters();
-  //
-  //   vm.changeMonthlyCost();
-  //   vm.changeSolarCost();
-  // };
-  //
-  // vm.changeMonthlyCost = () => {
-  //   vm.month = vm.calculateMonthlyCost();
-  //   vm.year = vm.calculateAnnualCost();
-  //   vm.carbon = vm.calculateCarbon();
-  //   vm.savingsCarbon = 10 * vm.carbon;
-  //
-  //   vm.monthString = cleanNumber(vm.calculateMonthlyCost());
-  //   vm.yearString = cleanNumber(vm.calculateAnnualCost());
-  //   vm.carbonString = cleanNumber(vm.calculateCarbon());
-  //   vm.savingsCarbonString = cleanNumber(10 * vm.carbon);
-  // };
 
-
-
-
-
-
-
-
-
-
-
-
+  // Ok this seems to be working as a poor-man's workaround for now:
   vm.changeDailyLitersKnown = () => {
     vm.dailyLiters = vm.dailyLitersKnown;
 
+    // we'll also want to change the future stuff.... E.g. size of needed solar grid.
+    vm.dieselUsage = (15 * vm.dailyLiters).toFixed(2);
+    vm.dieselUsageString = cleanNumber(vm.dieselUsage);
+
     vm.changeMonthlyCost();
-    vm.changeSolarCost();
+    vm.changeSolarSize();
   };
 
   vm.changeDieselUse = () => {
@@ -258,14 +197,6 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
     vm.savingsTen = vm.calculateSavings(10);
   };
 
-  // vm.changeDailyLiters = (value) => {
-  //   $scope.ngModel = value;
-  //   vm.dailyLiters = vm.calculateDailyLiters();
-  //
-  //   vm.changeMonthlyCost();
-  //   vm.changeSolarCost();
-  //   // vm.load = 95;
-  // };
 
   // This is gallons, not liters, per day, and only a rough estimate based on the chart (http://www.dieselserviceandsupply.com/Diesel_Fuel_Consumption.aspx):
   // This should also be called when any of first 3 inputs are changed:

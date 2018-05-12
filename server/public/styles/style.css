@@ -10,6 +10,10 @@ body, html {
   text-decoration: underline;
 }
 
+#dieselUsage2 {
+  margin-bottom: 12px;
+}
+
 .transitionTitle {
   /*background-color: orange;*/
   margin-bottom: 90px;
@@ -125,7 +129,8 @@ body, html {
   margin-top: 3px;
   margin-bottom: 3px;
   margin-left: 22px;
-  font-size: 19px;
+  font-size: 20.5px;
+  /*background-color: lightBlue;*/
 }
 
 .inputCol, .outputCol {

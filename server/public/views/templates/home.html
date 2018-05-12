@@ -29,8 +29,9 @@
             <label>Organization Name</label>
             <input ng-model="user.selectedOrganization">
           </md-input-container>
-          <a href="./assets/footprint_template_real.csv" download>Download Metric CSV</a>
-          <a href="./assets/footprint_template_real_nonmetric.csv" id="nonmetric" download>Download Non-Metric CSV</a>
+          <a href="./assets/footprint_template_real_nonmetric.csv" id="nonmetric" download="footprint_template.csv">Download Non-Metric CSV</a>
+
+          <a href="./assets/footprint_template_real.csv" download="footprint_template_metric.csv">Download Metric CSV</a>
         </div>
 
         <div class="upload-btn-wrapper">
@@ -39,7 +40,7 @@
           </md-button>
           <input type="file" id="file" name="myfile">
         </div>
-
+        <br>
         <div>
           <md-radio-group ng-model="data.type">
             <md-radio-button value="Metric" class="md-primary"> Metric </md-radio-button>

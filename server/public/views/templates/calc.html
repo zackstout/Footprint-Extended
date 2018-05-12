@@ -44,7 +44,10 @@
 
     <md-card class="calculatorCard" ng-show="cc.progress > 0" id="card2">
       <div class="calcExp">
-        Compute costs of estimated diesel consumption (or enter your own if you know it):
+        Compute costs of estimated diesel consumption
+      </div>
+      <div class="calcExp" layout layout-align="center center">
+        (or enter your own if you know it):
       </div>
       <div class="calcTitle">
         <h2>Diesel Costs</h2>
@@ -54,7 +57,10 @@
 
           <!-- NOTE: Though this presents as an input, the user cannot change it!!!! -->
           <!-- Ugh, if we take away ng-change, we can alter the input text...but it affects nothing. -->
-          Gallons/day (est.): <input type="text" ng-model="cc.dailyLiters" ng-change="cc.changeDieselCost()">
+          <!-- Gallons/day (est.): <input type="text" ng-model="cc.dailyLiters" ng-change="cc.changeDieselCost()"> -->
+          <p>Gallons/day (est.):</p>
+          <p class="output" id="dieselUsage2">{{cc.dailyLiters}} gallons/day</p>
+
           Gallons/day (known): <input type="text" ng-model="cc.dailyLitersKnown" ng-change="cc.changeDailyLitersKnown()">
           Cost/gallon: <input type="text" ng-model="cc.costPerLiter" ng-change="cc.changeDieselCost()">
           <md-button class="md-primary md-raised" ng-click="cc.submit(1)">Submit</md-button>
