@@ -56,7 +56,7 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
   // Submit function -- should prob just split into 4:
   vm.submit = function(prog) {
     // increment hide/show progress:
-    vm.progress = prog + 1; // why am i passing an argument for this?
+    vm.progress = prog + 1; // why am i passing an argument for this? Ah. Because we don't want user to be able to click four times on first submit button.
 
     // Maybe we *make* them click submit on 3 before showing values? Then we can save to DB.
     console.log(prog);
@@ -69,7 +69,7 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
       // Ok, needs to be wrapped in $timeout.... And still not animating the scroll (sometimes??).
       $timeout(function() {
         // Hmm seems to not work when you come from Home page and try immediately. The controller reloads sometimes (?) in that case.
-        $location.hash('card3');
+        // $location.hash('card3'); // Ok, this was the toxic line, awesome.
         anchorSmoothScroll.scrollTo('card3');
       });
 

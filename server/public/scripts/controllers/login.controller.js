@@ -51,6 +51,41 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
 
 
 
+  vm.ExcelToJSON = function() {
+    var f = document.getElementById('file').files[0];
+
+    // this.parseExcel = function(file) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        var data = reader.result;
+        var workbook = XLSX.read(data, {
+          type: 'binary'
+        });
+
+        workbook.SheetNames.forEach(function(sheetName) {
+          // Here is your object
+          var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+          var json_object = JSON.stringify(XL_row_object);
+          console.log(json_object);
+
+        });
+
+      };
+
+      reader.onerror = function(ex) {
+        console.log(ex);
+      };
+
+      reader.readAsBinaryString(f);
+    };
+  // };
+
+
+
+
+
+
 
 
 

@@ -9,6 +9,7 @@
 ### Bug-fixing:
 - [x] Fixed bug where CSV was not being properly parsed (because of extra date column).
 - [x] Fixed bug where conversion to Imperial measurement required integer value.
+- [x] Fixed bug where sometimes controller reloads when you submit second part of transition tool -- was an issue with hashing (which were stored in URL and hence cached on refresh, but not hard refresh).
 
 ### New features:
 - [x] Created new page and hide/show functionality for sequential diesel-to-solar calculator.
@@ -23,14 +24,15 @@
 ## Next Steps:
 ### High-priority:
 - [ ] Change DB posts to reflect our workaround (user can alter dailyGallons).
-- [ ] Look into Excel formatting -- ugh, turning into a big headache. Could try saving as different file type, rather than `.csv`.
+- [ ] Look into Excel formatting -- ugh, turning into a big headache. Could try saving as different file type, rather than `.csv`. I'm thinking easiest way might be to just *add new Download button* for Excel version, and write that template in Excel. (Toggle metric/non so we don't have 4 buttons).
+- [ ] OH!, it may turn out to be far simpler, if Numbers is smart enough to interpret Excel-based documents, then we'll only need the Excel-generated one.
 - [ ] As is deployment...why isn't it working anymore???
-- [ ] Non-metric CSV is not correct.
+- [ ] Non-metric CSV is not correct. (will be easy to fix when adding in Excel versions.)
 
 ### Bugs:
 - [ ] Bug: All charts work; the issue is with changing to a new query after having viewed one chart. So it's an Angular/Chart.js issue, not an issue with the logic. (Same) bug with `md-options` and duplicate values. Just clear all values on submit?
-- [ ] Bug: sometimes controller reloads when you submit second part of transition tool (???).
 - [ ] Bug: When budget per watt is higher, time to cover costs should also be higher (since cost of solar grid is higher). We see the opposite effect. Yeah, time-to-cover-cost function is definitely broken. *I am fairly confident this is because of an ordering problem* -- because on the happy path, if you happen to do things in the right order, the math works out.
+- [ ] I don't think size of solar grid is appropriately sensitive to overspec/dayPower.
 - [ ] Bug: adding new CSV doesn't seem to be affecting totals graph, unless the numbers are too small to be affecting it.
 
 ### Testing:

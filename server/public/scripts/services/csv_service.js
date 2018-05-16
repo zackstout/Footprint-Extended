@@ -8,7 +8,10 @@ myApp.service('csvService', function ($http, $location, UserService) {
 
   // all good but for those two pairs of hanger-ons
 
+
+
   vm.masterParse = function(data) {
+    // console.log(ExcelToJSON(data));
     var dataNums = data.slice(data.lastIndexOf('kWh'), data.indexOf(',,,,,,,,,,'));
     var arrayOfNums = dataNums.split(',');
     var csv = {
