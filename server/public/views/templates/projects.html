@@ -23,7 +23,7 @@
         <th>DELETE</th>
 
       </tr>
-      <tr ng-repeat="projectFootprint in pc.projectFootprints">
+      <tr ng-repeat="projectFootprint in pc.projectFootprints" ng-mouseover="pc.hoverFootprint($event)" class="footprint-row" id="footprint_{{projectFootprint.id}}">
         <td>{{projectFootprint.period | date: "MMM yyyy"}}</td>
         <td><md-button class="md-raised md-primary" ng-click="pc.editModal($event, $index)">Edit</md-button></td>
         <td>

@@ -25,9 +25,11 @@
 ### High-priority:
 - [ ] Change DB posts to reflect our workaround (user can alter dailyGallons).
 - [ ] Look into Excel formatting -- ugh, turning into a big headache. Could try saving as different file type, rather than `.csv`. I'm thinking easiest way might be to just *add new Download button* for Excel version, and write that template in Excel. (Toggle metric/non so we don't have 4 buttons).
-- [ ] OH!, it may turn out to be far simpler, if Numbers is smart enough to interpret Excel-based documents, then we'll only need the Excel-generated one.
+    - [ ] OH!, it may turn out to be far simpler, if Numbers is smart enough to interpret Excel-based documents, then we'll only need the Excel-generated one.
+    - [ ] Might turn out to be as simple as "ONLY SELECT THE COMMA BOX" and "MAKE SURE YOU SAVE AS .CSV"
 - [ ] As is deployment...why isn't it working anymore???
 - [ ] Non-metric CSV is not correct. (will be easy to fix when adding in Excel versions.)
+- [ ] Need to make mobile-friendly (or AT LEAST tablet-friendly).
 
 ### Bugs:
 - [ ] Bug: All charts work; the issue is with changing to a new query after having viewed one chart. So it's an Angular/Chart.js issue, not an issue with the logic. (Same) bug with `md-options` and duplicate values. Just clear all values on submit?

@@ -95,7 +95,8 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
         dayPower: vm.dayPower,
         budget: vm.budget,
         userId: UserService.userObject.id,
-        liters: vm.dailyLiters
+        liters: vm.dailyLiters,
+        litersKnown: vm.dailyLitersKnown // Wait, if we're already grabbing liters, we shouldn't need this. Just need to adjust SQL query.
       };
 
       UserService.uploadTransition(data);

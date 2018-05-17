@@ -10,12 +10,16 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
     vm.projectFootprints = [];
     vm.userObj = UserService.userObj;
 
+    vm.hoverFootprint = function(ev) {
+      console.log(ev.target.parentElement.id);
+    };
+
     //gets the footprints for selected project
     vm.getProjectFootprints = function (id) {
 
         UserService.getProjectFootprints(id).then(function(response){
             vm.projectFootprints = UserService.selectedProjectFootprints;
-
+            console.log(vm.projectFootprints);
             //add alert for catch
         }).catch(function (error) {
             console.log(error, 'error getting footprints for selected project');
