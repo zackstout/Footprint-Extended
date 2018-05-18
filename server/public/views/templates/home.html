@@ -29,10 +29,14 @@
             <label>Organization Name</label>
             <input ng-model="user.selectedOrganization">
           </md-input-container>
-          <a href="./assets/footprint_template_real_nonmetric.csv" id="nonmetric" download="footprint_template.csv">Download Non-Metric CSV</a>
 
-          <!-- <a href="./assets/footprint_template_real.csv" download="footprint_template_metric.csv">Download Metric CSV</a> -->
-          <a href="./assets/footprint_template_real.csv" download="footprint_template_real2.csv">Download Metric CSV</a>
+          <div class="downloadTemplates">
+            <a href="./assets/footprint_template_real_nonmetric.csv" id="nonmetric" download="footprint_template.csv">Download Non-Metric CSV</a>
+            <br>
+            <!-- <a href="./assets/footprint_template_real.csv" download="footprint_template_metric.csv">Download Metric CSV</a> -->
+            <a href="./assets/footprint_template_real.csv" id="metric" download="footprint_template_real2.csv">Download Metric CSV</a>
+
+          </div>
 
         </div>
 
@@ -52,7 +56,7 @@
       </div>
       <div id="homeSubmit">
         <md-button class="md-primary md-raised" ng-click="lc.getUserData(user); lc.uploadFile(); lc.dataType(data)">Submit Data</md-button>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdA4eLoZ4m_Ec_nLWfnloq8z-tselxp6phQhOEKnYxvUQ-eRw/viewform">Give us feedback!</a>
+        <span id="feedbackCont"><a id="feedbackSub" href="https://docs.google.com/forms/d/e/1FAIpQLSdA4eLoZ4m_Ec_nLWfnloq8z-tselxp6phQhOEKnYxvUQ-eRw/viewform">Give us feedback!</a></span>
          <img ng-mouseleave="lc.unhoverHelp($event)" ng-mouseover="lc.hoverHelp($event)" id="helpIcon" src="../../assets/help_icon.png" width="30px">
       </div>
     </div>
