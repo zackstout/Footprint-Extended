@@ -19,14 +19,14 @@
 - [x] Let user get to transition tool and save their data; display proper return-button and post to proper table in database.
 - [x] Only display fiscal savings if it's a positive number.
 - [x] Added a workaround (second input) for now. [Problem: Change gallons/day to input (and probably also kWh/ day). Seems to be a 2-way binding issue. Yeesh... a lot of research into angular is turning up nothing for fixing this. There must be an easy fix.]
+- [x] Added instructions for using Excel (the formatting is fine on Dad's and Kyle's computers).
 
 
 ## Next Steps:
 ### High-priority:
 - [ ] Change DB posts to reflect our workaround (user can alter dailyGallons).
-- [ ] Look into Excel formatting -- ugh, turning into a big headache. Could try saving as different file type, rather than `.csv`. I'm thinking easiest way might be to just *add new Download button* for Excel version, and write that template in Excel. (Toggle metric/non so we don't have 4 buttons).
-    - [ ] OH!, it may turn out to be far simpler, if Numbers is smart enough to interpret Excel-based documents, then we'll only need the Excel-generated one.
-    - [ ] Might turn out to be as simple as "ONLY SELECT THE COMMA BOX" and "MAKE SURE YOU SAVE AS .CSV"
+    - [ ] This is a bit harder than I thought. We need to know whether or not user has altered that field (?) -- I guess we can check whether kWh/day is equal to product of the first three input fields.
+    - [ ] No, an easier way to check is to see if knownDailyLiters is same as dailyLiters.
 - [ ] As is deployment...why isn't it working anymore???
 - [ ] Non-metric CSV is not correct. (will be easy to fix when adding in Excel versions.)
 - [ ] Need to make mobile-friendly (or AT LEAST tablet-friendly).
@@ -51,6 +51,7 @@
 - [ ] Add a "no data for this query" image or text, so there's more than just an error in the console.
 - [ ] Should probably just remove Start date/End date columns from the CSV altogether.
 - [ ] Ensure there are hover-changes on *every* button.
+- [ ] On Projects page, display project's country and type(s).
 
 ### Less simple:
 - [ ] Would be nice to fix the page refresh issue (cacheing, etc.).

@@ -53,7 +53,12 @@
       <div id="homeSubmit">
         <md-button class="md-primary md-raised" ng-click="lc.getUserData(user); lc.uploadFile(); lc.dataType(data)">Submit Data</md-button>
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSdA4eLoZ4m_Ec_nLWfnloq8z-tselxp6phQhOEKnYxvUQ-eRw/viewform">Give us feedback!</a>
+         <img ng-mouseleave="lc.unhoverHelp($event)" ng-mouseover="lc.hoverHelp($event)" id="helpIcon" src="../../assets/help_icon.png" width="30px">
       </div>
+    </div>
+    <br>
+    <div layout layout-align="center center" ng-show="lc.showHelp">
+      If you're using Excel, if prompted to choose how to separate the data, select "By Comma." Please save your file as a CSV!
     </div>
 
     <br><hr>

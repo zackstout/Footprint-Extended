@@ -134,6 +134,19 @@ myApp.service('UserService', function ($http, $location){
 
 
 
+// Oh isn't that so much more pleasant to the eye?
+  self.getFootprint = function(id) {
+    console.log('hello', id);
+    $http.get('/footprints/footprint')
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
+
+
+
+
+
 
 
   self.uploadTransition = function(data) {

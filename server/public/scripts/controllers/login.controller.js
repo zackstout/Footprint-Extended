@@ -18,7 +18,20 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
   vm.userFootprint = csvService.userFootprint;
   vm.lineData = [];
   vm.hide = false;
+  vm.showHelp = false;
 
+  // var icon = document.getElementById('helpIcon');
+  // console.log(icon);
+
+  vm.hoverHelp = function(ev) {
+    // console.log(ev);
+    vm.showHelp = true;
+  };
+
+  vm.unhoverHelp = function(ev) {
+    // console.log(ev);
+    vm.showHelp = false;
+  };
 
   vm.toCalculator = function() {
     $location.path('/calc');

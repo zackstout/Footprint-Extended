@@ -138,6 +138,9 @@ router.post('/project_submit', function (req, res) {
 
 
 
+// GET ROUTE FOR HOVER FEATURE:
+
+// will need to run through living/shipping/travel. Should probably also take into account whether they saved as metric or not.
 
 
 

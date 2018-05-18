@@ -11,10 +11,17 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
     vm.userObj = UserService.userObj;
 
     vm.hoverFootprint = function(ev) {
-      console.log(ev.target.parentElement.id);
+      // console.log(ev.target.parentElement.id);
+      var id = ev.target.parentElement.id;
+      var real_id = parseInt(id.slice(id.indexOf('_') + 1));
+      // console.log(real_id);
+
+      if (!isNaN(real_id)) {
+        UserService.getFootprint(real_id);
+      }
     };
 
-    //gets the footprints for selected project
+    // Gets the footprints for selected project
     vm.getProjectFootprints = function (id) {
 
         UserService.getProjectFootprints(id).then(function(response){

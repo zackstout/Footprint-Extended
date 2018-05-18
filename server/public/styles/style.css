@@ -155,7 +155,9 @@ body, html {
 } */
 
 
-
+#helpIcon {
+  float: right;
+}
 
 
 
