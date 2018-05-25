@@ -7,9 +7,26 @@ body, html {
 }
 
 @media only screen and (max-width: 1250px) {
-    body {
-        background-color: lightblue;
+    .breakTag {
+        display: inline;
     }
+    .calculatorCard {
+      background-color: lightblue;
+      display: block;
+    }
+    .calcContainer {
+      display: block;
+    }
+}
+
+.calcContainer {
+  /*display: block;
+  float: left;
+  margin-right: 10px;*/
+}
+
+.breakTag {
+  display: none;
 }
 
 .underline {

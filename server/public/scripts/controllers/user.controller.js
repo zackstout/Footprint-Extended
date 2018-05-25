@@ -194,22 +194,24 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
       var computedFp = UserService.computeFootprint(response.data[0]);
       var bars = [];
       // MUST BE CLEANER WAY TO LOOP THROUGH AN OBJECT:
-      bars.push(Math.round(computedFp.air,1));
-      bars.push(Math.round(computedFp.truck,1));
-      bars.push(Math.round(computedFp.sea,1));
-      bars.push(Math.round(computedFp.freight_train, 1));
-      bars.push(Math.round(computedFp.plane, 1));
-      bars.push(Math.round(computedFp.car, 1));
-      bars.push(Math.round(computedFp.train, 1));
-      bars.push(Math.round(computedFp.hotel, 1));
-      bars.push(Math.round(computedFp.fuel, 1));
-      bars.push(Math.round(computedFp.grid, 1));
-      bars.push(Math.round(computedFp.propane, 1));
+
+      for (var key in computedFp) {
+        bars.push(Math.round(computedFp[key], 1));
+      }
+      // bars.push(Math.round(computedFp.air,1));
+      // bars.push(Math.round(computedFp.truck,1));
+      // bars.push(Math.round(computedFp.sea,1));
+      // bars.push(Math.round(computedFp.freight_train, 1));
+      // bars.push(Math.round(computedFp.plane, 1));
+      // bars.push(Math.round(computedFp.car, 1));
+      // bars.push(Math.round(computedFp.train, 1));
+      // bars.push(Math.round(computedFp.hotel, 1));
+      // bars.push(Math.round(computedFp.fuel, 1));
+      // bars.push(Math.round(computedFp.grid, 1));
+      // bars.push(Math.round(computedFp.propane, 1));
       var canvas = document.getElementById("barChart");
 
-
-
-      new Chart(document.getElementById("barChart"), {
+      new Chart(canvas, {
         type: 'bar',
         data: {
           labels: ['air', 'truck', 'sea', 'freight train', 'plane', 'car', 'train', 'hotel', 'fuel', 'grid', 'propane'],
