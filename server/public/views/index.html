@@ -1,77 +1,84 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Footprint</title>
-        <!-- This file should go after all the other styles: -->
-        <link rel="stylesheet" href="styles/style.css">
-        <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-        <script type="text/javascript" src="vendors/angular/angular.js"></script>
-        <script type="text/javascript" src="vendors/angular-route/angular-route.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="vendors/angular-material.min.css">
-        <script src="vendors/angular-material.min.js" charset="utf-8"></script>
-        <script src="vendors/angular-animate.min.js" charset="utf-8"></script>
-        <script src="vendors/angular-aria.min.js" charset="utf-8"></script>
-        <script src="vendors/angular-messages.min.js" charset="utf-8"></script>
-        <script src="vendors/ng-file-upload.js" charset="utf-8"></script>
-        <script src="vendors/ng-file-upload-shim.min.js" charset="utf-8"></script>
-
-        <script type="text/javascript" src="scripts/client.js"></script>
-
-        <!-- OLD FILES: -->
-        <!-- <script
+<head>
+  <title>Footprint</title>
+  <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script> -->
+  crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
-        <script type="text/javascript" src="scripts/controllers/info.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/login.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/user.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/dashboarddialog.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/projects.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/projectcontroller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/admin.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/projectedit.controller.js"></script>
-        <script src="scripts/controllers/calc.controller.js" charset="utf-8"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-        <script type="text/javascript" src="scripts/services/user.service.js"></script>
-        <script type="text/javascript" src="scripts/services/donuts.js"></script>
-        <script src="scripts/services/csv_service.js" charset="utf-8"></script>
-        <script src="scripts/services/scroller.js" charset="utf-8"></script>
-        <script src="scripts/services/transition.service.js" charset="utf-8"></script>
+  <!-- This file should go after all the other styles: -->
+  <link rel="stylesheet" href="styles/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script type="text/javascript" src="vendors/angular/angular.js"></script>
+  <script type="text/javascript" src="vendors/angular-route/angular-route.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="vendors/angular-material.min.css">
+  <script src="vendors/angular-material.min.js" charset="utf-8"></script>
+  <script src="vendors/angular-animate.min.js" charset="utf-8"></script>
+  <script src="vendors/angular-aria.min.js" charset="utf-8"></script>
+  <script src="vendors/angular-messages.min.js" charset="utf-8"></script>
+  <script src="vendors/ng-file-upload.js" charset="utf-8"></script>
+  <script src="vendors/ng-file-upload-shim.min.js" charset="utf-8"></script>
+
+  <script type="text/javascript" src="scripts/client.js"></script>
+
+  <!-- OLD FILES: -->
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+  <script type="text/javascript" src="scripts/controllers/info.controller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/login.controller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/user.controller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/dashboarddialog.controller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/projects.controller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/projectcontroller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/admin.controller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/projectedit.controller.js"></script>
+  <script src="scripts/controllers/calc.controller.js" charset="utf-8"></script>
+
+  <script type="text/javascript" src="scripts/services/user.service.js"></script>
+  <script type="text/javascript" src="scripts/services/donuts.js"></script>
+  <script src="scripts/services/csv_service.js" charset="utf-8"></script>
+  <script src="scripts/services/scroller.js" charset="utf-8"></script>
+  <script src="scripts/services/transition.service.js" charset="utf-8"></script>
 
 
 
-        <!-- NEW FILES: -->
-        <!-- <script type="text/javascript" src="scripts/controllers/new-controllers/admin.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/new-controllers/auth.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/new-controllers/fpfp.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/new-controllers/project_delete.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/new-controllers/project_edit.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/new-controllers/project_post.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/new-controllers/trial.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/new-controllers/dashboard.controller.js"></script>
-        <script type="text/javascript" src="scripts/controllers/new-controllers/project_dashboard.controller.js"></script>
+  <!-- NEW FILES: -->
+  <!-- <script type="text/javascript" src="scripts/controllers/new-controllers/admin.controller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/new-controllers/auth.controller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/new-controllers/fpfp.controller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/new-controllers/project_delete.controller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/new-controllers/project_edit.controller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/new-controllers/project_post.controller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/new-controllers/trial.controller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/new-controllers/dashboard.controller.js"></script>
+  <script type="text/javascript" src="scripts/controllers/new-controllers/project_dashboard.controller.js"></script>
 
-        <script type="text/javascript" src="scripts/services/new-services/admin.service.js"></script>
-        <script type="text/javascript" src="scripts/services/new-services/chart-divisions.service.js"></script>
-        <script type="text/javascript" src="scripts/services/new-services/csv.service.js"></script>
-        <script type="text/javascript" src="scripts/services/new-services/donor.service.js"></script>
-        <script type="text/javascript" src="scripts/services/new-services/footprints.service.js"></script>
-        <script type="text/javascript" src="scripts/services/new-services/projects.service.js"></script>
-        <script type="text/javascript" src="scripts/services/new-services/user.service.js"></script> -->
-    </head>
+  <script type="text/javascript" src="scripts/services/new-services/admin.service.js"></script>
+  <script type="text/javascript" src="scripts/services/new-services/chart-divisions.service.js"></script>
+  <script type="text/javascript" src="scripts/services/new-services/csv.service.js"></script>
+  <script type="text/javascript" src="scripts/services/new-services/donor.service.js"></script>
+  <script type="text/javascript" src="scripts/services/new-services/footprints.service.js"></script>
+  <script type="text/javascript" src="scripts/services/new-services/projects.service.js"></script>
+  <script type="text/javascript" src="scripts/services/new-services/user.service.js"></script> -->
+</head>
 
-    <body ng-app="myApp">
-        <header ng-include="'/views/partials/header.html'"></header>
+<body ng-app="myApp">
+  <header ng-include="'/views/partials/header.html'"></header>
 
-        <!-- <div ng-include="'views/partials/nav.html'"></div> -->
-        <main ng-view>
+  <!-- <div ng-include="'views/partials/nav.html'"></div> -->
+  <main ng-view>
 
-        </main>
+  </main>
 
-    </body>
+</body>
 </html>

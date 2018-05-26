@@ -35,6 +35,31 @@ router.get('/countries', function (req, res) {
 
 });
 
+// Get name of certain country:
+router.get('/countries/:id', function (req, res) {
+
+  console.log('Get Countries name', req.params.id);
+  pool.connect(function (err, db, done) {
+    if (err) {
+      console.log("Error connecting: ", err);
+      res.sendStatus(500);
+    }
+    else {
+      var queryText = 'SELECT "name" FROM "countries" WHERE id=$1;';
+      db.query(queryText, [req.params.id], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('Error with country GET', errorMakingQuery);
+          res.sendStatus(501);
+        } else {
+          res.send(result);
+        }
+      });
+    }
+  });
+
+});
+
 // Create a project:
 router.post('/newproject', function (req, res) {
   if (req.isAuthenticated()) {

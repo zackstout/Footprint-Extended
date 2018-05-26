@@ -247,6 +247,31 @@ vm.submitQuery = function(view, particular, slice) {
 
 
 var myChart;
+var types = ['Health', "Food/Nutrition", "Education", 'Non-Food Items (NFI)', "Shelter", "Conflict", "Migration/Camp Management", "Faith-based", "Research", "Governance", "Business/Entrepreneur", "Donor"];
+
+// Asynchronicity is making this weird ...
+// function getCountryName(id) {
+//   return $http.get('/project/countries/' + id).then(function(res) {
+//     console.log(res.data.rows[0]);
+//     return res.data.rows[0].name;
+//   }).catch(function(err) {
+//     console.log(err);
+//   });
+// }
+
+var countries = [];
+
+function getAllCountries() {
+  return $http.get('/project/countries')
+    .then(res => res.data.rows.map(country => country.name)).catch(function(err) {
+      console.log(err);
+    });
+}
+
+getAllCountries().then(function(res) {
+  // console.log(res);
+  countries = res;
+});
 
 // Still should break into a few smaller functions:
 function sanitize(slice, resp) {
@@ -297,11 +322,21 @@ function sanitize(slice, resp) {
       var total = p.air + p.car + p.freight_train + p.fuel + p.grid + p.hotel + p.plane + p.propane + p.sea + p.train + p.truck;
 
       var label;
+
       switch(slice) {
         case 'Period': label = $filter('date')(p.period, 'MMM yyyy'); break;
         case 'Project': label = p.name; break;
-        case 'Type': label = p.type_id; break;
-        case 'Country': label = p.country_id; break;
+        // Wait, we want the actual type and country names, not the IDs, for the labels!
+
+        case 'Type':
+        label = types[p.type_id];
+        // var type_name = types[p.type_id];
+        // console.log(type_name);
+        break;
+
+        case 'Country':
+        label = countries[p.country_id];
+        break;
       }
 
       chart_labels.push(label);
@@ -324,8 +359,8 @@ function sanitize(slice, resp) {
   var border_color = slice === 'Period' ? "#3e95cd" : null;
   var background_color = slice === 'Period' ? null : ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#5F61D6", "#D6EDFF", "#D6D659", "#D7BDF2", "#89896B", "#C8931E"];
   var chart_fill = slice === 'Period' ? false : null;
-  var titleBit = vm.viewBy === 'period' ? vm.donutParticular.toString().substring(0, 10) : vm.donutParticular;
-  console.log(titleBit);
+  var titleBit = vm.viewBy === 'period' ? vm.donutParticular.substring(0, 10) : vm.donutParticular[0].toUpperCase() + vm.donutParticular.substring(1);
+  // console.log(titleBit);
   var chart_title = vm.slice === 'Period' ? "Carbon Footprint from " + vm.donutParticular + " Over Time" : "Carbon Footprint from " + titleBit + " divided by " + slice;
 
   // Draw new chart:
