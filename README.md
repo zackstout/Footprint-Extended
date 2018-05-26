@@ -31,6 +31,9 @@
 - [ ] Non-metric CSV is not correct. (will be easy to fix when adding in Excel versions.)
 - [ ] Need to make mobile-friendly (or AT LEAST tablet-friendly).
 - [ ] Do not show options for chart query unless it contains data.
+- [ ] Disallow user from entering two projects of same name (creates md-duplicate error)
+- [ ] Alert user if there is no data (i.e. identify all of those errors -- cannot read property plane of undefined, for example)
+
 
 ### Bugs:
 - [ ] Bug: All charts work; the issue is with changing to a new query after having viewed one chart. So it's an Angular/Chart.js issue, not an issue with the logic. (Same) bug with `md-options` and duplicate values. Just clear all values on submit?
