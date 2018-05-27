@@ -18,7 +18,7 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
       // controller: 'AuthController as ac',
     })
     .when('/calc', {
-      templateUrl: '/views/templates/calc.html',
+      templateUrl: '/views/templates/calc2.html',
       controller: 'CalcController as cc',
       // controller: 'AuthController as ac',
     })

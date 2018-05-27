@@ -59,31 +59,31 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
     vm.progress = prog + 1; // why am i passing an argument for this? Ah. Because we don't want user to be able to click four times on first submit button.
 
     // Maybe we *make* them click submit on 3 before showing values? Then we can save to DB.
-    console.log(prog);
+    console.log(vm.progress);
 
     if (prog == 1) {
 
-      var card2 = document.getElementById('card2');
-      card2.classList.add('green');
+      // var card2 = document.getElementById('card2');
+      // card2.classList.add('green');
 
       // Ok, needs to be wrapped in $timeout.... And still not animating the scroll (sometimes??).
       $timeout(function() {
         // Hmm seems to not work when you come from Home page and try immediately. The controller reloads sometimes (?) in that case.
         // $location.hash('card3'); // Ok, this was the toxic line, awesome.
-        anchorSmoothScroll.scrollTo('card3');
+        // anchorSmoothScroll.scrollTo('card3');
       });
 
     }
 
     if (prog == 2) {
-      var card3 = document.getElementById('card3');
-      card3.classList.add('card1');
+      // var card3 = document.getElementById('card3');
+      // card3.classList.add('card1');
     }
 
     if (prog == 3) {
       // Need to grab the data here, and hide results until click.
-      var card4 = document.getElementById('card4');
-      card4.classList.add('green');
+      // var card4 = document.getElementById('card4');
+      // card4.classList.add('green');
       vm.allDone = true;
 
       data = {
@@ -103,8 +103,8 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
 
     }
 
-    var card1 = document.getElementById('card1');
-    card1.classList.add("card1");
+    // var card1 = document.getElementById('card1');
+    // card1.classList.add("card1");
   };
 
 

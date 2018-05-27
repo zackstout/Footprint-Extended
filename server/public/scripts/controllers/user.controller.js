@@ -124,7 +124,9 @@ vm.showProject = function (ev, i) {
 
 //====================
 //BARS:
-//====================vm.barBy = '';
+//====================
+
+vm.barBy = '';
 vm.barParticular = '';
 vm.barResults = [];
 vm.activeSelector = '';
@@ -181,6 +183,7 @@ vm.submitBarQuery = function(view, particular) {
 //====================
 //DONUTS:
 //====================
+
 vm.viewBy = '';
 vm.viewByObject = {};
 vm.choseProj = false;
@@ -234,14 +237,6 @@ vm.submitQuery = function(view, particular, slice) {
     }
 
     sanitize(vm.sliceBy, response.data);
-
-    // Do we need this?
-    // vm.viewBy = '';
-    // vm.viewByObject = {};
-    // vm.choseProj = false;
-    // vm.activeSelectorDonut = '';
-    // vm.donutResults = [];
-    // vm.donutParticular = {};
   });
 };
 
@@ -249,15 +244,6 @@ vm.submitQuery = function(view, particular, slice) {
 var myChart;
 var types = ['Health', "Food/Nutrition", "Education", 'Non-Food Items (NFI)', "Shelter", "Conflict", "Migration/Camp Management", "Faith-based", "Research", "Governance", "Business/Entrepreneur", "Donor"];
 
-// Asynchronicity is making this weird ...
-// function getCountryName(id) {
-//   return $http.get('/project/countries/' + id).then(function(res) {
-//     console.log(res.data.rows[0]);
-//     return res.data.rows[0].name;
-//   }).catch(function(err) {
-//     console.log(err);
-//   });
-// }
 
 
 // SHOULD MOVE TH\ESE INTO SERVICE, JUST COPY PASTAING TO PROJECT CONTROLLER:

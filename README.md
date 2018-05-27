@@ -5,6 +5,7 @@
 - [x] Refactored CSV parsing and footprint computation to minimize code-duplication. (Consolidated trial upload, footprint upload and footprint edit to follow one set of functions.)
 - [x] Refactored routers into multiple files.
 - [x] Fixed graphs that were broken in refactoring by changing route URLs.
+- [x] Cleaned up the code for the custom doughnut/line charts, abstracting into one function.
 
 ### Bug-fixing:
 - [x] Fixed bug where CSV was not being properly parsed (because of extra date column).
@@ -20,6 +21,9 @@
 - [x] Only display fiscal savings if it's a positive number.
 - [x] Added a workaround (second input) for now. [Problem: Change gallons/day to input (and probably also kWh/ day). Seems to be a 2-way binding issue. Yeesh... a lot of research into angular is turning up nothing for fixing this. There must be an easy fix.]
 - [x] Added instructions for using Excel (the formatting is fine on Dad's and Kyle's computers).
+- [x] On Projects page, display project's country and type(s).
+- [x] Charts' legends now display names of countries and types.
+- [x] Cleaned up UI for Tracking tool on home (non-logged in) page.
 
 
 ## Next Steps:
@@ -40,6 +44,7 @@
 - [ ] Bug: When budget per watt is higher, time to cover costs should also be higher (since cost of solar grid is higher). We see the opposite effect. Yeah, time-to-cover-cost function is definitely broken. *I am fairly confident this is because of an ordering problem* -- because on the happy path, if you happen to do things in the right order, the math works out.
 - [ ] I don't think size of solar grid is appropriately sensitive to overspec/dayPower.
 - [ ] Bug: adding new CSV doesn't seem to be affecting totals graph, unless the numbers are too small to be affecting it.
+- [ ] Sometimes hovering over project names on side-dash makes them invisible???
 
 ### Testing:
 - [ ] Make sure to test uploading test CSVs and see that graphs properly reflect them.
@@ -55,7 +60,8 @@
 - [ ] Add a "no data for this query" image or text, so there's more than just an error in the console.
 - [ ] Should probably just remove Start date/End date columns from the CSV altogether.
 - [ ] Ensure there are hover-changes on *every* button.
-- [ ] On Projects page, display project's country and type(s).
+- [ ] Make background color on home screen uniform.
+- [ ] Make `hr` tags more visible.
 - [ ] Add ` isMetric` field to Footprints table (for hover feature).
 
 ### Less simple:
