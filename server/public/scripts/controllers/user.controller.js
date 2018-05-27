@@ -259,6 +259,8 @@ var types = ['Health', "Food/Nutrition", "Education", 'Non-Food Items (NFI)', "S
 //   });
 // }
 
+
+// SHOULD MOVE TH\ESE INTO SERVICE, JUST COPY PASTAING TO PROJECT CONTROLLER:
 var countries = [];
 
 function getAllCountries() {

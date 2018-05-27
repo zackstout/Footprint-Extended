@@ -10,6 +10,9 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
     vm.projectFootprints = [];
     vm.userObj = UserService.userObj;
 
+    var types = ['Health', "Food/Nutrition", "Education", 'Non-Food Items (NFI)', "Shelter", "Conflict", "Migration/Camp Management", "Faith-based", "Research", "Governance", "Business/Entrepreneur", "Donor"];
+
+
     vm.hoverFootprint = function(ev) {
       // console.log(ev.target.parentElement.id);
       var id = ev.target.parentElement.id;
@@ -33,12 +36,46 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
         });
     };
 
-    //for page load
-    vm.getProjectFootprints(vm.clickedProject.id);
+
+    // To get country and types for display:
+    var countries = [];
+
+    function getAllCountries() {
+      return $http.get('/project/countries')
+        .then(res => res.data.rows.map(country => country.name)).catch(function(err) {
+          console.log(err);
+        });
+    }
+
+    // called on ng-init
+    vm.init = function() {
+      getAllCountries().then(function(res) {
+        // console.log(res);
+        countries = res;
+        console.log("COUNTRIES 1", countries);
+        vm.clickedProject.country = countries[vm.clickedProject.country_id];
+
+      });
+    };
+
+
+    console.log("COUNTRIES 2", countries);
+
+
+
+
+    // viewNewProj();
+
+
+
+
 
     // click function for selecting project to view
-    vm.changeSelected = function(){
+    vm.changeSelected = function() {
         vm.clickedProject = UserService.clickedProject;
+
+        console.log("HEY I'M THE PROJECT", vm.clickedProject);
+        // viewNewProj();
     };
 
     //function for displaying selected project
@@ -46,7 +83,10 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
 
         vm.changeSelected();
         vm.getProjectFootprints(vm.clickedProject.id);
+        vm.clickedProject.country = countries[vm.clickedProject.country_id];
+
     };
+
     vm.showSelected();
 
     //this is for when the project is selected from projects page instead of from dashboard
@@ -55,6 +95,8 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
 
         vm.clickedProject = UserService.userProjects[i];
         vm.getProjectFootprints(vm.clickedProject.id);
+        vm.clickedProject.country = countries[vm.clickedProject.country_id];
+
 
     };
 

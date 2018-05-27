@@ -137,9 +137,9 @@ myApp.service('UserService', function ($http, $location){
 // Oh isn't that so much more pleasant to the eye?
   self.getFootprint = function(id) {
     console.log('hello', id);
-    $http.get('/footprints/footprint')
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+    // $http.get('/footprints/footprint')
+    //   .then(res => console.log(res))
+    //   .catch(err => console.log(err));
   };
 
 
@@ -185,10 +185,13 @@ myApp.service('UserService', function ($http, $location){
   self.getCountries();
 
 
+
   //gets the users projects for the projects view
   self.getProjects = function (id) {
 
     return $http.get('project/userprojects/' + id).then(function (response) {
+
+      // What is going on here??
       return self.userProjects = response.data;
       self.selectedProjectFootprints = response.data;
 

@@ -56,6 +56,7 @@
 - [ ] Should probably just remove Start date/End date columns from the CSV altogether.
 - [ ] Ensure there are hover-changes on *every* button.
 - [ ] On Projects page, display project's country and type(s).
+- [ ] Add ` isMetric` field to Footprints table (for hover feature).
 
 ### Less simple:
 - [ ] Would be nice to fix the page refresh issue (cacheing, etc.).
