@@ -31,7 +31,7 @@
           <th>DELETE</th>
 
         </tr>
-        <tr ng-repeat="projectFootprint in pc.projectFootprints" ng-mouseover="pc.hoverFootprint($event)" class="footprint-row" id="footprint_{{projectFootprint.id}}">
+        <tr onmouseover="pc " ng-repeat="projectFootprint in pc.projectFootprints" ng-mouseover="pc.hoverFootprint($event)" class="footprint-row" id="footprint_{{projectFootprint.id}}">
           <td>{{projectFootprint.period | date: "MMM yyyy"}}</td>
           <td><md-button class="md-raised md-primary" ng-click="pc.editModal($event, $index)">Edit</md-button></td>
           <td>
@@ -51,7 +51,7 @@
         <p>View project uploads</p>
         <h3 ng-repeat="userProject in pc.userProjects">
 
-          <md-button  ng-click="pc.showAnotherProject($event, $index)" layout-align="left">{{userProject.name}}</md-button>
+          <md-button ng-click="pc.showAnotherProject($event, $index)" layout-align="left">{{userProject.name}}</md-button>
 
         </h3>
         <!-- {{pc.projectFootprints}} -->

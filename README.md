@@ -11,6 +11,8 @@
 - [x] Fixed bug where CSV was not being properly parsed (because of extra date column).
 - [x] Fixed bug where conversion to Imperial measurement required integer value.
 - [x] Fixed bug where sometimes controller reloads when you submit second part of transition tool -- was an issue with hashing (which were stored in URL and hence cached on refresh, but not hard refresh).
+- [x] Refactoring the charts seems to have fixed bug of chart sometimes refusing to be redrawn.
+- [x] Changed order of calling value changes vs string changes, seems to have fixed `ng-change`-not-firing issue.
 
 ### New features:
 - [x] Created new page and hide/show functionality for sequential diesel-to-solar calculator.
@@ -20,10 +22,11 @@
 - [x] Let user get to transition tool and save their data; display proper return-button and post to proper table in database.
 - [x] Only display fiscal savings if it's a positive number.
 - [x] Added a workaround (second input) for now. [Problem: Change gallons/day to input (and probably also kWh/ day). Seems to be a 2-way binding issue. Yeesh... a lot of research into angular is turning up nothing for fixing this. There must be an easy fix.]
-- [x] Added instructions for using Excel (the formatting is fine on Dad's and Kyle's computers).
+- [x] Added instructions for using Excel (the formatting looks fine on a few different machines I've checked).
 - [x] On Projects page, display project's country and type(s).
 - [x] Charts' legends now display names of countries and types.
 - [x] Cleaned up UI for Tracking tool on home (non-logged in) page.
+- [x] Added Bootstrap to make calculator page responsive -- odd that it retains its instruction to scroll user to next box on *second* time visiting the page after a refresh...
 
 
 ## Next Steps:
@@ -33,15 +36,11 @@
     - [ ] No, an easier way to check is to see if knownDailyLiters is same as dailyLiters.
 - [ ] As is deployment...why isn't it working anymore???
 - [ ] Non-metric CSV is not correct. (will be easy to fix when adding in Excel versions.)
-- [ ] Need to make mobile-friendly (or AT LEAST tablet-friendly).
 - [ ] Do not show options for chart query unless it contains data.
-- [ ] Disallow user from entering two projects of same name (creates md-duplicate error)
+- [ ] Disallow user from entering two projects of same name (creates `md-duplicate` error)
 - [ ] Alert user if there is no data (i.e. identify all of those errors -- cannot read property plane of undefined, for example)
 
-
 ### Bugs:
-- [ ] Bug: All charts work; the issue is with changing to a new query after having viewed one chart. So it's an Angular/Chart.js issue, not an issue with the logic. (Same) bug with `md-options` and duplicate values. Just clear all values on submit?
-- [ ] Bug: When budget per watt is higher, time to cover costs should also be higher (since cost of solar grid is higher). We see the opposite effect. Yeah, time-to-cover-cost function is definitely broken. *I am fairly confident this is because of an ordering problem* -- because on the happy path, if you happen to do things in the right order, the math works out.
 - [ ] I don't think size of solar grid is appropriately sensitive to overspec/dayPower.
 - [ ] Bug: adding new CSV doesn't seem to be affecting totals graph, unless the numbers are too small to be affecting it.
 - [ ] Sometimes hovering over project names on side-dash makes them invisible???
@@ -65,7 +64,7 @@
 - [ ] Add ` isMetric` field to Footprints table (for hover feature).
 
 ### Less simple:
-- [ ] Would be nice to fix the page refresh issue (cacheing, etc.).
+- [ ] Would be nice to fix the page refresh issue (cacheing, etc.). (IDEA: We could use localStorage!)
 - [ ] Let user view current CSV when editing or deleting -- or for that matter, show them on hover on the page or something.
 - [ ] Add animations for the user-customizable charts, to ensure that there's not so much gaping white space before charts are generated. Move two large buttons to two tabs on the left when user clicks one.
 - [ ] Overall line chart should include gaps for non-uploaded months (otherwise it's prettier, but misleading).

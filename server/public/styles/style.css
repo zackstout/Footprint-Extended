@@ -6,28 +6,16 @@ body, html {
 
 }
 
-@media only screen and (max-width: 1250px) {
-    .breakTag {
-        display: inline;
-    }
-    .calculatorCard {
-      background-color: lightblue;
-      display: block;
-    }
-    .calcContainer {
-      display: block;
-    }
+#solarTitle {
+  margin-bottom: 10px;
 }
 
-.calcContainer {
-  /*display: block;
-  float: left;
-  margin-right: 10px;*/
+hr {
+  border: 0 none;
+  background-color: lightGray;
+  height: 2px;
 }
 
-.breakTag {
-  display: none;
-}
 
 .underline {
   text-decoration: underline;
@@ -41,16 +29,6 @@ body, html {
   /*background-color: orange;*/
   margin-bottom: 90px;
 }
-
-/*.calcContainer {
-  position: relative;
-  width: 90%;
-  height: 600px;
-}*/
-
-/*.calcCanvas {
-  background-color: yellow;
-}*/
 
 .margins {
   margin-left: 15%;
@@ -99,12 +77,6 @@ body, html {
   cursor: pointer;
   background-color: lightpink;
 }
-
-/*.calculatorCard2 {
-  padding: 20px;
-  transition: transform 300ms ease-in-out;
-
-}*/
 
 .green {
   background-color: teal;

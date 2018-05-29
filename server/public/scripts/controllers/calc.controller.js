@@ -54,17 +54,15 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
   vm.dailyLitersKnown = 0;
 
   // Submit function -- should prob just split into 4:
-  vm.submit = function(prog) {
+  vm.submit = function(prog, event) {
     // increment hide/show progress:
     vm.progress = prog + 1; // why am i passing an argument for this? Ah. Because we don't want user to be able to click four times on first submit button.
-
+    var card = event.target.parentElement.parentElement.parentElement;
+    card.classList.add('green');
     // Maybe we *make* them click submit on 3 before showing values? Then we can save to DB.
     console.log(vm.progress);
 
     if (prog == 1) {
-
-      // var card2 = document.getElementById('card2');
-      // card2.classList.add('green');
 
       // Ok, needs to be wrapped in $timeout.... And still not animating the scroll (sometimes??).
       $timeout(function() {
@@ -75,15 +73,9 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
 
     }
 
-    if (prog == 2) {
-      // var card3 = document.getElementById('card3');
-      // card3.classList.add('card1');
-    }
 
     if (prog == 3) {
-      // Need to grab the data here, and hide results until click.
-      // var card4 = document.getElementById('card4');
-      // card4.classList.add('green');
+      // Need to grab the data here, and hide results until click:
       vm.allDone = true;
 
       data = {
@@ -166,15 +158,15 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
   };
 
   vm.changeSolarCost = () => {
-    vm.solarCostString = cleanNumber(vm.calculateSolarCost());
-    vm.coverTimeString = cleanNumber(vm.calculateCoverTime());
-    vm.savingsString = cleanNumber(vm.calculateSavings(5));
-    vm.savingsTenString = cleanNumber(vm.calculateSavings(10));
-
     vm.solarCost = vm.calculateSolarCost();
     vm.coverTime = vm.calculateCoverTime();
     vm.savings = vm.calculateSavings(5);
     vm.savingsTen = vm.calculateSavings(10);
+
+    vm.solarCostString = cleanNumber(vm.calculateSolarCost());
+    vm.coverTimeString = cleanNumber(vm.calculateCoverTime());
+    vm.savingsString = cleanNumber(vm.calculateSavings(5));
+    vm.savingsTenString = cleanNumber(vm.calculateSavings(10));
   };
 
 

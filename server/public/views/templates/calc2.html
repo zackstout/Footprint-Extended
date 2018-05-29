@@ -5,22 +5,18 @@
     <md-button ng-hide="cc.userAuthenticated" class="md-primary md-raised" ng-click="cc.toHome()">Back to Home</md-button>
   </div>
 
-
   <p layout="row" layout-align="center center" id="instruct">Let's forecast your transition from a diesel-powered system to a solar grid:</p>
   <br>
-  <hr>
 
+  <!-- BOOTSTRAP CONTAINER: -->
+  <div class="container">
 
-
-
-
+      <hr>
   <!-- DIESEL: -->
   <div layout="row" layout-align="center center">
     <h1 class="underline">Diesel-powered System</h1>
   </div>
 
-
-  <div class="container">
     <div class="row">
       <div class="col-sm-12 col-md-6">
         <md-card class="calculatorCard" >
@@ -32,19 +28,14 @@
           </div>
           <div layout="row" layout-align="center top">
             <div layout="column" class="inputCol">
-              <!-- ng blur? -->
               Size (kW): <input type="text" ng-model="cc.size" ng-change="cc.changeDieselUse()"><br>
               Hours/day running: <input type="text" ng-model="cc.hours" ng-change="cc.changeDieselUse()"><br>
               Percentage load: <input type="text" ng-model="cc.load" ng-change="cc.changeDieselUse()">
-              <md-button class="md-primary md-raised" ng-click="cc.submit(0)">Submit</md-button>
+              <md-button class="md-primary md-raised" ng-click="cc.submit(0, $event)">Submit</md-button>
             </div>
             <div layout="column" class="outputCol">
               <p>Usage (kWh/day):</p>
               <p class="output" id="dieselUsage">{{cc.dieselUsageString}} kWh/day</p>
-
-              <!-- <p ng-click="cc.toggleClick()" ng-show="cc.toggle" class="output" id="dieselUsage">{{cc.dieselUsageString}} kWh/day</p> -->
-              <!-- No, thwarted again by two-way binding! To use ng-change, we need ng-model, but that fixes it. -->
-              <!-- <input ng-change="cc.changeDieselUse()" ng-model="cc.dieselUsage" ng-hide="cc.toggle" type="text" name="" value="{{cc.dieselUsage}}"> -->
             </div>
           </div>
         </md-card>
@@ -53,10 +44,7 @@
       <div ng-show="cc.progress > 0" class="col-sm-12 col-md-6">
         <md-card class="calculatorCard" ng-show="cc.progress > 0" >
           <div class="calcExp">
-            Compute costs of estimated diesel consumption
-          </div>
-          <div class="calcExp" layout layout-align="center center">
-            (or enter your own if you know it):
+            Compute costs of estimated diesel consumption (or enter your own if you know it):
           </div>
           <div class="calcTitle">
             <h2>Diesel Costs</h2>
@@ -64,15 +52,12 @@
           <div layout="row" layout-align="center top">
             <div layout="column" class="inputCol">
 
-              <!-- NOTE: Though this presents as an input, the user cannot change it!!!! -->
-              <!-- Ugh, if we take away ng-change, we can alter the input text...but it affects nothing. -->
-              <!-- Gallons/day (est.): <input type="text" ng-model="cc.dailyLiters" ng-change="cc.changeDieselCost()"> -->
               <p>Gallons/day (est.):</p>
               <p class="output" id="dieselUsage2">{{cc.dailyLiters}} gallons/day</p>
 
               Gallons/day (known): <input type="text" ng-model="cc.dailyLitersKnown" ng-change="cc.changeDailyLitersKnown()">
               Cost/gallon: <input type="text" ng-model="cc.costPerLiter" ng-change="cc.changeDieselCost()">
-              <md-button class="md-primary md-raised" ng-click="cc.submit(1)">Submit</md-button>
+              <md-button class="md-primary md-raised" ng-click="cc.submit(1, $event)">Submit</md-button>
             </div>
             <div layout="column" class="outputCol">
               <p>Monthly cost:</p>
@@ -90,11 +75,14 @@
     </div>
 
     <hr>
+
+
+
     <!-- SOLAR: -->
     <div layout="row" layout-align="center center" ng-show="cc.progress > 1">
-      <h1 class="transitionTitle underline">Solar-powered System</h1>
+      <h1 id="solarTitle" class="transitionTitle underline">Solar-powered System</h1>
     </div>
-    <br><br>
+
 
     <div class="row">
       <div ng-show="cc.progress > 1" class="col-sm-12 col-md-6">
@@ -109,7 +97,7 @@
             <div layout="column" class="inputCol">
               Power used in daytime (%): <input type="text" ng-model="cc.dayPower" ng-change="cc.changeSolarSize()">
               Overspec (%): <input type="text" ng-model="cc.overspec" ng-change="cc.changeSolarSize()">
-              <md-button class="md-primary md-raised" ng-click="cc.submit(2)">Submit</md-button>
+              <md-button class="md-primary md-raised" ng-click="cc.submit(2, $event)">Submit</md-button>
             </div>
             <div layout="column" class="outputCol">
               <p>Estimated size needed (kW):</p>
@@ -131,7 +119,7 @@
             <div layout="column" class="inputCol">
               <!-- Add text about common prices: -->
               Budget per watt: <input type="text" ng-model="cc.budget" ng-change="cc.changeSolarCost()">
-              <md-button class="md-primary md-raised" ng-click="cc.submit(3)">Submit</md-button>
+              <md-button class="md-primary md-raised" ng-click="cc.submit(3, $event)">Submit</md-button>
             </div>
             <div layout="column" class="outputCol" ng-show="cc.allDone">
               <p>Cost of solar-powered system:</p>
