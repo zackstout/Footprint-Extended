@@ -19,9 +19,9 @@ router.post('/trial_transition', function (req, res) {
       console.log('Error connecting', err);
       res.sendStatus(500);
     } else {
-      var queryText = 'INSERT INTO "trial_transitions" (size, hours, load, "costPerLiter", overspec, "dayPower", budget) VALUES ($1, $2, $3, $4, $5, $6, $7);'; // remember, need quote marks for case-sensitive col names.
+      var queryText = 'INSERT INTO "trial_transitions" (size, hours, load, "costPerLiter", overspec, "dayPower", budget, liters) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);'; // remember, need quote marks for case-sensitive col names.
 
-      db.query(queryText, [data.size, data.hours, data.load, data.cost, data.overspec, data.dayPower, data.budget], function (errorMakingQuery, result) {
+      db.query(queryText, [data.size, data.hours, data.load, data.cost, data.overspec, data.dayPower, data.budget, data.liters], function (errorMakingQuery, result) {
         if (errorMakingQuery) {
           console.log('Error with country GET', errorMakingQuery);
         } else {
@@ -42,9 +42,9 @@ router.post('/user_transition', function (req, res) {
       console.log('Error connecting', err);
       res.sendStatus(500);
     } else {
-      var queryText = 'INSERT INTO "user_transitions" (size, hours, load, "costPerLiter", overspec, "dayPower", budget, "userId") VALUES ($1, $2, $3, $4, $5, $6, $7, $8);'; // remember, need quote marks for case-sensitive col names.
+      var queryText = 'INSERT INTO "user_transitions" (size, hours, load, "costPerLiter", overspec, "dayPower", budget, "userId", liters) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);'; // remember, need quote marks for case-sensitive col names.
 
-      db.query(queryText, [data.size, data.hours, data.load, data.cost, data.overspec, data.dayPower, data.budget, parseInt(data.userId)], function (errorMakingQuery, result) {
+      db.query(queryText, [data.size, data.hours, data.load, data.cost, data.overspec, data.dayPower, data.budget, parseInt(data.userId), data.liters], function (errorMakingQuery, result) {
         if (errorMakingQuery) {
           console.log('Error with country GET', errorMakingQuery);
         } else {

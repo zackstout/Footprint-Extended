@@ -150,7 +150,7 @@ myApp.service('UserService', function ($http, $location){
 
 
   self.uploadTransition = function(data) {
-    // check whether user is logged in:
+    // Check whether user is logged in:
     if (data.userId == undefined) {
       $http.post('/csv/trial_transition', data).then(function(res) {
         // console.log(data);

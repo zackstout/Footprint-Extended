@@ -96,13 +96,16 @@
           <div layout="row" layout-align="center top">
             <div layout="column" class="inputCol">
               Power used in daytime (%): <input type="text" ng-model="cc.dayPower" ng-change="cc.changeSolarSize()">
-              Overspec (%): <input type="text" ng-model="cc.overspec" ng-change="cc.changeSolarSize()">
+              <span ng-mouseleave="cc.unhoverHelp($event)" ng-mouseover="cc.hoverHelp($event)">Overspec (%): <input type="text" ng-model="cc.overspec" ng-change="cc.changeSolarSize()"></span>
               <md-button class="md-primary md-raised" ng-click="cc.submit(2, $event)">Submit</md-button>
             </div>
             <div layout="column" class="outputCol">
               <p>Estimated size needed (kW):</p>
               <p class="output" id="solarSize">{{cc.solarSizeString}} kW</p>
             </div>
+          </div>
+          <div class="row" ng-show="cc.overspecHover" layout layout-align="center center">
+            Overspec: <i>anticipate cloudy weather.</i>
           </div>
         </md-card>
       </div>

@@ -39,6 +39,16 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
     return res;
   }
 
+  vm.overspecHover = false;
+
+  vm.hoverHelp = function(ev) {
+    vm.overspecHover = true;
+  };
+
+  vm.unhoverHelp = function(ev) {
+    vm.overspecHover = false;
+  };
+
   // All on the client, so this is fine:
   vm.progress = 0;
 
@@ -74,7 +84,7 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
     }
 
 
-    if (prog == 3) {
+    if (prog >= 3) {
       // Need to grab the data here, and hide results until click:
       vm.allDone = true;
 
@@ -88,7 +98,8 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
         budget: vm.budget,
         userId: UserService.userObject.id,
         liters: vm.dailyLiters,
-        litersKnown: vm.dailyLitersKnown // Wait, if we're already grabbing liters, we shouldn't need this. Just need to adjust SQL query.
+        // litersKnown: vm.dailyLitersKnown // Wait, if we're already grabbing liters, we shouldn't need this. Just need to adjust SQL query.
+        // Yeah, we don't need this. We just need to check if liters matches up with size * percent * hours per day / 15... right?
       };
 
       UserService.uploadTransition(data);
@@ -122,13 +133,10 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
   vm.calculateSavings = (x) => ((x * 365 - vm.coverTime) * vm.dailyLiters * vm.costPerLiter).toFixed(2);
 
 
-  // The real BUG is that size of solar grid is not appropriately sensitive to dayPower -- it *might* be fine for overspec.
-
 
   // ===========================
   // Handle changes to input fields:
   // ===========================
-
 
   // Ok this seems to be working as a poor-man's workaround for now:
   vm.changeDailyLitersKnown = () => {
@@ -208,7 +216,6 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
   vm.savingsTen = vm.calculateSavings(10);
   vm.savingsCarbon = vm.carbon * 10;
 
-
   vm.dieselUsageString = cleanNumber(vm.calculateDieselUse()); // note: this is actually kWh/day
   vm.monthString = cleanNumber(vm.calculateMonthlyCost());
   vm.yearString = cleanNumber(vm.calculateAnnualCost());
@@ -219,5 +226,4 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
   vm.savingsString = cleanNumber(vm.calculateSavings(5));
   vm.savingsTenString = cleanNumber(vm.calculateSavings(10));
   vm.savingsCarbonString = cleanNumber(vm.carbon * 10);
-
 });
