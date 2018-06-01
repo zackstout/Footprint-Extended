@@ -13,6 +13,7 @@
 - [x] Fixed bug where sometimes controller reloads when you submit second part of transition tool -- was an issue with hashing (which were stored in URL and hence cached on refresh, but not hard refresh).
 - [x] Refactoring the charts seems to have fixed bug of chart sometimes refusing to be redrawn.
 - [x] Changed order of calling value changes vs string changes, seems to have fixed `ng-change`-not-firing issue.
+- [x] Fixed viewByCategory chart function, which was always computing Shipping.
 
 ### New features:
 - [x] Created new page and hide/show functionality for sequential diesel-to-solar calculator.
@@ -25,12 +26,14 @@
 - [x] Added instructions for using Excel (the formatting looks fine on a few different machines I've checked).
 - [x] On Projects page, display project's country and type(s).
 - [x] Charts' legends now display names of countries and types.
-- [x] Cleaned up UI for Tracking tool on home (non-logged in) page (add hover-instructions, change download link format, add hover effects to buttons).
+- [x] Cleaned up UI for Tracking tool on home (non-logged in) page (add hover-instructions, change download link format, add hover effects to buttons). Also made `hr` lines thicker.
 - [x] Added Bootstrap to make calculator page responsive -- odd that it retains its instruction to scroll user to next box on *second* time visiting the page after a refresh...
-- [x] Add hover text to clarify the meaning of overspec.
+- [x] Add hover text to clarify the meaning of Overspec.
 - [x] Change DB posts to reflect our workaround (user can alter dailyGallons).
-- [x] Issue with deployment was failing to change server `app.use` for static serving before zipping up source code. Also, don't forget to connect via postico to the endpoint provided by AWS.
-  - [ ] Oooook and it looks like we have to do the VPC setup and security stuff *first*, before deploying to EB.
+- [x] Issue with deployment was failing to change server `app.use` for static serving before zipping up source code. Also, don't forget to connect via Postico to the endpoint provided by AWS.
+  - Add source 0.0.0.0/0 to 5432 rule. Use a database name that exists when connecting from Postico. (or you don't have to???)
+  - OK we FINALLY got there: simply followed [these helpful steps](https://medium.com/@harrison0723/beginners-guide-to-aws-beanstalk-using-node-js-d061bb4b8755) to allow Beanstalk app access to the database, and allowed access to the database from anywhere so that Postico can hook onto it. Then we had to put our data inside the "ebdb" database, rather than the "postgres" database.
+
 
 
 ## Next Steps:
@@ -40,6 +43,9 @@
 - [ ] Disallow user from entering two projects of same name (creates `md-duplicate` error)
 - [ ] Alert user if there is no data (i.e. identify all of those errors -- "cannot read property plane of undefined", for example)
 - [ ] Wait, I messed up the countries display for each project: it's not showing the right country.
+- [ ] Set up Admin page to look better.
+- [ ] Make sure to update `databasesetup.sql` file to reflect changes to db structure.
+
 
 ### Bugs:
 - [ ] I don't think size of solar grid is appropriately sensitive to overspec/dayPower.
@@ -47,7 +53,7 @@
 - [ ] Sometimes hovering over project names on side-dash makes them invisible???
 - [ ] Sometimes hovering over bar chart switches values???
 - [ ] The divided-by input dropdown sometimes displays two values???
-
+- [ ] If user submits project without all info, it kills server.
 
 ### Testing:
 - [ ] Make sure to test uploading test CSVs and see that graphs properly reflect them.
@@ -55,6 +61,7 @@
 
 ## Quality of Life Improvements:
 ### More simple:
+- [ ] The lower shadow on hover over a button (e.g. AWS) is a nice touch.
 - [ ] Add response to user when footprint or project has been successfully posted/edited.
 - [ ] Disallow user from uploading new month for already-uploaded month.
 - [ ] Split up controllers and services further (especially user controller and user service).
@@ -62,11 +69,12 @@
 - [ ] Add a "no data for this query" image or text, so there's more than just an error in the console.
 - [ ] Should probably just remove Start date/End date columns from the CSV altogether.
 - [ ] Make background color on home screen uniform.
-- [ ] Make `hr` tags more visible.
 - [ ] Add ` isMetric` field to Footprints table (for hover feature).
+
 
 ### Less simple:
 - [ ] Would be nice to fix the page refresh issue (cacheing, etc.). (IDEA: We could use localStorage!)
 - [ ] Let user view current CSV when editing or deleting -- or for that matter, show them on hover on the page or something.
 - [ ] Add animations for the user-customizable charts, to ensure that there's not so much gaping white space before charts are generated. Move two large buttons to two tabs on the left when user clicks one.
 - [ ] Overall line chart should include gaps for non-uploaded months (otherwise it's prettier, but misleading).
+- [ ] Follow Emma's idea: wrap calc page with a Start button, and walk user through inputs one by one.

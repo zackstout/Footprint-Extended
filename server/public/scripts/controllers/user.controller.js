@@ -245,7 +245,7 @@ var myChart;
 var types = ['Health', "Food/Nutrition", "Education", 'Non-Food Items (NFI)', "Shelter", "Conflict", "Migration/Camp Management", "Faith-based", "Research", "Governance", "Business/Entrepreneur", "Donor"];
 
 
-
+// I THINK EMMA WAS RIGHT -- WE COULD JUST CHANGE THE QUERY TO GRAB THE NAME:
 // SHOULD MOVE TH\ESE INTO SERVICE, JUST COPY PASTAING TO PROJECT CONTROLLER:
 var countries = [];
 
@@ -299,6 +299,7 @@ function sanitize(slice, resp) {
     }
 
     // Run the carbon impact calculator for each element of cleanedThings:
+    // REFACTOR WITH MAP:
     var results = [];
     for (var j=0; j < cleanedThings.length; j++) {
       results.push(UserService.computeFootprint(cleanedThings[j]));
@@ -349,7 +350,8 @@ function sanitize(slice, resp) {
   var chart_fill = slice === 'Period' ? false : null;
   var titleBit = vm.viewBy === 'period' ? vm.donutParticular.substring(0, 10) : vm.donutParticular[0].toUpperCase() + vm.donutParticular.substring(1);
   // console.log(titleBit);
-  var chart_title = vm.slice === 'Period' ? "Carbon Footprint from " + vm.donutParticular + " Over Time" : "Carbon Footprint from " + titleBit + " divided by " + slice;
+  // Hmm this doesn't seem to be grabbing the first option when slicing by period....
+  var chart_title = vm.slice === 'Period' ? `Carbon Footprint from ${vm.donutParticular} Over Time` : `Carbon Footprint from ${titleBit} divided by ${slice}`;
 
   // Draw new chart:
   myChart = new Chart(document.getElementById("donutChart").getContext("2d"), {
@@ -381,12 +383,14 @@ function sanitize(slice, resp) {
 function viewByCategory(resp) {
 
   // Wait this doesn't make any sense.....
-  var x = 'shipping';
+  // var x = 'shipping';
+
+  // console.log('VIEWING CAT, ', vm.donutParticular);
 
   //set all NON-shipping (e.g.) columns to 0:
   for (var i=0; i<resp.length; i++) {
     var r = resp[i];
-    if (x == 'living') {
+    if (vm.donutParticular == 'living') {
       r.air=0;
       r.truck=0;
       r.sea=0;
@@ -394,7 +398,7 @@ function viewByCategory(resp) {
       r.plane=0;
       r.train=0;
       r.car=0;
-    } else if (x == 'shipping') {
+    } else if (vm.donutParticular == 'shipping') {
       r.fuel=0;
       r.hotel=0;
       r.grid=0;
@@ -402,7 +406,7 @@ function viewByCategory(resp) {
       r.plane=0;
       r.train=0;
       r.car=0;
-    } else if (x == 'travel') {
+    } else if (vm.donutParticular == 'travel') {
       r.fuel=0;
       r.hotel=0;
       r.grid=0;
