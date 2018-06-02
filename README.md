@@ -17,7 +17,6 @@
 
 ### New features:
 - [x] Created new page and hide/show functionality for sequential diesel-to-solar calculator.
-- [ ] Add animations for the diesel-to-solar calculator.
 - [x] Add more instructions for the user on how to navigate through the site.
 - [x] Store user-entered data about diesel systems (like with trial footprints) for admin to view.
 - [x] Let user get to transition tool and save their data; display proper return-button and post to proper table in database.
@@ -70,6 +69,9 @@
 - [ ] Should probably just remove Start date/End date columns from the CSV altogether.
 - [ ] Make background color on home screen uniform.
 - [ ] Add ` isMetric` field to Footprints table (for hover feature).
+- [ ] Change title from "check out FP's FP" to "this is yours" on submit.
+- [ ] Add animations for the diesel-to-solar calculator.
+
 
 
 ### Less simple:

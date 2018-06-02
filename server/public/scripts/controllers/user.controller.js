@@ -324,7 +324,7 @@ function sanitize(slice, resp) {
         break;
 
         case 'Country':
-        label = countries[p.country_id];
+        label = countries[p.country_id - 1]; // HAD TO CHANGE TO MINUS ONE
         break;
       }
 
