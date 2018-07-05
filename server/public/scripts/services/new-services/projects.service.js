@@ -3,8 +3,6 @@ myApp.service('ProjectService', function ($http, $location, UserService) {
 
   var vm = this;
 
-
-
     self.getCountries = function() {
 
       $http.get('/project/countries').then(function(response) {

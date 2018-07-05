@@ -6,6 +6,8 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
     username: '',
     password: ''
   };
+
+  vm.userNut = false;
   vm.message = '';
   vm.UserService = UserService;
   vm.months = UserService.months;
@@ -37,61 +39,86 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
     $location.path('/calc');
   };
 
+  $(document).ready(function() {
+    // console.log('yo');
+    $('#file').change(function() {
+      var f = document.getElementById('file').files[0];
+      // console.log(f);
+      $('#fileNameOut').html('');
+      $('#fileNameOut').append(f.name);
+    });
 
-  // OUTSOURCE TO CSV SERVICE ()
+  });
+
+
+  // OUTSOURCE TO CSV SERVICE (we use it twice)
   //This function carries out the CSV upload.
-  vm.uploadFile = function () {
+  vm.uploadFile = function (user, data) {
 
-    var f = document.getElementById('file').files[0];
-    var r = new FileReader();
-    r.onloadend = function (e) {
-      var data = e.target.result;
-      //  No, call it from within the service itself:
-      // csvService.masterParse(data).then(function(response) {
-      //   console.log("LC: ", response);
-      // });
+    // Validation:
+    if ($('#orgName').val() == '') {
+      $('#errorOut').html('Please enter an organization name.');
+    } else if (data == undefined) {
+      $('#errorOut').html('Please select metric or non-metric.');
+    } else if (!document.getElementById('file').files[0]){
+      $('#errorOut').html('Please upload a CSV file.');
+    } else {
+      var f = document.getElementById('file').files[0];
+      var r = new FileReader();
 
-      csvService.parseData(data).then(function(response) {
+      vm.getUserData(user);
+      vm.dataType(data);
 
-        // Ahh here's the call:
-        console.log(response);
-        vm.donutDataSetTrial(response);
-      });
-    };
-    r.readAsBinaryString(f);
+      r.onloadend = function (e) {
+        var data = e.target.result;
 
+        csvService.parseData(data).then(function(response) {
+          console.log(response);
+          // Final piece of validation:
+          if (response.living == 0 && response.shipping == 0 && response.travel == 0) {
+            $('#errorOut').html('Sorry, we could not process your file.');
+          } else {
+            vm.userNut = true;
+            $('#errorOut').html('');
+            vm.donutDataSetTrial(response);
+          }
+        });
+      };
+      r.readAsBinaryString(f);
+    }
   };
 
 
+// Can't remember -- is this being used??
 
-  vm.ExcelToJSON = function() {
-    var f = document.getElementById('file').files[0];
-
-    // this.parseExcel = function(file) {
-      var reader = new FileReader();
-
-      reader.onload = function(e) {
-        var data = reader.result;
-        var workbook = XLSX.read(data, {
-          type: 'binary'
-        });
-
-        workbook.SheetNames.forEach(function(sheetName) {
-          // Here is your object
-          var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-          var json_object = JSON.stringify(XL_row_object);
-          console.log(json_object);
-
-        });
-
-      };
-
-      reader.onerror = function(ex) {
-        console.log(ex);
-      };
-
-      reader.readAsBinaryString(f);
-    };
+  // vm.ExcelToJSON = function() {
+  //   var f = document.getElementById('file').files[0];
+  //
+  //   // this.parseExcel = function(file) {
+  //   var reader = new FileReader();
+  //
+  //   reader.onload = function(e) {
+  //     var data = reader.result;
+  //     var workbook = XLSX.read(data, {
+  //       type: 'binary'
+  //     });
+  //
+  //     workbook.SheetNames.forEach(function(sheetName) {
+  //       // Here is your object
+  //       var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+  //       var json_object = JSON.stringify(XL_row_object);
+  //       console.log(json_object);
+  //
+  //     });
+  //
+  //   };
+  //
+  //   reader.onerror = function(ex) {
+  //     console.log(ex);
+  //   };
+  //
+  //   reader.readAsBinaryString(f);
+  // };
   // };
 
 
@@ -105,38 +132,38 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
   // 3 chart things i haven't dug into yet:
 
 
-// Moved this to trial controller:
-    //re-draws the donut graph with trial data:
-    vm.donutDataSetTrial = function(x){
-      vm.donutResult = x;
+  // Moved this to trial controller:
+  //re-draws the donut graph with trial data:
+  vm.donutDataSetTrial = function(x){
+    vm.donutResult = x;
 
-      new Chart(document.getElementById("doughnut-chart"), {
-        type: 'doughnut',
-        data: {
-          labels: ["Living", "Travel", "Shipping"],
-          datasets: [
-            {
-              label: "Kgs of CO₂",
-              backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f"],
-              // why not just use x?
-              data: [Math.round(vm.donutResult.living, 1), Math.round(vm.donutResult.travel, 1), Math.round(vm.donutResult.shipping,1)]
-            }
-          ]
-        },
-        options: {
-          title: {
-            display: true,
-            text: 'Total Footprint by Category'
+    new Chart(document.getElementById("userDonut"), {
+      type: 'doughnut',
+      data: {
+        labels: ["Living", "Travel", "Shipping"],
+        datasets: [
+          {
+            label: "Kgs of CO₂",
+            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f"],
+            // why not just use x?
+            data: [Math.round(vm.donutResult.living, 1), Math.round(vm.donutResult.travel, 1), Math.round(vm.donutResult.shipping,1)]
           }
+        ]
+      },
+      options: {
+        title: {
+          display: true,
+          text: 'Total Footprint by Category'
         }
-      });
+      }
+    });
 
-    };
+  };
 
 
 
 
-// Moved these 2 to FPFP controller:
+  // Moved these 2 to FPFP controller:
 
   // start doughnut
   vm.donutDataSet = function(){
@@ -268,7 +295,7 @@ vm.registerUser = function() {
 
 
 
-// ??????? (same as with DDC, what is going on here??)
+// ??????? (same as with DDC, what is going on here??) -- all three functions are called from Submit click...
 //This function will get the user Data from the DOM
 vm.getUserData = function(user) {
 

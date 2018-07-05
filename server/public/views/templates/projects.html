@@ -10,6 +10,7 @@
     <h1 id="projectheader">Currently viewing: {{pc.clickedProject.name}}</h1>
   </div>
 
+
   <div layout="row" layout-align="center center">
     <h3>Country: {{pc.clickedProject.country}}</h3>
   </div>
@@ -50,6 +51,7 @@
       <md-card id="recent">
         <p>View project uploads</p>
         <h3 ng-repeat="userProject in pc.userProjects">
+        <!-- <h3 ng-repeat="userProject in pc.userProjects | orderBy: 'userProject.id'"> -->
 
           <md-button ng-click="pc.showAnotherProject($event, $index)" layout-align="left">{{userProject.name}}</md-button>
 

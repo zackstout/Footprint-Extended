@@ -179,8 +179,8 @@ router.get('/project_footprints/:projectId', function (req, res) {
 });
 
 
-// Why is this needed over and above GET /allprojects?
-// for the list of user projects on projects view
+// Q: Why is this needed over and above GET /allprojects?
+// Answer: for the list of user projects on projects view
 router.get('/userprojects/:userId', function (req, res) {
   if (req.isAuthenticated()) {
     console.log('user id', req.user);

@@ -10,15 +10,20 @@
   </md-toolbar>
   <md-dialog-content>
     <div class="md-dialog-content">
-      <md-input-container>
+      <div >
+
+
+      <md-input-container style="margin-bottom:-15px">
         <label>Project Name</label>
         <input ng-model="user.projectName">
       </md-input-container>
     </div>
     <div>
+      <h3 style="margin-bottom:-15px">COUNTRY</h3>
+
       <md-input-container>
         <label>Country of Operation</label>
-        <md-select class="select" ng-model="user.selectedCountry" md-selected-text="user.selectedCountry">
+        <md-select style="margin-bottom:-15px" class="select" ng-model="user.selectedCountry" md-selected-text="user.selectedCountry">
           <md-option ng-repeat="country in pdc.countries">
             <em>{{country.name}}</em>
           </md-option>
@@ -26,7 +31,7 @@
       </md-input-container>
     </div>
     <div id="projectcheckboxes">
-      <h3>PROJECT TYPE</h3>
+      <h3 style="margin-bottom:17px">PROJECT TYPE</h3>
       <md-checkbox ng-model="active" ng-repeat="item in pdc.items" ng-change="pdc.change(item, active)"> {{item}}</md-checkbox>
 
       <!-- <pre ng-bind="lst | json">
@@ -35,4 +40,5 @@
   <div id="homeSubmit">
     <md-button class="md-accent md-raised" ng-click="pdc.postCheckboxes(); pdc.getUserData(user); pdc.hide()">Submit Data</md-button>
   </div>
+        </div>
 </md-dialog>

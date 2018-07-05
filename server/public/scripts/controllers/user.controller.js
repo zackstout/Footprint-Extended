@@ -1,4 +1,4 @@
-myApp.controller('UserController', function (UserService, $mdDialog, $http, $filter, donutService, $location) {
+myApp.controller('UserController', function (UserService, $mdDialog, $http, $filter, donutService, $location, $scope) {
   console.log('UserController created');
   var vm = this;
   vm.userService = UserService;
@@ -46,6 +46,7 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
         periodArray.push(month);
       }
 
+      // Replace with our chart-making function:
       new Chart(document.getElementById("linechart"), {
         type: 'line',
         data: {
@@ -74,31 +75,33 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
 //gets users projects
 vm.userService.getProjects(vm.userObject.id);
 //dashboard dialog
-vm.upload = function (ev, i) {
-  // userService.getProjects.selectedIndex = i;
-  $mdDialog.show({
-    controller: 'DashboardDialogController as ddc',
-    templateUrl: 'views/templates/dashboarddialog.html',
-    parent: angular.element(document.body),
-    targetEvent: ev,
-    clickOutsideToClose: true
-
-  });
-}; //End modal function
 
 
-//Add new project modal.
-vm.newProject = function (ev, i) {
+// Add a new footprint modal:
+ vm.upload = function (ev, i) {
+   // userService.getProjects.selectedIndex = i;
+   $mdDialog.show({
+     controller: 'FootprintUploadController as ddc',
+     templateUrl: 'views/templates/footprintUpload.html',
+     parent: angular.element(document.body),
+     targetEvent: ev,
+     clickOutsideToClose: true,
+    //  scope: $scope // **** the magic line **** // Well, actually the line that breaks the nav bar. Shoot.
+   });
+ };
 
-  $mdDialog.show({
-    controller: 'ProjectDialogController as pdc',
-    templateUrl: 'views/templates/projectdialog.html',
-    parent: angular.element(document.body),
-    targetEvent: ev,
-    clickOutsideToClose: true
 
-  });
-};
+ //Add new project modal:
+ vm.newProject = function (ev, i) {
+
+   $mdDialog.show({
+     controller: 'ProjectDialogController as pdc',
+     templateUrl: 'views/templates/projectdialog.html',
+     parent: angular.element(document.body),
+     targetEvent: ev,
+     clickOutsideToClose: true
+   });
+ };
 
 vm.hide = function () {
   $mdDialog.hide();
@@ -152,6 +155,7 @@ vm.submitBarQuery = function(view, particular) {
       bars.push(Math.round(computedFp[key], 1));
     }
 
+    // Replace with our chart-maker function:
     var canvas = document.getElementById("barChart");
     new Chart(canvas, {
       type: 'bar',
@@ -194,7 +198,6 @@ vm.donutParticular = {};
 
 //aww jeez but we're also going to have to populate the Particulars select element ....with a GET route.
 vm.changeView = function() {
-
   let splits = ['Period', 'Project', 'Type', 'Country', 'Category'];
   const capitalized = vm.viewBy[0].toUpperCase() + vm.viewBy.substring(1, vm.viewBy.length);
   // console.log( splits.indexOf(capitalized), capitalized, splits[0]);
@@ -227,15 +230,10 @@ vm.changeView = function() {
 
 vm.submitQuery = function(view, particular, slice) {
   donutService.getDonut(view, particular, slice).then(function(response) {
-    console.log("response: ", response, "vm.viewBy: ", vm.viewBy, "vm.sliceBy: ", vm.sliceBy, "vm.particular: ", vm.donutParticular);
-
-    // vm.activeSelectorDonut = '';
-
     if (vm.viewBy == 'category') {
       viewByCategory(response.data);
       return;
     }
-
     sanitize(vm.sliceBy, response.data);
   });
 };
@@ -251,9 +249,9 @@ var countries = [];
 
 function getAllCountries() {
   return $http.get('/project/countries')
-    .then(res => res.data.rows.map(country => country.name)).catch(function(err) {
-      console.log(err);
-    });
+  .then(res => res.data.rows.map(country => country.name)).catch(function(err) {
+    console.log(err);
+  });
 }
 
 getAllCountries().then(function(res) {
@@ -267,7 +265,7 @@ function sanitize(slice, resp) {
   var totals = [];
   var chart_labels = [];
 
-  // Special case:
+  // Special case (could put in a function):
   if (slice === 'Category') {
     var fp = UserService.computeFootprint(resp[0]);
     // Calculate totals:
@@ -281,6 +279,7 @@ function sanitize(slice, resp) {
     var cleanedThings = [];
     cleanedThings.push(resp[0]);
 
+    // These should be a function:
     // Get appropriate key name:
     var keyName;
     switch(slice) {
@@ -300,34 +299,27 @@ function sanitize(slice, resp) {
 
     // Run the carbon impact calculator for each element of cleanedThings:
     // REFACTOR WITH MAP:
+    var resu = cleanedThings.map(x => UserService.computeFootprint(x));
+
     var results = [];
     for (var j=0; j < cleanedThings.length; j++) {
       results.push(UserService.computeFootprint(cleanedThings[j]));
     }
 
     // Finally, sum up the columns to find total impact for each period:
+    // Also doing labels. Split into two functions.
     for (var k=0; k < results.length; k++) {
       var p = results[k];
       var total = p.air + p.car + p.freight_train + p.fuel + p.grid + p.hotel + p.plane + p.propane + p.sea + p.train + p.truck;
 
       var label;
-
       switch(slice) {
         case 'Period': label = $filter('date')(p.period, 'MMM yyyy'); break;
         case 'Project': label = p.name; break;
-        // Wait, we want the actual type and country names, not the IDs, for the labels!
-
-        case 'Type':
-        label = types[p.type_id];
-        // var type_name = types[p.type_id];
-        // console.log(type_name);
-        break;
-
-        case 'Country':
-        label = countries[p.country_id - 1]; // HAD TO CHANGE TO MINUS ONE
-        break;
+        // We want the actual type and country names, not the IDs, for the labels:
+        case 'Type': label = types[p.type_id]; break;
+        case 'Country': label = countries[p.country_id - 1]; break; // Not quite sure why we had to change to minus 1
       }
-
       chart_labels.push(label);
       totals.push(Math.round(total, 1));
     }
@@ -343,13 +335,12 @@ function sanitize(slice, resp) {
     myChart.destroy();
   }
 
-  // Prepare new chart:
+  // Prepare new chart (should definitely be own function):
   var chart_type = slice === 'Period' ? 'line' : 'doughnut';
   var border_color = slice === 'Period' ? "#3e95cd" : null;
   var background_color = slice === 'Period' ? null : ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#5F61D6", "#D6EDFF", "#D6D659", "#D7BDF2", "#89896B", "#C8931E"];
   var chart_fill = slice === 'Period' ? false : null;
   var titleBit = vm.viewBy === 'period' ? vm.donutParticular.substring(0, 10) : vm.donutParticular[0].toUpperCase() + vm.donutParticular.substring(1);
-  // console.log(titleBit);
   // Hmm this doesn't seem to be grabbing the first option when slicing by period....
   var chart_title = vm.slice === 'Period' ? `Carbon Footprint from ${vm.donutParticular} Over Time` : `Carbon Footprint from ${titleBit} divided by ${slice}`;
 
@@ -382,11 +373,6 @@ function sanitize(slice, resp) {
 //no there has to be a better way to do this....it's just ALL their footprints.
 function viewByCategory(resp) {
 
-  // Wait this doesn't make any sense.....
-  // var x = 'shipping';
-
-  // console.log('VIEWING CAT, ', vm.donutParticular);
-
   //set all NON-shipping (e.g.) columns to 0:
   for (var i=0; i<resp.length; i++) {
     var r = resp[i];
@@ -418,13 +404,12 @@ function viewByCategory(resp) {
     }
   }
 
-  //send the curated array through the proper sliceBy function:
+  //send the sanitized array through the proper sliceBy function:
   sanitize(vm.sliceBy, resp);
 } // end viewByCategory
 
 
 vm.lineChart();
-
 
 vm.checkAdmin = function(){
   if(vm.userObject.id === 1){

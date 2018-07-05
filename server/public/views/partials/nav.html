@@ -4,6 +4,7 @@
   <!-- , $index -->
    <span flex></span>
    <!-- Should be able to get rid of this contoller: -->
+   <!-- We get weird issues if we try to change this to ProjectController: -->
   <div ng-controller="UserController as uc">
       <md-button ng-click="uc.newProject($event)"  aria-label="Open Dialog" id="dashdialog">
           Create Project

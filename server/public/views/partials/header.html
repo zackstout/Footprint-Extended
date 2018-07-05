@@ -1,7 +1,14 @@
-<header layout="column" layout-fill>
+<header layout="column" layout-fill id='clickable' ng-controller="headerController as hc" ng-click="hc.click()">
     <div class="container">
         <div id="logoContainer"><img id="logo" src="images/footprintlogotransparent.png"></div>
         <span flex></span>
-    
+
     </div>
 </header>
+<!-- <script>
+  $(document).ready(function() {
+    $('#clickable').on('click', function() {
+      console.log('yo');
+    });
+  });
+</script> -->

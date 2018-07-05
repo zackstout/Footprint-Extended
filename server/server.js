@@ -7,20 +7,12 @@ var passport = require('./strategies/sql.localstrategy');
 var sessionConfig = require('./modules/session.config');
 
 // Route includes
-
-// OLD ROUTES:
 var indexRouter = require('./routes/index.router'); // will need this
 var registerRouter = require('./routes/register.router'); // and also this
-
 var userRouter = require('./routes/user.router'); // ODD: we needed this old user router to make logging in work......
-// var memberRouter = require('./routes/member.router');
-// var adminRouter = require('./routes/admin.router.js');
-// var barRouter = require('./routes/bars.router.js');
-
-// NEW ROUTES:
 var adminRouter2 = require('./routes/new-routes/admin.router');
 var chartDivisionRouter = require('./routes/new-routes/chart-divisions.router');
-var csvRouter = require('./routes/new-routes/csv.router'); // useless
+var csvRouter = require('./routes/new-routes/csv.router');
 var donorRouter = require('./routes/new-routes/donor.router'); // so far, useless
 var footprintRouter = require('./routes/new-routes/footprints.router.js');
 var projectRouter = require('./routes/new-routes/projects.router.js');
@@ -32,7 +24,6 @@ var port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// Serve back static files
 
 // ========================== IMPORTANT ========================== //
 // NOTE: use this for localhost:
@@ -49,15 +40,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
-// OLD ROUTES:
 app.use('/register', registerRouter); // still used.
-
 app.use('/user', userRouter);
-// app.use('/member', memberRouter);
-// app.use('/admin', adminRouter);
-// app.use('/bar', barRouter);
-
-// NEW ROUTES:
 app.use('/admin2', adminRouter2);
 app.use('/chart', chartDivisionRouter);
 app.use('/csv', csvRouter);
@@ -65,7 +49,6 @@ app.use('/donor', donorRouter);
 app.use('/footprints', footprintRouter);
 app.use('/project', projectRouter);
 app.use('/user2', userRouter2);
-
 
 // Catch all bucket, must be last!
 app.use('/', indexRouter);

@@ -35,16 +35,40 @@
 
 
 
-## Next Steps:
-### High-priority:
-- [ ] Non-metric CSV is not correct. (will be easy to fix when adding in Excel versions.)
-- [ ] Do not show options for chart query unless it contains data.
-- [ ] Disallow user from entering two projects of same name (creates `md-duplicate` error)
-- [ ] Alert user if there is no data (i.e. identify all of those errors -- "cannot read property plane of undefined", for example)
-- [ ] Wait, I messed up the countries display for each project: it's not showing the right country.
-- [ ] Set up Admin page to look better.
-- [ ] Make sure to update `databasesetup.sql` file to reflect changes to db structure.
 
+
+## Next Steps:
+
+### Top priority:
+- [x] Lock out submit button until have chosen metric/non, submitted org name, and submitted a file.
+- [x] Click on top header takes you back home.
+- [x] "Check out our impact." "Now try it for your organization." "Carbon footprint" => "footprint"
+- [x] Let user know CSV has uploaded (bar?). (Cursor still annoying).
+  - [x] Times two (turned out to be harder than anticipated to finagle the `ng-model` and clean up UI. Also can't make the "download template" links stack, and the Month and Year are invisible now...)
+- [x] Have user's own FP data pop up next to the upload.
+  - [ ] Really not sure why chart is so small...
+- [x] Say "country: " on upload modal. Generally clean up UI for footprint and project uploads.
+- [x] New month does not show up after uploading immediately. This was a trickier issue -- had to emit from one controller to another (couldn't see how to do it with a service). Had to add some promises as well to ensure order was correct. There is still an issue, because it seems injecting the scope causes things (like getProjectFootprints) to run before they should. Uh oh, bigger issue, now will only let me click on upload project ONCE. (or use the nav in general).
+- [x] Fixed that mess with an Observer in the service. Nice. Ughhh no the nav bar is still broken. All right, had to remove `$scope: scope` -- and again, it didn't work the first time....But now seems to?
+- [ ] Make delete button easier to read.
+- [ ] User's info over time line chart buggy.
+- [ ] Popup FAQ like on footprintproject.io site.
+- [ ] Implement forgot password.
+- [ ] Still need confirmation alerts.
+- [ ] Give diesel higher priority in CSV.
+- [ ] Make sure line chart of FP's footprint does not disappear on Trial Upload.
+- [ ] When user submits new project, go to that screen immediately.
+- [ ] Add total to donut chart.
+- [ ] Issue discovered: Project is added to DB if it has no types, but will NOT show up in our query for all of a user's projects. Easiest fix is validate for a type, which we probably want anyway.
+
+
+### High-priority:
+- [ ] Non-metric CSV is not correct. (just get rid of dates columns?)
+- [ ] Do not show options for chart query unless it contains data -- don't even display it as an option in the dropdown. (Alert user if there is no data (i.e. identify all of those errors -- "cannot read property plane of undefined", for example))?
+- [ ] Disallow user from entering two projects of same name (creates `md-duplicate` error) -- ask if they instead want to view that project.
+- [ ] Disallow user from entering two footprints of the same month for one project.
+- [ ] Set up Admin page to display all relevant data.
+- [ ] Update `databasesetup.sql` file to reflect changes to db structure. (Shit I forgot what they were...)
 
 ### Bugs:
 - [ ] I don't think size of solar grid is appropriately sensitive to overspec/dayPower.
@@ -59,20 +83,15 @@
 
 
 ## Quality of Life Improvements:
-### More simple:
+### Simpler:
 - [ ] The lower shadow on hover over a button (e.g. AWS) is a nice touch.
 - [ ] Add response to user when footprint or project has been successfully posted/edited.
-- [ ] Disallow user from uploading new month for already-uploaded month.
 - [ ] Split up controllers and services further (especially user controller and user service).
 - [ ] Let user choose metric or non- for transition tool.
-- [ ] Add a "no data for this query" image or text, so there's more than just an error in the console.
-- [ ] Should probably just remove Start date/End date columns from the CSV altogether.
 - [ ] Make background color on home screen uniform.
 - [ ] Add ` isMetric` field to Footprints table (for hover feature).
 - [ ] Change title from "check out FP's FP" to "this is yours" on submit.
 - [ ] Add animations for the diesel-to-solar calculator.
-
-
 
 ### Less simple:
 - [ ] Would be nice to fix the page refresh issue (cacheing, etc.). (IDEA: We could use localStorage!)

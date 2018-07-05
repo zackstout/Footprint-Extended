@@ -17,6 +17,19 @@ myApp.service('UserService', function ($http, $location){
   self.selectedProjectFootprints = [];
 
 
+  let observerCallbacks = [];
+
+  self.registerObserverCallback = function(cb) {
+    observerCallbacks.push(cb);
+  };
+
+  function notifyObservers() {
+    angular.forEach(observerCallbacks, function(cb) {
+      cb();
+    });
+  }
+
+
   const PLANE_CONVERSION = 0.18026;
   const CAR_CONVERSION = 0.18568;
   const TRAIN_CONVERSION = 0.01225;
@@ -50,6 +63,7 @@ myApp.service('UserService', function ($http, $location){
   self.computeFootprint = function(footprint) {
     // console.log(footprint);
     var result = {};
+    // Probably a clever way to do this for a for loop:
     result.plane = PLANE_CONVERSION * parseInt(footprint.plane);
     result.car = CAR_CONVERSION * parseInt(footprint.car);
     result.train = TRAIN_CONVERSION * parseInt(footprint.train);
@@ -70,8 +84,6 @@ myApp.service('UserService', function ($http, $location){
     // why called so many times on page load???
     // THIS IS A KEY QUESTION -- WHY?? On both dashboard and home page!
 
-
-    // console.log("USERSERVICE compute Footprint result: ", result);
     return result;
   };
 
@@ -98,7 +110,6 @@ myApp.service('UserService', function ($http, $location){
     $http.get('/user2/user').then(function(response) {
       if(response.data.username) {
         // user has a current session on the server
-
         self.userObject.userName = response.data.username;
         self.userObject.organization = response.data.organization;
         self.userObject.name = response.data.name;
@@ -192,8 +203,10 @@ myApp.service('UserService', function ($http, $location){
     return $http.get('project/userprojects/' + id).then(function (response) {
 
       // What is going on here??
-      return self.userProjects = response.data;
-      self.selectedProjectFootprints = response.data;
+      self.userProjects = response.data;
+      console.log(self.userProjects); // WHOA THIS IS CRAZY WRONG!
+      // self.selectedProjectFootprints = response.data;
+      return self.userProjects;
 
     }).catch(function (err) {
       console.log('problem getting projects', err);
@@ -206,9 +219,14 @@ myApp.service('UserService', function ($http, $location){
   // moved to FPs:
   //gets the footprints for selected project
   self.getProjectFootprints = function (id){
+    console.log("ID IS....", id);
     return $http.get('/project/project_footprints/'+ id).then(function (response) {
 
-      return self.selectedProjectFootprints = response.data.rows;
+      self.selectedProjectFootprints = response.data.rows;
+      console.log("FOOTPRINTS ARE...", self.selectedProjectFootprints, " for id no. ", id);
+      notifyObservers();
+
+      return self.selectedProjectFootprints;
     }).catch(function (err) {
       console.log('problem getting project footprints', err);
     });

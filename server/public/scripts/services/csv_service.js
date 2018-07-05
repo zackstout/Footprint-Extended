@@ -6,10 +6,7 @@ myApp.service('csvService', function ($http, $location, UserService) {
 
   vm.dataType = '';
 
-  // all good but for those two pairs of hanger-ons
-
-
-
+  // Should include an "is-metric" property:
   vm.masterParse = function(data) {
     // console.log(ExcelToJSON(data));
     var dataNums = data.slice(data.lastIndexOf('kWh'), data.indexOf(',,,,,,,,,,'));
@@ -29,6 +26,7 @@ myApp.service('csvService', function ($http, $location, UserService) {
       organization: ''
     };
 
+    // Must be a clever way to condense this...Loop through keys of csv object? Would need index of the key...
     for (var i = 0; i < arrayOfNums.length; i++) {
       var num = arrayOfNums[i];
       if (i % 11 == 1 && num !== '') {
@@ -58,6 +56,14 @@ myApp.service('csvService', function ($http, $location, UserService) {
 
     return csv;
   };
+
+
+
+
+
+
+
+
 
 
   // (1) TRIAL DATA:
@@ -103,6 +109,10 @@ myApp.service('csvService', function ($http, $location, UserService) {
 
 
 
+
+
+
+
   // (2) LOGGED IN USER's UPLOAD:
   //This is the start of sending logged in user's info to the database.
   vm.projectOut = { userInfo: [], userType: [], dataIn: [] };
@@ -121,8 +131,9 @@ myApp.service('csvService', function ($http, $location, UserService) {
     // IT OCCURS TO ME IT'S ONLY SHOWING IT NULL BECAUSE IT UPDATES AFTER IT HAS POSTED, SO IT'S EMPTY. CHECK THE DB.
     // console.log("parseFootprint 2: ", vm.projectOut);
 
-    vm.postProjects(vm.projectOut);
+    return vm.postProjects(vm.projectOut);
   };
+
 
   //Push info to object.
   vm.sendUser = function (user) {
@@ -139,7 +150,7 @@ myApp.service('csvService', function ($http, $location, UserService) {
   // Post new FP to DB:
   vm.postProjects = function (proj) {
     console.log('postin', proj);
-    $http.post('/footprints/project_submit', proj).then(function (response) {
+    return $http.post('/footprints/project_submit', proj).then(function (response) {
 
       vm.projectOut.userInfo = [];
       vm.projectOut.userType = [];
