@@ -15,7 +15,7 @@
 - [x] Changed order of calling value changes vs string changes, seems to have fixed `ng-change`-not-firing issue.
 - [x] Fixed viewByCategory chart function, which was always computing Shipping.
 
-### New features:
+### New features (April/May):
 - [x] Created new page and hide/show functionality for sequential diesel-to-solar calculator.
 - [x] Add more instructions for the user on how to navigate through the site.
 - [x] Store user-entered data about diesel systems (like with trial footprints) for admin to view.
@@ -33,13 +33,7 @@
   - Add source 0.0.0.0/0 to 5432 rule. Use a database name that exists when connecting from Postico. (or you don't have to???)
   - OK we FINALLY got there: simply followed [these helpful steps](https://medium.com/@harrison0723/beginners-guide-to-aws-beanstalk-using-node-js-d061bb4b8755) to allow Beanstalk app access to the database, and allowed access to the database from anywhere so that Postico can hook onto it. Then we had to put our data inside the "ebdb" database, rather than the "postgres" database.
 
-
-
-
-
-## Next Steps:
-
-### Top priority:
+### New features (July):
 - [x] Lock out submit button until have chosen metric/non, submitted org name, and submitted a file.
 - [x] Click on top header takes you back home.
 - [x] "Check out our impact." "Now try it for your organization." "Carbon footprint" => "footprint"
@@ -50,16 +44,24 @@
 - [x] Say "country: " on upload modal. Generally clean up UI for footprint and project uploads.
 - [x] New month does not show up after uploading immediately. This was a trickier issue -- had to emit from one controller to another (couldn't see how to do it with a service). Had to add some promises as well to ensure order was correct. There is still an issue, because it seems injecting the scope causes things (like getProjectFootprints) to run before they should. Uh oh, bigger issue, now will only let me click on upload project ONCE. (or use the nav in general).
 - [x] Fixed that mess with an Observer in the service. Nice. Ughhh no the nav bar is still broken. All right, had to remove `$scope: scope` -- and again, it didn't work the first time....But now seems to?
+- [x] Still need confirmation alerts.
+  - [ ] Still needed for projects.
+
+
+## Next Steps:
+
+### Top priority:
 - [ ] Make delete button easier to read.
 - [ ] User's info over time line chart buggy.
 - [ ] Popup FAQ like on footprintproject.io site.
 - [ ] Implement forgot password.
-- [ ] Still need confirmation alerts.
 - [ ] Give diesel higher priority in CSV.
 - [ ] Make sure line chart of FP's footprint does not disappear on Trial Upload.
 - [ ] When user submits new project, go to that screen immediately.
 - [ ] Add total to donut chart.
 - [ ] Issue discovered: Project is added to DB if it has no types, but will NOT show up in our query for all of a user's projects. Easiest fix is validate for a type, which we probably want anyway.
+- [ ] Issue: Trial run card now looks bad on narrower screens.
+- [ ] Oh we could even validate on whether it's a CSV -- that's a good idea.
 
 
 ### High-priority:

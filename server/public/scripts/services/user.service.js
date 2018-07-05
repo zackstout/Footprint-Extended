@@ -16,6 +16,7 @@ myApp.service('UserService', function ($http, $location){
   self.userObj = { selectedIndex: 0 };
   self.selectedProjectFootprints = [];
 
+  self.successfulUpload = false;
 
   let observerCallbacks = [];
 
@@ -213,7 +214,11 @@ myApp.service('UserService', function ($http, $location){
     });
   };
 
+  self.uploadWorked = function() {
+    self.successfulUpload = true;
+    // notifyObservers();
 
+  };
 
 
   // moved to FPs:

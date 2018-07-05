@@ -79,16 +79,24 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
         csvService.parseFootprint(data).then(function(res) {
           // console.log(res);
           // console.log($scope, scope);
-          UserService.getProjectFootprints(UserService.clickedProject.id).then(function(res) {
-            console.log(res);
-            // vm.userProjects = res;
+          // console.log(res);
+          // if (res.living == 0 && res.shipping == 0 && res.travel == 0) {
+          //   $('#errorOutput').html('Sorry, we could not process your file.');
+          // } else {
+            // UserService.successfulUpload = true;
+            UserService.uploadWorked();
 
-          });
+          // ***** Only need to call this if we're coming from a Particular Project page, NOT from the dashboard *****
+            UserService.getProjectFootprints(UserService.clickedProject.id).then(function(res) {
+              console.log(res);
+              // vm.userProjects = res;
+
+            });
           // csvService.updateFootprints();
           // $scope.$emit('submitFootprint', 'hi');
           // console.log($scope);
           // scope.pc.getProjectFootprints();
-
+        // }
         });
       };
       r.readAsBinaryString(f);

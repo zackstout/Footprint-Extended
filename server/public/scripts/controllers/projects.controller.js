@@ -21,9 +21,28 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
   // Put service in charge of updating vm.projectFootprints:
   let updateProjFootprints = function() {
     vm.projectFootprints = UserService.selectedProjectFootprints;
+
+    if (UserService.successfulUpload) {
+      console.log('whwwawa');
+
+      $mdDialog.show({
+        templateUrl: 'views/templates/uploadSuccess.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+       //  scope: $scope // **** the magic line **** // Well, actually the line that breaks the nav bar. Shoot.
+      });
+    }
+  };
+
+
+  let goodUpload = function() {
+
+
+
   };
 
   UserService.registerObserverCallback(updateProjFootprints);
+  // UserService.registerObserverCallback(goodUpload);
 
 
 
