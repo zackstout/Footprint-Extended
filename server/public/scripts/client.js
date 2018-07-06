@@ -65,6 +65,7 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
       redirectTo: 'home'
     });
 
+
   $mdThemingProvider.theme('default')
     .primaryPalette('teal', {
       'default': '100', // by default use shade 400 from the pink palette for primary intentions

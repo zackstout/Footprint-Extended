@@ -84,7 +84,7 @@ router.post('/newproject', function (req, res) {
               } else {
                 console.log("ID: ", result.rows[0].id);
 
-                for (var i = 0; i < req.body.project.length - 1; i++) {
+                for (var i = 0; i < req.body.project.length - 1; i++) { // also infected by poor naming as "project" or "countryIn", when really it's tracking types.....Oh well.
                   var typeNow = types.indexOf(req.body.project[i]);
                   queryText = 'INSERT INTO "project_type" ("project_id", "type_id") VALUES ($1, $2);';
                   db.query(queryText, [result.rows[0].id, typeNow + 1], handlePost);

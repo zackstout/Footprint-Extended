@@ -253,7 +253,12 @@ vm.lineChart();
 vm.login = function() {
   console.log('LoginController -- login');
   if(vm.user.username === '' || vm.user.password === '') {
-    vm.message = "Enter your username and password!";
+    $mdDialog.show({
+      templateUrl: '/views/templates/noUser.html',
+      parent: angular.element(document.body),
+      clickOutsideToClose: true
+    });
+    // vm.message = "Enter your username and password!";
   } else {
     // console.log('LoginController -- login -- sending to server...', vm.user);
     $http.post('/', vm.user).then(function(response) {
@@ -268,10 +273,20 @@ vm.login = function() {
       } else {
         console.log('LoginController -- login -- failure: ', response);
         vm.message = "Please try again!";
+        $mdDialog.show({
+          templateUrl: '/views/templates/incorrect.html',
+          parent: angular.element(document.body),
+          clickOutsideToClose: true
+        });
       }
     }).catch(function(response){
       console.log('LoginController -- registerUser -- failure: ', response);
       vm.message = "Please try again!";
+      $mdDialog.show({
+        templateUrl: '/views/templates/incorrect.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true
+      });
     });
   }
 };

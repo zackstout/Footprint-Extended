@@ -46,22 +46,25 @@
 - [x] Fixed that mess with an Observer in the service. Nice. Ughhh no the nav bar is still broken. All right, had to remove `$scope: scope` -- and again, it didn't work the first time....But now seems to?
 - [x] Still need confirmation alerts.
   - [ ] Still needed for projects.
-
+- [x] Cleaned up login failure messages.
+- [x] Make delete button easier to read (angular Material makes harder than it should be).
+- [x] When user submits new project, go to that screen immediately (more observers).
 
 ## Next Steps:
 
 ### Top priority:
-- [ ] Make delete button easier to read.
+
+- [ ] Auto-select the current project when Uploading new footprint from projects page.
 - [ ] User's info over time line chart buggy.
 - [ ] Popup FAQ like on footprintproject.io site.
 - [ ] Implement forgot password.
 - [ ] Give diesel higher priority in CSV.
 - [ ] Make sure line chart of FP's footprint does not disappear on Trial Upload.
-- [ ] When user submits new project, go to that screen immediately.
 - [ ] Add total to donut chart.
 - [ ] Issue discovered: Project is added to DB if it has no types, but will NOT show up in our query for all of a user's projects. Easiest fix is validate for a type, which we probably want anyway.
 - [ ] Issue: Trial run card now looks bad on narrower screens.
 - [ ] Oh we could even validate on whether it's a CSV -- that's a good idea.
+- [ ] Add a scroller to the Projects list, so it doesn't get too long.
 
 
 ### High-priority:

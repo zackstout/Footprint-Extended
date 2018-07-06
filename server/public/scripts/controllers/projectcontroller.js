@@ -5,34 +5,34 @@ myApp.controller('ProjectDialogController', function (UserService, csvService, $
     vm.countries = UserService.countries.data;
     vm.items = ['Health', 'Food/Nutrition', 'Education', 'Non-Food Items (NFI)', 'Shelter', 'Conflict', 'Migration/Camp Management', 'Faith-based', 'Research', 'Governance', 'Business/Entrepeneur', 'Donor'];
     vm.selected = [];
+    vm.user = {}; // Initialize empty object for modelling
 
-    //This function sends checkboxes
+    // Handle checkboxes:
     vm.change = function (item, active) {
-
         if (active) {
             vm.selected.push(item);
             var data = item;
-
         } else {
             vm.selected.splice(vm.selected.indexOf(item), 1);
         }
-
-    }; //End checkboxes function
-
-    //This function sends checkboxes to the User Service.
-    vm.postCheckboxes = function(){
-        var sendData = vm.selected;
-        vm.userService.countryIn = sendData;
-    };
-//This function sends user data to the service.
-    vm.getUserData = function(user){
-        vm.userService.sendProject(user);
-
-
     };
 
-    vm.hide = function() {
+    vm.submitProject = function() {
+      // Validation:
+      if (!vm.user.projectName) {
+        $('#error').html("Please enter a project name.");
+      } else if (!vm.user.selectedCountry) {
+        $('#error').html("Please select a country.");
+      } else if (vm.selected.length == 0) {
+        $('#error').html("Please select a type.");
+      }
+      else {
+        UserService.newProject = true;
+        vm.userService.countryIn = vm.selected;
+        vm.userService.sendProject(vm.user);
         $mdDialog.hide();
+        // vm.userService.newProject = true;
+      }
     };
 
-});//End Project Dialog Controller
+});

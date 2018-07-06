@@ -27,6 +27,39 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
     $location.path('/calc');
   };
 
+
+  // ---------- NAV BAR: ----------
+
+  // Add a new footprint modal:
+   vm.upload = function (ev, i) {
+     // userService.getProjects.selectedIndex = i;
+     $mdDialog.show({
+       controller: 'FootprintUploadController as ddc',
+       templateUrl: 'views/templates/footprintUpload.html',
+       parent: angular.element(document.body),
+       targetEvent: ev,
+       clickOutsideToClose: true,
+      //  scope: $scope // **** the magic line **** // Well, actually the line that breaks the nav bar. Shoot.
+     });
+   };
+
+   //Add new project modal:
+   vm.newProject = function (ev, i) {
+
+     $mdDialog.show({
+       controller: 'ProjectDialogController as pdc',
+       templateUrl: 'views/templates/projectdialog.html',
+       parent: angular.element(document.body),
+       targetEvent: ev,
+       clickOutsideToClose: true
+     });
+   };
+
+
+
+
+
+
   // gets the data for the DASHBOARD lineChart displaying org's carbon impact
   vm.lineChart = function () {
     donutService.getUserFpDividedByPeriod().then(function (response) {
@@ -76,32 +109,6 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
 vm.userService.getProjects(vm.userObject.id);
 //dashboard dialog
 
-
-// Add a new footprint modal:
- vm.upload = function (ev, i) {
-   // userService.getProjects.selectedIndex = i;
-   $mdDialog.show({
-     controller: 'FootprintUploadController as ddc',
-     templateUrl: 'views/templates/footprintUpload.html',
-     parent: angular.element(document.body),
-     targetEvent: ev,
-     clickOutsideToClose: true,
-    //  scope: $scope // **** the magic line **** // Well, actually the line that breaks the nav bar. Shoot.
-   });
- };
-
-
- //Add new project modal:
- vm.newProject = function (ev, i) {
-
-   $mdDialog.show({
-     controller: 'ProjectDialogController as pdc',
-     templateUrl: 'views/templates/projectdialog.html',
-     parent: angular.element(document.body),
-     targetEvent: ev,
-     clickOutsideToClose: true
-   });
- };
 
 vm.hide = function () {
   $mdDialog.hide();

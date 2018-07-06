@@ -21,24 +21,20 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
   // Put service in charge of updating vm.projectFootprints:
   let updateProjFootprints = function() {
     vm.projectFootprints = UserService.selectedProjectFootprints;
-
+    console.log('hey here we are', vm.projectFootprints, vm.clickedProject);
     if (UserService.successfulUpload) {
       console.log('whwwawa');
+      vm.clickedProject = UserService.clickedProject;
 
       $mdDialog.show({
         templateUrl: 'views/templates/uploadSuccess.html',
         parent: angular.element(document.body),
         clickOutsideToClose: true,
-       //  scope: $scope // **** the magic line **** // Well, actually the line that breaks the nav bar. Shoot.
+        //  scope: $scope // **** the magic line **** // Well, actually the line that breaks the nav bar. Shoot.
       });
+
+      UserService.successfulUpload = false;
     }
-  };
-
-
-  let goodUpload = function() {
-
-
-
   };
 
   UserService.registerObserverCallback(updateProjFootprints);
@@ -59,6 +55,7 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
 
   // Gets the footprints for selected project
   vm.getProjectFootprints = function (id) {
+    // UserService.newProject = false;
 
     UserService.getProjectFootprints(id).then(function(response){
       vm.projectFootprints = UserService.selectedProjectFootprints;
@@ -124,8 +121,11 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
 
   };
 
-// Ohh that may have been the problem. Loading in *this* controller for the Nav triggered this code every time.
+  // Ohh that may have been the problem. Loading in *this* controller for the Nav triggered this code every time.
   vm.showSelected();
+
+
+
 
   //this is for when the project is selected from projects page instead of from dashboard
   vm.showAnotherProject = function (ev, i) {
@@ -168,17 +168,28 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
   };
 
 
-  // CHANGE COLORS HERE:
-
+  // CHANGE COLORS HERE (need this custom object hack):
   vm.deleteThis = function(ev, x) {
+    // $mdThemingProvider('warn');
 
+    var confirm = $mdDialog.confirm({
+      // thanks SO <3:
 
-    var confirm = $mdDialog.confirm()
+      onComplete: function afterShowAnimation() {
+        var $dialog = angular.element(document.querySelector('md-dialog'));
+        var $actionsSection = $dialog.find('md-dialog-actions');
+        var $cancelButton = $actionsSection.children()[0];
+        var $confirmButton = $actionsSection.children()[1];
+        angular.element($confirmButton).addClass('md-raised md-warn');
+        angular.element($cancelButton).addClass('md-raised');
+      }
+    })
     .clickOutsideToClose(true)
     .title("Are you sure?")
     .targetEvent(ev)
     .ok('Delete it!')
     .cancel("No, go back!");
+
 
     $mdDialog.show(confirm).then(function() {
 
