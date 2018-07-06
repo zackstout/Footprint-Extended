@@ -21,7 +21,7 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
   // Put service in charge of updating vm.projectFootprints:
   let updateProjFootprints = function() {
     vm.projectFootprints = UserService.selectedProjectFootprints;
-    console.log('hey here we are', vm.projectFootprints, vm.clickedProject);
+    // console.log('hey here we are', vm.projectFootprints, vm.clickedProject);
     if (UserService.successfulUpload) {
       console.log('whwwawa');
       vm.clickedProject = UserService.clickedProject;
@@ -59,7 +59,7 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
 
     UserService.getProjectFootprints(id).then(function(response){
       vm.projectFootprints = UserService.selectedProjectFootprints;
-      console.log(vm.projectFootprints);
+      // console.log(vm.projectFootprints);
       //add alert for catch
     }).catch(function (error) {
       console.log(error, 'error getting footprints for selected project');

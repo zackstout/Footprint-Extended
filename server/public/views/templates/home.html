@@ -59,16 +59,46 @@
           </form>
         </div>
         <div id="homeSubmit">
-          <md-button class="md-primary md-raised" ng-click="lc.uploadFile(user, data)">Submit Data</md-button>
+          <md-button class="md-primary md-raised" ng-click="lc.uploadFile(user, data)">
+            Submit data
+            <md-tooltip>
+              <p id="tool1"></p>
+              <!-- <div class="tippin"> -->
+              <!-- <h5>Metric units</h5>
+              <h6>Travel:</h6>
+              <ul>
+                <li>Car: km</li>
+                <li>Train: km</li>
+                <li>Plane: km</li>
+              </ul>
+
+              <h6>Living:</h6>
+              <ul>
+                <li>Hotel: km</li>
+                <li>Gas: km</li>
+                <li>Electriciy: km</li>
+                <li>Propane: km</li>
+              </ul>
+
+              <h6>Shipping:</h6>
+              <ul>
+                <li>Air: km</li>
+                <li>Train: km</li>
+                <li>Truck: km</li>
+                <li>Sea: km</li>
+              </ul> -->
+              <!-- </div> -->
+            </md-tooltip>
+          </md-button>
           <span id="feedbackCont"><a id="feedbackSub" href="https://docs.google.com/forms/d/e/1FAIpQLSdA4eLoZ4m_Ec_nLWfnloq8z-tselxp6phQhOEKnYxvUQ-eRw/viewform">Give us feedback!</a></span>
           <img ng-mouseleave="lc.unhoverHelp($event)" ng-mouseover="lc.hoverHelp($event)" id="helpIcon" src="../../assets/help_icon.png" width="30px">
         </div>
-    </div>
-    <div layout="col">
-      <p ng-hide="lc.userNut">Your data will appear here!</p>
+      </div>
+      <div layout="col">
+        <p ng-hide="lc.userNut">Your data will appear here!</p>
         <canvas flex ng-show="lc.userNut" id="userDonut" width="300" height="300"></canvas>
 
-    </div>
+      </div>
 
     </div>
 

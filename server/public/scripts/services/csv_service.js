@@ -68,7 +68,7 @@ myApp.service('csvService', function ($http, $location, UserService) {
 
   // (1) TRIAL DATA:
   //This function parses the data from uploaded CSVs.
-  vm.parseData = function (data) {
+  vm.parseData = function (data, org) {
     // var dataNums = data.slice(data.lastIndexOf('kWh'), data.indexOf(',,,,,,,,,,'));
     // var arrayOfNums = dataNums.split(',');
 
@@ -82,7 +82,10 @@ myApp.service('csvService', function ($http, $location, UserService) {
     }
 
     // so we pushed it onto this array just to grab it here??
-    csv.organization = vm.userFootprint.userInfo[0].selectedOrganization;
+    // csv.organization = vm.userFootprint.userInfo[0].selectedOrganization;
+
+    console.log("data is......", data);
+    csv.organization = org;
 
     // GOAL: COMPUTE THE FOOTPRINT SO WE CAN SAVE IT TO THE DATABASE:
     vm.trialData = UserService.computeTrialFootprint(csv);

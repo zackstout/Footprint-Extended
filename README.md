@@ -33,6 +33,9 @@
   - Add source 0.0.0.0/0 to 5432 rule. Use a database name that exists when connecting from Postico. (or you don't have to???)
   - OK we FINALLY got there: simply followed [these helpful steps](https://medium.com/@harrison0723/beginners-guide-to-aws-beanstalk-using-node-js-d061bb4b8755) to allow Beanstalk app access to the database, and allowed access to the database from anywhere so that Postico can hook onto it. Then we had to put our data inside the "ebdb" database, rather than the "postgres" database.
 
+
+
+
 ### New features (July):
 - [x] Lock out submit button until have chosen metric/non, submitted org name, and submitted a file.
 - [x] Click on top header takes you back home.
@@ -49,22 +52,31 @@
 - [x] Cleaned up login failure messages.
 - [x] Make delete button easier to read (angular Material makes harder than it should be).
 - [x] When user submits new project, go to that screen immediately (more observers).
+  - [ ] Doesn't work from Projects; only from Dashboard. I'm going to need to organize the observers stuff more thoughtfully.
+  - [ ] This is a big deal: Makes it so that when we add a new footprint from the Projects view, it does not show!!!!!!
+- [x] Issue discovered: Project is added to DB if it has no types, but will NOT show up in our query for all of a user's projects. Easiest fix is validate for a type, which we probably want anyway.
+- [x] Organization name can now be changed and saved to DB (this was a casualty of the recent refactoring).
+
+
+
+
+
 
 ## Next Steps:
 
 ### Top priority:
 
-- [ ] Auto-select the current project when Uploading new footprint from projects page.
-- [ ] User's info over time line chart buggy.
-- [ ] Popup FAQ like on footprintproject.io site.
-- [ ] Implement forgot password.
+- [ ] User's info-over-time line chart buggy.
+- [ ] Popup FAQ like on footprintproject.io site (this will be easy with md-tooltip.   ... This was overly hasty).
 - [ ] Give diesel higher priority in CSV.
-- [ ] Make sure line chart of FP's footprint does not disappear on Trial Upload.
 - [ ] Add total to donut chart.
-- [ ] Issue discovered: Project is added to DB if it has no types, but will NOT show up in our query for all of a user's projects. Easiest fix is validate for a type, which we probably want anyway.
+- [ ] Implement forgot password.
+
+- [ ] Make sure line chart of FP's footprint does not disappear on Trial Upload.
 - [ ] Issue: Trial run card now looks bad on narrower screens.
 - [ ] Oh we could even validate on whether it's a CSV -- that's a good idea.
 - [ ] Add a scroller to the Projects list, so it doesn't get too long.
+- [ ] Auto-select the current project when Uploading new footprint from projects page.
 
 
 ### High-priority:

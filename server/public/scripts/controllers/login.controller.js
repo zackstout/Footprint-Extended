@@ -48,6 +48,8 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
       $('#fileNameOut').append(f.name);
     });
 
+    $('#tool1').text(`hi there \n you silly goose`);
+
   });
 
 
@@ -71,9 +73,11 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
 
       r.onloadend = function (e) {
         var data = e.target.result;
+        let org = $('#orgName').val(); // Hope this works
 
-        csvService.parseData(data).then(function(response) {
+        csvService.parseData(data, org).then(function(response) {
           console.log(response);
+
           // Final piece of validation:
           if (response.living == 0 && response.shipping == 0 && response.travel == 0) {
             $('#errorOut').html('Sorry, we could not process your file.');
@@ -136,6 +140,9 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
   //re-draws the donut graph with trial data:
   vm.donutDataSetTrial = function(x){
     vm.donutResult = x;
+    var ctx = document.getElementById('userDonut').getContext('2d');
+    ctx.fillText('hi THERE YOU SILLY GOOSE ARE YOU THERE CAN YOU SEE ME', 150, 150, 150);
+
 
     new Chart(document.getElementById("userDonut"), {
       type: 'doughnut',
@@ -238,6 +245,10 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
     console.log(error, 'error with line graph data footprints by period');
   });
 };
+
+
+
+// NOTE: Controller sometimes loads when there is no data for this:
 vm.lineChart();
 
 
@@ -254,7 +265,7 @@ vm.login = function() {
   console.log('LoginController -- login');
   if(vm.user.username === '' || vm.user.password === '') {
     $mdDialog.show({
-      templateUrl: '/views/templates/noUser.html',
+      templateUrl: '/views/templates/alerts/noUser.html',
       parent: angular.element(document.body),
       clickOutsideToClose: true
     });
@@ -274,7 +285,7 @@ vm.login = function() {
         console.log('LoginController -- login -- failure: ', response);
         vm.message = "Please try again!";
         $mdDialog.show({
-          templateUrl: '/views/templates/incorrect.html',
+          templateUrl: '/views/templates/alerts/incorrect.html',
           parent: angular.element(document.body),
           clickOutsideToClose: true
         });
@@ -283,7 +294,7 @@ vm.login = function() {
       console.log('LoginController -- registerUser -- failure: ', response);
       vm.message = "Please try again!";
       $mdDialog.show({
-        templateUrl: '/views/templates/incorrect.html',
+        templateUrl: '/views/templates/alerts/incorrect.html',
         parent: angular.element(document.body),
         clickOutsideToClose: true
       });
@@ -294,7 +305,12 @@ vm.login = function() {
 vm.registerUser = function() {
   console.log('LoginController -- registerUser');
   if(vm.user.username === '' || vm.user.password === '') {
-    vm.message = "Choose a username and password!";
+    // vm.message = "Choose a username and password!";
+    $mdDialog.show({
+      templateUrl: '/views/templates/alerts/noInfo.html',
+      parent: angular.element(document.body),
+      clickOutsideToClose: true
+    });
   } else {
     // console.log('LoginController -- registerUser -- sending to server...', vm.user);
     $http.post('/register', vm.user).then(function(response) {
@@ -302,10 +318,19 @@ vm.registerUser = function() {
       $location.path('/home');
     }).catch(function(response) {
       // console.log('LoginController -- registerUser -- error');
-      vm.message = "Please try again.";
+      $mdDialog.show({
+        templateUrl: '/views/templates/alerts/noInfo.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true
+      });
+      // vm.message = "Please try again.";
     });
   }
 };
+
+
+
+
 
 
 

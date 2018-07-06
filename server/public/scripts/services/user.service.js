@@ -205,13 +205,13 @@ myApp.service('UserService', function ($http, $location){
     return $http.get('project/userprojects/' + id).then(function (response) {
 
       self.userProjects = response.data;
-      console.log(self.userProjects); // WHOA THIS IS CRAZY WRONG! (it's not account for any projects that *don't* have types)
+      // console.log(self.userProjects); // WHOA THIS IS CRAZY WRONG! (it's not account for any projects that *don't* have types)
 
       if (self.newProject) { // make sure to set this to false when we're coming from the Projects page.
         self.getProjectFootprints(self.userProjects[self.userProjects.length - 1].id).then(res => {
           console.log(res);
           // notifyObservers();
-          
+
           $location.path('/projects');
           self.newProject = false;
 
@@ -239,7 +239,8 @@ myApp.service('UserService', function ($http, $location){
   // moved to FPs:
   //gets the footprints for selected project
   self.getProjectFootprints = function (id){
-    console.log("ID IS....", id);
+    // console.log("ID IS....", id);
+
     return $http.get('/project/project_footprints/'+ id).then(function (response) {
       self.clickedProject = self.userProjects[self.userProjects.length - 1]; // only if new proejct
 
@@ -307,7 +308,7 @@ myApp.service('UserService', function ($http, $location){
   //This uploads the data for a new project:
   self.sendProject = function(user){
     var project = user;
-    project.project = self.countryIn; // poorly named as "countryIn"
+    project.project = self.countryIn; // poorly named as "countryIn"; is really the types.
 
     $http.post('/project/newproject', project).then(function(response) {
 
