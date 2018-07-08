@@ -42,6 +42,7 @@
 - [x] "Check out our impact." "Now try it for your organization." "Carbon footprint" => "footprint"
 - [x] Let user know CSV has uploaded (bar?). (Cursor still annoying).
   - [x] Times two (turned out to be harder than anticipated to finagle the `ng-model` and clean up UI. Also can't make the "download template" links stack, and the Month and Year are invisible now...)
+  - [x] Issue was with `md-selected-text`; wasn't changed to `pdc.user`. Although, why are we doing it like this, rather than as the Projects selector is done? 
 - [x] Have user's own FP data pop up next to the upload.
   - [ ] Really not sure why chart is so small...
 - [x] Say "country: " on upload modal. Generally clean up UI for footprint and project uploads.

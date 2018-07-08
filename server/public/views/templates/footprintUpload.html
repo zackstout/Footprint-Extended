@@ -34,10 +34,8 @@
           <md-input-container>
 
             <label>Month</label>
-            <md-select class="select" ng-model="ddc.user.selectedMonth" md-selected-text="user.selectedMonth">
-              <md-option>
-                <!-- <em>None</em> -->
-              </md-option>
+            <md-select class="select" ng-model="ddc.user.selectedMonth" md-selected-text="ddc.user.selectedMonth">
+
               <md-option ng-repeat="month in ddc.months">
                 {{month}}
               </md-select>
@@ -45,10 +43,8 @@
             <md-input-container>
               <label>Year</label>
 
-              <md-select class="select" ng-model="ddc.user.selectedYear" md-selected-text="user.selectedYear" ng-value="">
-                <md-option>
+              <md-select class="select" ng-model="ddc.user.selectedYear" md-selected-text="ddc.user.selectedYear">
 
-                </md-option>
                 <md-option ng-repeat="year in ddc.years">
                   {{year}}
                 </md-option>
