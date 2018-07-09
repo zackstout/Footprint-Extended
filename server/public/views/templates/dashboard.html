@@ -23,8 +23,9 @@
     <div flex="25">
       <h2>YOUR PROJECTS</h2>
       <md-card id="recent">
-        <h3 ng-repeat="userProject in uc.userService.userProjects">
-
+        <!-- why isn't this working??? -->
+        <h3 ng-repeat="userProject in uc.userService.userProjects | orderBy: userProject.id">
+          {{userProject.id}}
           <md-button aria-label=" " ng-click="uc.showProject($event, $index)" layout-align="left">{{userProject.name}}</md-button>
         </md-button>
       </h3>

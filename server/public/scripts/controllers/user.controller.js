@@ -106,7 +106,7 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
 };
 
 //gets users projects
-vm.userService.getProjects(vm.userObject.id);
+vm.userService.getProjects(vm.userObject.id, true);
 //dashboard dialog
 
 

@@ -7,6 +7,11 @@ myApp.controller('ProjectDialogController', function (UserService, csvService, $
     vm.selected = [];
     vm.user = {}; // Initialize empty object for modelling
 
+
+    // Check where we came from:
+    let loc = $location.$$url == '/user' ? 'user' : 'project';
+
+
     // Handle checkboxes:
     vm.change = function (item, active) {
         if (active) {

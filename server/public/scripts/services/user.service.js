@@ -205,18 +205,23 @@ myApp.service('UserService', function ($http, $location){
     return $http.get('project/userprojects/' + id).then(function (response) {
 
       self.userProjects = response.data;
-      // console.log(self.userProjects); // WHOA THIS IS CRAZY WRONG! (it's not account for any projects that *don't* have types)
+      console.log(self.userProjects);
+      // console.log(self.userProjects); // WHOA THIS IS CRAZY WRONG! (it's not account for any projects that *don't* have types) // Ok -- just don't let them enter projects without types.
 
+      // This just seems misguided and unnecessary:
       if (self.newProject) { // make sure to set this to false when we're coming from the Projects page.
-        self.getProjectFootprints(self.userProjects[self.userProjects.length - 1].id).then(res => {
-          console.log(res);
-          // notifyObservers();
-
-          $location.path('/projects');
-          self.newProject = false;
-
-        });
-
+      //   self.getProjectFootprints(self.userProjects[self.userProjects.length - 1].id).then(res => {
+      //     console.log(res);
+      //     // notifyObservers();
+      //
+      //     $location.path('/projects');
+      //     self.newProject = false;
+      //
+        // });
+        console.log('all o ther e');
+        self.clickedProject = self.userProjects[self.userProjects.length - 1];
+        $location.path('/projects');
+        self.newProject = false;
         // $location.path('/projects');
 
       }
@@ -242,11 +247,14 @@ myApp.service('UserService', function ($http, $location){
     // console.log("ID IS....", id);
 
     return $http.get('/project/project_footprints/'+ id).then(function (response) {
-      self.clickedProject = self.userProjects[self.userProjects.length - 1]; // only if new proejct
+      self.clickedProject = self.userProjects[self.userProjects.length - 1]; // only if new proejct !!!!!
+
+
+
 
       self.selectedProjectFootprints = response.data.rows;
       console.log("FOOTPRINTS ARE...", self.selectedProjectFootprints, " for id no. ", id);
-      notifyObservers();
+      notifyObservers(); // With this in, when we upload new footprint from Projects page, we get taken to last project????
 
       return self.selectedProjectFootprints;
     }).catch(function (err) {

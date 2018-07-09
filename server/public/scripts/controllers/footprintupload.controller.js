@@ -1,4 +1,4 @@
-myApp.controller('FootprintUploadController', function ($http, UserService, csvService, $mdDialog, $interval, $scope) {
+myApp.controller('FootprintUploadController', function ($http, UserService, csvService, $mdDialog, $interval, $scope, $location) {
   console.log('DashboardDialogController created');
   var vm = this;
   vm.userService = UserService;
@@ -15,7 +15,13 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
   vm.user = {};
   vm.data = {};
 
+  // console.log(vm.location, $location.$$url);
 
+  // Check whether activated from Dashboard or Project page:
+  let loc = $location.$$url == '/user' ? 'user' : 'project';
+
+
+  
 
   // OUTSOURCE TO PROJECTS SERVICE ?
   vm.getUserProjects = function() {
@@ -87,7 +93,7 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
             UserService.uploadWorked();
 
           // ***** Only need to call this if we're coming from a Particular Project page, NOT from the dashboard *****
-            UserService.getProjectFootprints(UserService.clickedProject.id).then(function(res) {
+            UserService.getProjectFootprints(UserService.clickedProject.id, false).then(function(res) {
               console.log(res);
               // vm.userProjects = res;
 

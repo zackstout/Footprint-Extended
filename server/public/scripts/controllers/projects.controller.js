@@ -18,7 +18,7 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
   // });
 
 
-  // Put service in charge of updating vm.projectFootprints:
+  // Put service in charge of updating vm.projectFootprints: (called whenver notifyObservers is called, yes?)
   let updateProjFootprints = function() {
     vm.projectFootprints = UserService.selectedProjectFootprints;
     // console.log('hey here we are', vm.projectFootprints, vm.clickedProject);
@@ -26,12 +26,13 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
       console.log('whwwawa');
       vm.clickedProject = UserService.clickedProject;
 
-      $mdDialog.show({
-        templateUrl: 'views/templates/uploadSuccess.html',
-        parent: angular.element(document.body),
-        clickOutsideToClose: true,
-        //  scope: $scope // **** the magic line **** // Well, actually the line that breaks the nav bar. Shoot.
-      });
+      // WAIT, we shouldn't need this, if it shows up automatically....But it won't always, unless we take them to that page. Should we do that? Probably.
+      // $mdDialog.show({
+      //   templateUrl: 'views/templates/alerts/uploadSuccess.html',
+      //   parent: angular.element(document.body),
+      //   clickOutsideToClose: true,
+      //   //  scope: $scope // **** the magic line **** // Well, actually the line that breaks the nav bar. Shoot.
+      // });
 
       UserService.successfulUpload = false;
     }
@@ -57,7 +58,7 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
   vm.getProjectFootprints = function (id) {
     // UserService.newProject = false;
 
-    UserService.getProjectFootprints(id).then(function(response){
+    UserService.getProjectFootprints(id, false).then(function(response){
       vm.projectFootprints = UserService.selectedProjectFootprints;
       // console.log(vm.projectFootprints);
       //add alert for catch

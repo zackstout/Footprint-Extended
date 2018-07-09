@@ -13,7 +13,7 @@ myApp.controller('ProjectDashboardController', function() {
     //gets the footprints for selected project
     vm.getProjectFootprints = function (id) {
 
-        UserService.getProjectFootprints(id).then(function(response){
+        UserService.getProjectFootprints(id, false).then(function(response){
             vm.projectFootprints = UserService.selectedProjectFootprints;
 
             //add alert for catch

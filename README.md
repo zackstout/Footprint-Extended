@@ -34,50 +34,60 @@
   - OK we FINALLY got there: simply followed [these helpful steps](https://medium.com/@harrison0723/beginners-guide-to-aws-beanstalk-using-node-js-d061bb4b8755) to allow Beanstalk app access to the database, and allowed access to the database from anywhere so that Postico can hook onto it. Then we had to put our data inside the "ebdb" database, rather than the "postgres" database.
 
 
-
-
 ### New features (July):
 - [x] Lock out submit button until have chosen metric/non, submitted org name, and submitted a file.
 - [x] Click on top header takes you back home.
 - [x] "Check out our impact." "Now try it for your organization." "Carbon footprint" => "footprint"
 - [x] Let user know CSV has uploaded (bar?). (Cursor still annoying).
   - [x] Times two (turned out to be harder than anticipated to finagle the `ng-model` and clean up UI. Also can't make the "download template" links stack, and the Month and Year are invisible now...)
-  - [x] Issue was with `md-selected-text`; wasn't changed to `pdc.user`. Although, why are we doing it like this, rather than as the Projects selector is done? 
+  - [x] Issue was with `md-selected-text`; wasn't changed to `pdc.user`. Although, why are we doing it like this, rather than as the Projects selector is done?
 - [x] Have user's own FP data pop up next to the upload.
   - [ ] Really not sure why chart is so small...
 - [x] Say "country: " on upload modal. Generally clean up UI for footprint and project uploads.
 - [x] New month does not show up after uploading immediately. This was a trickier issue -- had to emit from one controller to another (couldn't see how to do it with a service). Had to add some promises as well to ensure order was correct. There is still an issue, because it seems injecting the scope causes things (like getProjectFootprints) to run before they should. Uh oh, bigger issue, now will only let me click on upload project ONCE. (or use the nav in general).
 - [x] Fixed that mess with an Observer in the service. Nice. Ughhh no the nav bar is still broken. All right, had to remove `$scope: scope` -- and again, it didn't work the first time....But now seems to?
 - [x] Still need confirmation alerts.
-  - [ ] Still needed for projects.
+  - [ ] Still needed for projects. -- No it's not, we will direct them to project page. Only alert if error (low-priority).
 - [x] Cleaned up login failure messages.
 - [x] Make delete button easier to read (angular Material makes harder than it should be).
 - [x] When user submits new project, go to that screen immediately (more observers).
   - [ ] Doesn't work from Projects; only from Dashboard. I'm going to need to organize the observers stuff more thoughtfully.
   - [ ] This is a big deal: Makes it so that when we add a new footprint from the Projects view, it does not show!!!!!!
+
+- [ ] Main goal: when user uploads new Footprint, or creates a new project, take them to that Project's page. Well, maybe not, maybe we want to see the line chart change on the Dashboard....
+(Was I really overthinking things with the observers stuff? I don't think so -- I don't think a change in the service's value would automatically eb changed in a controller that was looking at it. You have to tell the controller: "look at it now!")
+
 - [x] Issue discovered: Project is added to DB if it has no types, but will NOT show up in our query for all of a user's projects. Easiest fix is validate for a type, which we probably want anyway.
 - [x] Organization name can now be changed and saved to DB (this was a casualty of the recent refactoring).
 
 
-
-
-
-
 ## Next Steps:
-
 ### Top priority:
-
 - [ ] User's info-over-time line chart buggy.
 - [ ] Popup FAQ like on footprintproject.io site (this will be easy with md-tooltip.   ... This was overly hasty).
 - [ ] Give diesel higher priority in CSV.
-- [ ] Add total to donut chart.
+- [ ] Add total to donut chart. (or at least make it visible somewhere).
 - [ ] Implement forgot password.
+- [ ] Make sure that line chart UPDATES when user enters a new footprint.
+
 
 - [ ] Make sure line chart of FP's footprint does not disappear on Trial Upload.
 - [ ] Issue: Trial run card now looks bad on narrower screens.
 - [ ] Oh we could even validate on whether it's a CSV -- that's a good idea.
 - [ ] Add a scroller to the Projects list, so it doesn't get too long.
 - [ ] Auto-select the current project when Uploading new footprint from projects page.
+
+- [ ] Put the trademark footer. 2018 Footprint GBC. All rights reserved. 1717 Broadway. Also link to Facebook page. facebook.com/footprintproject. Also link to footprintproject.org. Check out our field projects.
+- [ ] Make sure Will can upload from admin page.
+- [ ] Play with New Logo.
+- [ ] Contact us. Footprintproject.org. will@footprintproject.org
+
+August 6th, Pitch deck.
+
+- [ ] Also put in the screenshot (?) of bottom, as on footprintproject.org.
+
+
+1 pm on Friday. OR: host via Heroku.
 
 
 ### High-priority:
