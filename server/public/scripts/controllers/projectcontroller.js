@@ -32,10 +32,16 @@ myApp.controller('ProjectDialogController', function (UserService, csvService, $
         $('#error').html("Please select a type.");
       }
       else {
-        UserService.newProject = true;
+        // UserService.newProject = true;
         vm.userService.countryIn = vm.selected;
         vm.userService.sendProject(vm.user);
         $mdDialog.hide();
+
+        // this is already called by sendProject:
+        // UserService.getProjects().then(function() {
+        //   window.location.href = '/#/projects';
+        //
+        // });
         // vm.userService.newProject = true;
       }
     };

@@ -20,11 +20,16 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
 
   // Put service in charge of updating vm.projectFootprints: (called whenver notifyObservers is called, yes?)
   let updateProjFootprints = function() {
+
+
+
+    vm.userProjects = UserService.userProjects;
+    vm.clickedProject = UserService.clickedProject;
     vm.projectFootprints = UserService.selectedProjectFootprints;
     // console.log('hey here we are', vm.projectFootprints, vm.clickedProject);
-    if (UserService.successfulUpload) {
-      console.log('whwwawa');
-      vm.clickedProject = UserService.clickedProject;
+    // if (UserService.successfulUpload) {
+      // console.log('whwwawa');
+      // vm.clickedProject = UserService.clickedProject;
 
       // WAIT, we shouldn't need this, if it shows up automatically....But it won't always, unless we take them to that page. Should we do that? Probably.
       // $mdDialog.show({
@@ -34,8 +39,8 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
       //   //  scope: $scope // **** the magic line **** // Well, actually the line that breaks the nav bar. Shoot.
       // });
 
-      UserService.successfulUpload = false;
-    }
+      // UserService.successfulUpload = false;
+    // }
   };
 
   UserService.registerObserverCallback(updateProjFootprints);

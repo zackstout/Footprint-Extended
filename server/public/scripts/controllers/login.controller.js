@@ -48,7 +48,7 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
       $('#fileNameOut').append(f.name);
     });
 
-    $('#tool1').text(`hi there \n you silly goose`);
+    // $('#tool1').text(`hi there \n you silly goose`);
 
   });
 

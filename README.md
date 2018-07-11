@@ -54,7 +54,6 @@
   - [ ] Doesn't work from Projects; only from Dashboard. I'm going to need to organize the observers stuff more thoughtfully.
   - [ ] This is a big deal: Makes it so that when we add a new footprint from the Projects view, it does not show!!!!!!
 
-- [ ] Main goal: when user uploads new Footprint, or creates a new project, take them to that Project's page. Well, maybe not, maybe we want to see the line chart change on the Dashboard....
 (Was I really overthinking things with the observers stuff? I don't think so -- I don't think a change in the service's value would automatically eb changed in a controller that was looking at it. You have to tell the controller: "look at it now!")
 
 - [x] Issue discovered: Project is added to DB if it has no types, but will NOT show up in our query for all of a user's projects. Easiest fix is validate for a type, which we probably want anyway.
@@ -63,23 +62,25 @@
 
 ## Next Steps:
 ### Top priority:
-- [ ] User's info-over-time line chart buggy.
+- [x] New project from dash (no observer needed)
+- [x] New project from projects (seems observer needed -- so could just observe new project, change clickedProject)
+- [ ] New footprint from dash (needs to update chart)
+- [ ] New footprint from projects (needs to change to Project, and update Project-footprints)
+
+
+- [ ] User's info-over-time line chart buggy. Make sure that line chart UPDATES when user enters a new footprint.
+
 - [ ] Popup FAQ like on footprintproject.io site (this will be easy with md-tooltip.   ... This was overly hasty).
 - [ ] Give diesel higher priority in CSV.
 - [ ] Add total to donut chart. (or at least make it visible somewhere).
 - [ ] Implement forgot password.
-- [ ] Make sure that line chart UPDATES when user enters a new footprint.
 
 
 - [ ] Make sure line chart of FP's footprint does not disappear on Trial Upload.
-- [ ] Issue: Trial run card now looks bad on narrower screens.
-- [ ] Oh we could even validate on whether it's a CSV -- that's a good idea.
-- [ ] Add a scroller to the Projects list, so it doesn't get too long.
-- [ ] Auto-select the current project when Uploading new footprint from projects page.
-
 - [ ] Put the trademark footer. 2018 Footprint GBC. All rights reserved. 1717 Broadway. Also link to Facebook page. facebook.com/footprintproject. Also link to footprintproject.org. Check out our field projects.
 - [ ] Make sure Will can upload from admin page.
 - [ ] Play with New Logo.
+  - [ ] Text should be light gray... and should be bigger.
 - [ ] Contact us. Footprintproject.org. will@footprintproject.org
 
 August 6th, Pitch deck.
@@ -91,6 +92,12 @@ August 6th, Pitch deck.
 
 
 ### High-priority:
+- [ ] Auto-select the current project when Uploading new footprint from projects page.
+- [ ] Issue: Trial run card now looks bad on narrower screens.
+- [ ] Oh we could even validate on whether it's a CSV -- that's a good idea.
+- [ ] Add a scroller to the Projects list, so it doesn't get too long.
+
+
 - [ ] Non-metric CSV is not correct. (just get rid of dates columns?)
 - [ ] Do not show options for chart query unless it contains data -- don't even display it as an option in the dropdown. (Alert user if there is no data (i.e. identify all of those errors -- "cannot read property plane of undefined", for example))?
 - [ ] Disallow user from entering two projects of same name (creates `md-duplicate` error) -- ask if they instead want to view that project.
@@ -112,6 +119,7 @@ August 6th, Pitch deck.
 
 ## Quality of Life Improvements:
 ### Simpler:
+- [ ] Clicking X on modals closes them
 - [ ] The lower shadow on hover over a button (e.g. AWS) is a nice touch.
 - [ ] Add response to user when footprint or project has been successfully posted/edited.
 - [ ] Split up controllers and services further (especially user controller and user service).
@@ -122,6 +130,7 @@ August 6th, Pitch deck.
 - [ ] Add animations for the diesel-to-solar calculator.
 
 ### Less simple:
+- [ ] Fix the months gaps
 - [ ] Would be nice to fix the page refresh issue (cacheing, etc.). (IDEA: We could use localStorage!)
 - [ ] Let user view current CSV when editing or deleting -- or for that matter, show them on hover on the page or something.
 - [ ] Add animations for the user-customizable charts, to ensure that there's not so much gaping white space before charts are generated. Move two large buttons to two tabs on the left when user clicks one.

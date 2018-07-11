@@ -17,6 +17,12 @@ myApp.service('UserService', function ($http, $location){
   self.selectedProjectFootprints = [];
   self.newProject = false;
 
+
+  self.country = '';
+  self.name = '';
+  self.types = [];
+
+
   self.successfulUpload = false;
 
   let observerCallbacks = [];
@@ -30,7 +36,6 @@ myApp.service('UserService', function ($http, $location){
       cb();
     });
   }
-
 
   const PLANE_CONVERSION = 0.18026;
   const CAR_CONVERSION = 0.18568;
@@ -147,7 +152,7 @@ myApp.service('UserService', function ($http, $location){
 
 
 
-// Oh isn't that so much more pleasant to the eye?
+  // Oh isn't that so much more pleasant to the eye?
   self.getFootprint = function(id) {
     console.log('hello', id);
     // $http.get('/footprints/footprint')
@@ -166,101 +171,86 @@ myApp.service('UserService', function ($http, $location){
     // Check whether user is logged in:
     if (data.userId == undefined) {
       $http.post('/csv/trial_transition', data).then(function(res) {
-        // console.log(data);
-        // odd that we don't see this, but whatever, appears to be working:
-        console.log('allo'); // Hmm, now we do...
+        console.log('allo');
       });
     } else {
       $http.post('/csv/user_transition', data).then(function(res) {
-        // console.log(data);
-        // odd that we don't see this, but whatever, appears to be working:
-        console.log('allo mate'); // Hmm, now we do...
+        console.log('allo mate');
       });
     }
-
   };
-
-
 
 
 
 
   // moved to projects:
   self.getCountries = function() {
-
     $http.get('/project/countries').then(function(response) {
       var countries = response.data.rows;
-
       self.countries.data = countries;
-
     });
   };
+
+
   self.getCountries();
 
 
 
-  //gets the users projects for the projects view
+
+
+ // ----------------------------------- the difficiult ones: -----------------------------------
+
+
+
+  // Gets the users projects for the projects view. Called when new project is uploaded so that user can be taken to new project screen.
   self.getProjects = function (id) {
 
     return $http.get('project/userprojects/' + id).then(function (response) {
-
       self.userProjects = response.data;
-      console.log(self.userProjects);
       // console.log(self.userProjects); // WHOA THIS IS CRAZY WRONG! (it's not account for any projects that *don't* have types) // Ok -- just don't let them enter projects without types.
 
-      // This just seems misguided and unnecessary:
-      if (self.newProject) { // make sure to set this to false when we're coming from the Projects page.
-      //   self.getProjectFootprints(self.userProjects[self.userProjects.length - 1].id).then(res => {
-      //     console.log(res);
-      //     // notifyObservers();
-      //
-      //     $location.path('/projects');
-      //     self.newProject = false;
-      //
-        // });
-        console.log('all o ther e');
-        self.clickedProject = self.userProjects[self.userProjects.length - 1];
-        $location.path('/projects');
-        self.newProject = false;
-        // $location.path('/projects');
+      // ******* Hmm still not working from Projects page itself though *******.
 
-      }
-
+      // ahhhhh Yes the problem is this isn't being ordered correctly:
+      self.userProjects.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+      // console.log(self.userProjects);
+      // self.clickedProject = self.userProjects[self.userProjects.length - 1];
 
       return self.userProjects;
-
     }).catch(function (err) {
       console.log('problem getting projects', err);
     });
-  };
-
-  self.uploadWorked = function() {
-    self.successfulUpload = true;
-    // notifyObservers();
-
   };
 
 
   // moved to FPs:
   //gets the footprints for selected project
   self.getProjectFootprints = function (id){
-    // console.log("ID IS....", id);
-
     return $http.get('/project/project_footprints/'+ id).then(function (response) {
-      self.clickedProject = self.userProjects[self.userProjects.length - 1]; // only if new proejct !!!!!
+      // I wonder if same trick will work here...
+      // self.userProjects.sort((a, b) => parseInt(a.id) - parseInt(b.id));
 
-
-
+      // self.clickedProject = self.userProjects[self.userProjects.length - 1]; // only if new proejct !!!!!
 
       self.selectedProjectFootprints = response.data.rows;
       console.log("FOOTPRINTS ARE...", self.selectedProjectFootprints, " for id no. ", id);
-      notifyObservers(); // With this in, when we upload new footprint from Projects page, we get taken to last project????
+
+      // just put conditional here:
+
+      // notifyObservers(); // With this in, when we upload new footprint from Projects page, we get taken to last project????
 
       return self.selectedProjectFootprints;
     }).catch(function (err) {
       console.log('problem getting project footprints', err);
     });
   };
+
+
+
+
+
+
+
 
 
 
@@ -311,16 +301,37 @@ myApp.service('UserService', function ($http, $location){
 
 
 
+  // Seems like we need to know whether it's called from Dash or Projects. If from projects we'll have to Notify controller:
+
 
   // MOVED TO projects:
   //This uploads the data for a new project:
   self.sendProject = function(user){
     var project = user;
     project.project = self.countryIn; // poorly named as "countryIn"; is really the types.
+    // console.log(user);
 
     $http.post('/project/newproject', project).then(function(response) {
 
-      self.getProjects();
+      self.getProjects().then(function(res) {
+
+        res.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+        self.clickedProject = res[res.length - 1];
+
+        self.clickedProject.country = user.selectedCountry;
+        // self.types = project.project; // i don't think we need this or the next one
+        // self.name = user.projectName;
+        self.selectedProjectFootprints = self.getProjectFootprints(self.clickedProject.id); // Is this blocking?
+        self.userProjects = res;
+        // All right, this works ... But it doesn't show country, and it doesn't add the project to the side bar of projects:
+        // Oh, and another issue is that we're not clearing the footprints.
+        // So, let's find a better way (to change Project view when we create a project from /projects)
+        notifyObservers();
+
+        window.location.href = '/#/projects';
+
+      });
+
     }).catch(function(error) {
       console.log(error);
     });

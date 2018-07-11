@@ -3,25 +3,18 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
-  // vm.countries = UserService.countries.data;
   vm.months = UserService.months;
-  // vm.countries = UserService.countries.data;
   vm.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
   'September', 'October', 'November', 'December'];
   vm.years = [2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011];
 
   vm.userProjects = [];
-
   vm.user = {};
   vm.data = {};
-
-  // console.log(vm.location, $location.$$url);
 
   // Check whether activated from Dashboard or Project page:
   let loc = $location.$$url == '/user' ? 'user' : 'project';
 
-
-  
 
   // OUTSOURCE TO PROJECTS SERVICE ?
   vm.getUserProjects = function() {
@@ -50,9 +43,6 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
   // OUTSOURCE TO CSV SERVICE (copied from LC)
   //This function carries out the CSV upload.
   vm.uploadFile = function () {
-    // console.log(user);
-
-    // console.log(vm.user);
 
     // Validation:
     if (!vm.user.project) {
@@ -89,20 +79,33 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
           // if (res.living == 0 && res.shipping == 0 && res.travel == 0) {
           //   $('#errorOutput').html('Sorry, we could not process your file.');
           // } else {
-            // UserService.successfulUpload = true;
-            UserService.uploadWorked();
+          // UserService.successfulUpload = true;
+          // UserService.uploadWorked();
 
-          // ***** Only need to call this if we're coming from a Particular Project page, NOT from the dashboard *****
-            UserService.getProjectFootprints(UserService.clickedProject.id, false).then(function(res) {
-              console.log(res);
-              // vm.userProjects = res;
+          console.log(loc);
 
-            });
+          // if (loc === 'project') {
+          //   // This refreshes the page user is looking at. Would probably be better to direct to new Project and then refresh *its* footprints:
+          //   UserService.getProjectFootprints(UserService.clickedProject.id).then(function(res2) {
+          //     console.log(res, res2);
+          //     // vm.userProjects = res;
+          //
+          //   });
+          // }
+
+
+
+
+
+
+
+
+
           // csvService.updateFootprints();
           // $scope.$emit('submitFootprint', 'hi');
           // console.log($scope);
           // scope.pc.getProjectFootprints();
-        // }
+          // }
         });
       };
       r.readAsBinaryString(f);
