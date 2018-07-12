@@ -66,13 +66,16 @@
 - [x] New project from projects (seems observer needed -- so could just observe new project, change clickedProject)
 - [ ] New footprint from dash (needs to update chart)
 - [ ] New footprint from projects (needs to change to Project, and update Project-footprints)
-
+  - [x] Almost there. Need to change query to get ALL types, then update DOM. OH -- ALSO NEED TO CHANGE QUERY TO DEAL WITH MULTIPLE-WORD PROJECT NAMES.
 
 - [ ] User's info-over-time line chart buggy. Make sure that line chart UPDATES when user enters a new footprint.
 
-- [ ] Popup FAQ like on footprintproject.io site (this will be easy with md-tooltip.   ... This was overly hasty).
+- [x] Popup FAQ like on footprintproject.io site (this will be easy with md-tooltip.   ... This was overly hasty).
+  - [x] Aha, finally found the hack to make `md-tooltip` work with multi-lines (need to use `!important` in the css).
+  - [ ] Should probably put similar one on the Footprint upload modal.
 - [ ] Give diesel higher priority in CSV.
-- [ ] Add total to donut chart. (or at least make it visible somewhere).
+- [x] Add total to donut chart. (or at least make it visible somewhere). Ok it's showing below.
+ - [ ] No styling yet.
 - [ ] Implement forgot password.
 
 
@@ -97,6 +100,7 @@ August 6th, Pitch deck.
 - [ ] Oh we could even validate on whether it's a CSV -- that's a good idea.
 - [ ] Add a scroller to the Projects list, so it doesn't get too long.
 
+- [ ] Stitch the two tools together so that one upload can take care of all the calculations.
 
 - [ ] Non-metric CSV is not correct. (just get rid of dates columns?)
 - [ ] Do not show options for chart query unless it contains data -- don't even display it as an option in the dropdown. (Alert user if there is no data (i.e. identify all of those errors -- "cannot read property plane of undefined", for example))?

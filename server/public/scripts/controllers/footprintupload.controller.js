@@ -73,7 +73,7 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
         // console.log(UserService.getProjectFootprints(UserService.clickedProject.id));
 
         csvService.parseFootprint(data).then(function(res) {
-          // console.log(res);
+
           // console.log($scope, scope);
           // console.log(res);
           // if (res.living == 0 && res.shipping == 0 && res.travel == 0) {
@@ -82,16 +82,33 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
           // UserService.successfulUpload = true;
           // UserService.uploadWorked();
 
-          console.log(loc);
+          console.log(data, res, loc, UserService.clickedProject, vm.user.project);
 
-          // if (loc === 'project') {
+          // Yeah, THIS DOES  NOT WORK:
+          // let idOfProj = UserService.getProjectIdFromName(vm.user.project);
+
+
+
+          // console.log("PROJECT ID IS ", idOfProj);
+
+          // WELL what I'm tempted to do is write function to get project where project.name = $1 and then REQUIRE unique project names...Otherwise have to store ID in the dropdown, it seems.
+
+
+          if (loc === 'project') {
+            // console.log();
           //   // This refreshes the page user is looking at. Would probably be better to direct to new Project and then refresh *its* footprints:
-          //   UserService.getProjectFootprints(UserService.clickedProject.id).then(function(res2) {
-          //     console.log(res, res2);
-          //     // vm.userProjects = res;
-          //
-          //   });
-          // }
+
+              UserService.getProjectIdFromName(vm.user.project).then(res => {
+                console.log(res);
+                // let proj = res.data.rows[0]; // Only care about first one, since we will require unique project names
+                // UserService.clickedProject = proj;
+                // UserService.getProjectFootprints(UserService.clickedProject.id).then(res => {
+                //   // notifyObservers();
+                // });
+              });
+              // vm.userProjects = res;
+
+          }
 
 
 

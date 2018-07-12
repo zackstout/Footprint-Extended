@@ -207,14 +207,9 @@ myApp.service('UserService', function ($http, $location){
 
     return $http.get('project/userprojects/' + id).then(function (response) {
       self.userProjects = response.data;
-      // console.log(self.userProjects); // WHOA THIS IS CRAZY WRONG! (it's not account for any projects that *don't* have types) // Ok -- just don't let them enter projects without types.
-
-      // ******* Hmm still not working from Projects page itself though *******.
 
       // ahhhhh Yes the problem is this isn't being ordered correctly:
       self.userProjects.sort((a, b) => parseInt(a.id) - parseInt(b.id));
-      // console.log(self.userProjects);
-      // self.clickedProject = self.userProjects[self.userProjects.length - 1];
 
       return self.userProjects;
     }).catch(function (err) {
@@ -223,21 +218,29 @@ myApp.service('UserService', function ($http, $location){
   };
 
 
+// NOTE: Going to need to enforce unique project names!
+  self.getProjectIdFromName = function(name) {
+    return $http.get('/project/getid/' + name).then(function(res) {
+      console.log(res);
+
+      // YES, THIS WORKS: -- JUST NEED TYPES AND COUNTRY
+      self.clickedProject = res.data.rows[0];
+      self.getProjectFootprints(self.clickedProject.id).then(res2 => {
+        notifyObservers();
+        return res;
+
+      });
+    });
+  };
+
+
   // moved to FPs:
   //gets the footprints for selected project
-  self.getProjectFootprints = function (id){
+  self.getProjectFootprints = function (id, newFp=false){
     return $http.get('/project/project_footprints/'+ id).then(function (response) {
-      // I wonder if same trick will work here...
-      // self.userProjects.sort((a, b) => parseInt(a.id) - parseInt(b.id));
-
-      // self.clickedProject = self.userProjects[self.userProjects.length - 1]; // only if new proejct !!!!!
 
       self.selectedProjectFootprints = response.data.rows;
-      console.log("FOOTPRINTS ARE...", self.selectedProjectFootprints, " for id no. ", id);
-
-      // just put conditional here:
-
-      // notifyObservers(); // With this in, when we upload new footprint from Projects page, we get taken to last project????
+      console.log("FOOTPRINTS ARE...", self.selectedProjectFootprints, " for id no. ", id, " of footprint ", self.clickedProject);
 
       return self.selectedProjectFootprints;
     }).catch(function (err) {
@@ -309,29 +312,19 @@ myApp.service('UserService', function ($http, $location){
   self.sendProject = function(user){
     var project = user;
     project.project = self.countryIn; // poorly named as "countryIn"; is really the types.
-    // console.log(user);
 
     $http.post('/project/newproject', project).then(function(response) {
-
       self.getProjects().then(function(res) {
-
         res.sort((a, b) => parseInt(a.id) - parseInt(b.id));
         self.clickedProject = res[res.length - 1];
-
         self.clickedProject.country = user.selectedCountry;
-        // self.types = project.project; // i don't think we need this or the next one
-        // self.name = user.projectName;
         self.selectedProjectFootprints = self.getProjectFootprints(self.clickedProject.id); // Is this blocking?
         self.userProjects = res;
-        // All right, this works ... But it doesn't show country, and it doesn't add the project to the side bar of projects:
-        // Oh, and another issue is that we're not clearing the footprints.
-        // So, let's find a better way (to change Project view when we create a project from /projects)
+
         notifyObservers();
 
         window.location.href = '/#/projects';
-
       });
-
     }).catch(function(error) {
       console.log(error);
     });

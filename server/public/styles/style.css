@@ -16,6 +16,28 @@ hr {
   height: 2px;
 }
 
+/*._md-content._md.md-show {
+    height: auto !important;
+}*/
+
+.md-tooltip {
+    height: auto !important;
+    /*width: auto !important;*/
+
+
+}
+
+table td {
+  font-size: 16px;
+  padding:17px;
+}
+
+table th {
+  font-size: 18px;
+  padding: 17px;
+}
+
+
 
 .underline {
   text-decoration: underline;

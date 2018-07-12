@@ -12,40 +12,18 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
 
   var types = ['Health', "Food/Nutrition", "Education", 'Non-Food Items (NFI)', "Shelter", "Conflict", "Migration/Camp Management", "Faith-based", "Research", "Governance", "Business/Entrepreneur", "Donor"];
 
-  // $scope.$on('submitFootprint', function(ev, args) {
-  //   // console.log('grabbed it', args, ev);
-  //   vm.getProjectFootprints(UserService.clickedProject.id);
-  // });
-
 
   // Put service in charge of updating vm.projectFootprints: (called whenver notifyObservers is called, yes?)
-  let updateProjFootprints = function() {
-
-
+  let newProject = function() {
 
     vm.userProjects = UserService.userProjects;
     vm.clickedProject = UserService.clickedProject;
+    console.log('PROJECT IS ', vm.clickedProject);
     vm.projectFootprints = UserService.selectedProjectFootprints;
-    // console.log('hey here we are', vm.projectFootprints, vm.clickedProject);
-    // if (UserService.successfulUpload) {
-      // console.log('whwwawa');
-      // vm.clickedProject = UserService.clickedProject;
 
-      // WAIT, we shouldn't need this, if it shows up automatically....But it won't always, unless we take them to that page. Should we do that? Probably.
-      // $mdDialog.show({
-      //   templateUrl: 'views/templates/alerts/uploadSuccess.html',
-      //   parent: angular.element(document.body),
-      //   clickOutsideToClose: true,
-      //   //  scope: $scope // **** the magic line **** // Well, actually the line that breaks the nav bar. Shoot.
-      // });
-
-      // UserService.successfulUpload = false;
-    // }
   };
 
-  UserService.registerObserverCallback(updateProjFootprints);
-  // UserService.registerObserverCallback(goodUpload);
-
+  UserService.registerObserverCallback(newProject);
 
 
   vm.hoverFootprint = function(ev) {
@@ -97,17 +75,6 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
 
     });
   };
-
-
-  console.log("COUNTRIES 2", countries);
-
-
-
-
-  // viewNewProj();
-
-
-
 
 
   // click function for selecting project to view

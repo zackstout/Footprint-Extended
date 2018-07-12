@@ -131,7 +131,7 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
 
 
 
-
+  vm.user_total_kg = 0;
 
   // 3 chart things i haven't dug into yet:
 
@@ -140,8 +140,8 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
   //re-draws the donut graph with trial data:
   vm.donutDataSetTrial = function(x){
     vm.donutResult = x;
-    var ctx = document.getElementById('userDonut').getContext('2d');
-    ctx.fillText('hi THERE YOU SILLY GOOSE ARE YOU THERE CAN YOU SEE ME', 150, 150, 150);
+    // var ctx = document.getElementById('userDonut').getContext('2d');
+    // ctx.fillText('hi THERE YOU SILLY GOOSE ARE YOU THERE CAN YOU SEE ME', 0, 150, 150);
 
 
     new Chart(document.getElementById("userDonut"), {
@@ -165,17 +165,47 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
       }
     });
 
+    vm.user_total_kg = cleanNumber((x.living + x.shipping + x.travel).toFixed(2));
+
+
   };
 
 
+  function cleanNumber(n) {
+    const str = n.toString();
+    const dot = str.includes('.');
+    let res = '';
+    for (let i=0; i < str.length; i++) {
+      const index = str.length - 1 - i;
+      res = str[index] + res;
+      // wow why can't i think of a better way to do this....
+      if (dot) {
+        if (i > 2) {
+          if (i % 3 == 2 && i !== str.length - 1) {
+            res = ',' + res;
+          }
+        }
+      } else {
+        if (i % 3 == 2 && i !== str.length - 1) {
+          res = ',' + res;
+        }
+      }
+    }
+    return res;
+  }
 
 
+  vm.total_kg = 0;
   // Moved these 2 to FPFP controller:
 
   // start doughnut
   vm.donutDataSet = function(){
     UserService.getFootprintsFootprint().then(function(response){
       vm.donutResult = response;
+      let living = response.living;
+      let shipping = response.shipping;
+      let travel = response.travel;
+
 
       new Chart(document.getElementById("doughnut-chart"), {
         type: 'doughnut',
@@ -185,7 +215,7 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
             {
               label: "Kgs of CO₂",
               backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f"],
-              data: [Math.round(vm.donutResult.living, 1), Math.round(vm.donutResult.travel, 1), Math.round(vm.donutResult.shipping, 1)]
+              data: [Math.round(living, 1), Math.round(travel, 1), Math.round(shipping, 1)]
             }
           ]
         },
@@ -196,7 +226,14 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
           }
         }
       });
+
+      vm.total_kg = cleanNumber((living + shipping + travel).toFixed(2));
+      // var ctx = document.getElementById('doughnut-chart').getContext('2d');
+      // ctx.fillText('hi THERE YOU SILLY GOOSE ARE YOU THERE CAN YOU SEE ME', 50, 150, 150);
+
     });
+
+
   };
 
 

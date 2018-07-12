@@ -35,6 +35,34 @@ router.get('/countries', function (req, res) {
 
 });
 
+router.get('/getid/:name', function (req, res) {
+
+  pool.connect(function (err, db, done) {
+    if (err) {
+      console.log("Error connecting: ", err);
+      res.sendStatus(500);
+    }
+    else {
+
+      // Did i delete the comment about only getting projects with one or more types? But that's fine right? Because no-types are also negating this query where we Join on project_type:
+      // Issue: this is only getting a single type_id: we need an array. Or, a GROUPBY:
+
+      
+      var queryText = 'SELECT "projects"."id" as id, "projects"."name" as name, "projects"."country_id" as country_id, "project_type"."type_id" as type_id FROM "projects" JOIN "users" ON "projects"."user_id" = "users"."id" JOIN "project_type" ON "project_type"."project_id" = "projects"."id" WHERE "users"."id" = $1 AND "projects"."name" = $2;';
+      db.query(queryText, [req.user.id, req.params.name], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('Error with country GET', errorMakingQuery);
+          res.sendStatus(501);
+        } else {
+          res.send(result);
+        }
+      });
+    }
+  });
+
+});
+
 // Get name of certain country:
 router.get('/countries/:id', function (req, res) {
 
