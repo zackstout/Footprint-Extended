@@ -43,6 +43,8 @@
   - [x] Issue was with `md-selected-text`; wasn't changed to `pdc.user`. Although, why are we doing it like this, rather than as the Projects selector is done?
 - [x] Have user's own FP data pop up next to the upload.
   - [ ] Really not sure why chart is so small...
+  - [ ] Its size seems buggy. Def make it responsive either with percentage or `flex`.
+  - [ ] Resubmit makes it bigger! Need to destroy, for sure, and probably more.
 - [x] Say "country: " on upload modal. Generally clean up UI for footprint and project uploads.
 - [x] New month does not show up after uploading immediately. This was a trickier issue -- had to emit from one controller to another (couldn't see how to do it with a service). Had to add some promises as well to ensure order was correct. There is still an issue, because it seems injecting the scope causes things (like getProjectFootprints) to run before they should. Uh oh, bigger issue, now will only let me click on upload project ONCE. (or use the nav in general).
 - [x] Fixed that mess with an Observer in the service. Nice. Ughhh no the nav bar is still broken. All right, had to remove `$scope: scope` -- and again, it didn't work the first time....But now seems to?
@@ -51,8 +53,6 @@
 - [x] Cleaned up login failure messages.
 - [x] Make delete button easier to read (angular Material makes harder than it should be).
 - [x] When user submits new project, go to that screen immediately (more observers).
-  - [ ] Doesn't work from Projects; only from Dashboard. I'm going to need to organize the observers stuff more thoughtfully.
-  - [ ] This is a big deal: Makes it so that when we add a new footprint from the Projects view, it does not show!!!!!!
 
 (Was I really overthinking things with the observers stuff? I don't think so -- I don't think a change in the service's value would automatically eb changed in a controller that was looking at it. You have to tell the controller: "look at it now!")
 
@@ -73,6 +73,7 @@
 - [x] Popup FAQ like on footprintproject.io site (this will be easy with md-tooltip.   ... This was overly hasty).
   - [x] Aha, finally found the hack to make `md-tooltip` work with multi-lines (need to use `!important` in the css).
   - [ ] Should probably put similar one on the Footprint upload modal.
+  - [ ] Also, it's a big issue that they don't work if they don't have enough height space.
 - [ ] Give diesel higher priority in CSV.
 - [x] Add total to donut chart. (or at least make it visible somewhere). Ok it's showing below.
  - [ ] No styling yet.

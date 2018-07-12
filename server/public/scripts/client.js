@@ -22,6 +22,11 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
       controller: 'CalcController as cc',
       // controller: 'AuthController as ac',
     })
+    .when('/forgot', {
+      templateUrl: '/views/templates/forgot.html',
+      controller: 'forgotController as fc',
+      // controller: 'AuthController as ac',
+    })
     .when('/user', {
       templateUrl: '/views/templates/dashboard.html',
       controller: 'UserController as uc',

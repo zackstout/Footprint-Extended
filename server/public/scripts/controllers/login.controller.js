@@ -39,6 +39,10 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
     $location.path('/calc');
   };
 
+  vm.forgot = function() {
+    $location.path('/forgot');
+  };
+
   $(document).ready(function() {
     // console.log('yo');
     $('#file').change(function() {

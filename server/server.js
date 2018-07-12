@@ -48,7 +48,7 @@ app.use('/csv', csvRouter);
 app.use('/donor', donorRouter);
 app.use('/footprints', footprintRouter);
 app.use('/project', projectRouter);
-app.use('/user2', userRouter2);
+// app.use('/user2', userRouter2);
 
 // Catch all bucket, must be last!
 app.use('/', indexRouter);
