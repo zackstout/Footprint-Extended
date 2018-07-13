@@ -40,6 +40,8 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
       // console.log(f);
       $('#fileName').html('');
       $('#fileName').append(f.name);
+
+
     });
   });
 

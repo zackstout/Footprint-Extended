@@ -215,6 +215,12 @@ header {
 }
 
 
+.projectsDiv {
+  overflow: scroll;
+  max-height: 400px;
+}
+
+
 .contactBtn {
   background-color: teal;
   color: lightGray;
@@ -222,6 +228,25 @@ header {
 
 .contactBtn:hover {
   color: white;
+}
+
+/*md-dialog {
+  min-width: 400px !important;
+}*/
+
+.contact-modal {
+  padding: 20px;
+  margin-top: 20px;
+}
+
+
+.tiny_logo {
+  height: 24px;
+  width: auto;
+  position: relative;
+  overflow: hidden;
+  margin-top: -25px;
+  margin-bottom: 25px;
 }
 
 

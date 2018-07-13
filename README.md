@@ -60,89 +60,77 @@
 - [x] Organization name can now be changed and saved to DB (this was a casualty of the recent refactoring).
 
 
-## Next Steps:
-### Top priority:
+- [x] Clicking X on modals closes them
 - [x] New project from dash (no observer needed)
 - [x] New project from projects (seems observer needed -- so could just observe new project, change clickedProject)
-- [ ] New footprint from dash (needs to update chart)
-- [ ] New footprint from projects (needs to change to Project, and update Project-footprints)
-  - [x] Almost there. Need to change query to get ALL types, then update DOM. OH -- ALSO NEED TO CHANGE QUERY TO DEAL WITH MULTIPLE-WORD PROJECT NAMES.
-
-- [ ] User's info-over-time line chart buggy. Make sure that line chart UPDATES when user enters a new footprint.
-
-- [x] Popup FAQ like on footprintproject.io site (this will be easy with md-tooltip.   ... This was overly hasty).
-  - [x] Aha, finally found the hack to make `md-tooltip` work with multi-lines (need to use `!important` in the css).
+- [x] Popup FAQ like on footprintproject.io site
   - [ ] Should probably put similar one on the Footprint upload modal.
   - [ ] Also, it's a BIG issue that they don't work if they don't have enough height space.
   - [ ] Would also be nice to get the width of their hover-activation element constrained.
-- [ ] Give diesel higher priority in CSV.
 - [x] Add total to donut chart. (or at least make it visible somewhere). Ok it's showing below.
  - [ ] No styling yet.
+- [x] Added trademark footer and facebook icon.
+   - [ ] Link to other FP page -- check out our field projects (??) -- make Contact Us button functional. (Almost there.)
+- [x] Add new Logo (edited color to charcoal).
+- [x] Disallow user from entering two projects of same name (creates `md-duplicate` error)
+  - [ ] ask if they instead want to view that project.
+- [x] Add a scroller to the Projects list, so it doesn't get too long.
+- [x] Add recommendation to use CSV to validation.
+
+
+
+## Next Steps:
+### Top priority:
+- [ ] New footprint from dash (needs to update chart)
+- [ ] New footprint from projects (needs to change to Project, and update Project-footprints)
+  - [x] Almost there. Need to change query to get ALL types, then update DOM. OH -- ALSO NEED TO CHANGE QUERY TO DEAL WITH MULTIPLE-WORD PROJECT NAMES.
+- [ ] User's info-over-time line chart buggy. Make sure that line chart UPDATES when user enters a new footprint.
+
+- [ ] Give diesel higher priority in CSV.
+
 - [ ] Implement forgot password.
   - [ ] Ok Will needs to provide his PW to authenticate nodemailer, which is working.
 
-
 - [ ] Make sure line chart of FP's footprint does not disappear on Trial Upload.
-- [x] Put the trademark footer. 2018 Footprint GBC. All rights reserved. 1717 Broadway.
-  - [ ] Also link to Facebook page. facebook.com/footprintproject. Also link to footprintproject.org. Check out our field projects.
-  - [ ] Contact us. Footprintproject.org. will@footprintproject.org
 
 - [ ] Make sure Will can upload from admin page.
-- [x] Add new Logo (edited color to charcoal).
-
-August 6th, Pitch deck.
-
-- [ ] Also put in the screenshot (?) of bottom, as on footprintproject.org.
-
-
-1 pm on Friday. OR: host via Heroku.
 
 
 ### High-priority:
 - [ ] Auto-select the current project when Uploading new footprint from projects page.
 - [ ] Issue: Trial run card now looks bad on narrower screens.
-- [ ] Oh we could even validate on whether it's a CSV -- that's a good idea.
-- [ ] Add a scroller to the Projects list, so it doesn't get too long.
 
 - [ ] Stitch the two tools together so that one upload can take care of all the calculations.
 
 - [ ] Non-metric CSV is not correct. (just get rid of dates columns?)
 - [ ] Do not show options for chart query unless it contains data -- don't even display it as an option in the dropdown. (Alert user if there is no data (i.e. identify all of those errors -- "cannot read property plane of undefined", for example))?
-- [x] Disallow user from entering two projects of same name (creates `md-duplicate` error)
-  - [ ] ask if they instead want to view that project.
+
 - [ ] Disallow user from entering two footprints of the same month for one project.
 - [ ] Set up Admin page to display all relevant data.
 - [ ] Update `databasesetup.sql` file to reflect changes to db structure. (Shit I forgot what they were...)
 
+- [ ] Mess with the font.. Make it look better, sleeker.
+
 ### Bugs:
 - [ ] I don't think size of solar grid is appropriately sensitive to overspec/dayPower.
-- [ ] Bug: adding new CSV doesn't seem to be affecting totals graph, unless the numbers are too small to be affecting it.
 - [ ] Sometimes hovering over project names on side-dash makes them invisible???
 - [ ] Sometimes hovering over bar chart switches values???
 - [ ] The divided-by input dropdown sometimes displays two values???
-- [ ] If user submits project without all info, it kills server.
-
-### Testing:
-- [ ] Make sure to test uploading test CSVs and see that graphs properly reflect them.
 
 
 ## Quality of Life Improvements:
 ### Simpler:
+
 - [ ] This is finicky but scrolling to top and bottom, the cushion doesn't see the image. It looks bad.
-- [ ] Clicking X on modals closes them
 - [ ] The lower shadow on hover over a button (e.g. AWS) is a nice touch.
-- [ ] Add response to user when footprint or project has been successfully posted/edited.
-- [ ] Split up controllers and services further (especially user controller and user service).
 - [ ] Let user choose metric or non- for transition tool.
 - [ ] Make background color on home screen uniform.
 - [ ] Add ` isMetric` field to Footprints table (for hover feature).
-- [ ] Change title from "check out FP's FP" to "this is yours" on submit.
 - [ ] Add animations for the diesel-to-solar calculator.
 
 ### Less simple:
-- [ ] Fix the months gaps
+- [ ] Overall line chart should include gaps for non-uploaded months (otherwise it's prettier, but misleading).
 - [ ] Would be nice to fix the page refresh issue (cacheing, etc.). (IDEA: We could use localStorage!)
 - [ ] Let user view current CSV when editing or deleting -- or for that matter, show them on hover on the page or something.
 - [ ] Add animations for the user-customizable charts, to ensure that there's not so much gaping white space before charts are generated. Move two large buttons to two tabs on the left when user clicks one.
-- [ ] Overall line chart should include gaps for non-uploaded months (otherwise it's prettier, but misleading).
 - [ ] Follow Emma's idea: wrap calc page with a Start button, and walk user through inputs one by one.

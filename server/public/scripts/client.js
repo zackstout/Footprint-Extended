@@ -17,6 +17,11 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
       controller: 'LoginController as lc',
       // controller: 'AuthController as ac',
     })
+    .when('/forgotNew', {
+      templateUrl: '/views/templates/forgotNew.html',
+      controller: 'forgotController as fc',
+      // controller: 'AuthController as ac',
+    })
     .when('/calc', {
       templateUrl: '/views/templates/calc2.html',
       controller: 'CalcController as cc',

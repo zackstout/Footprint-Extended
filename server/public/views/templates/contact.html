@@ -1,0 +1,49 @@
+
+<md-dialog aria-label="Contact-us">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>CONTACT US</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cc.hide()">
+        <md-icon class="material-icons" aria-label="Close dialog">close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content class="contact-modal">
+    <p  style="color:red;">{{cc.contactError}}</p>
+
+    <div layout="row">
+      <div layout="col" flex="50">
+        <md-input-container >
+          <label>Name</label>
+          <input ng-model="cc.name">
+        </md-input-container>
+      </div>
+      <div layout="col" flex="50">
+        <md-input-container >
+          <label>Email</label>
+          <input ng-model="cc.email">
+        </md-input-container>
+      </div>
+    </div>
+
+
+    <md-input-container >
+      <label>Subject</label>
+      <input ng-model="cc.subject">
+    </md-input-container>
+
+
+    <md-input-container >
+      <label>Message</label>
+      <textarea rows="4" cols="60" ng-model="cc.message"></textarea>
+    </md-input-container>
+
+
+    <div layout="row" layout-align="center center">
+      <md-button class="md-accent md-raised" ng-click="cc.submitContact()">Submit</md-button>
+      <span id="error" style="color: red"></span>
+    </div>
+  </md-dialog-content>
+</md-dialog>

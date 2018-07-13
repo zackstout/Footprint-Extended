@@ -65,6 +65,12 @@ router.get('/users', function (req, res) {
 
 
 
+
+
+
+
+
+
 // Not quite sure where to put this:
 
 //Sum all entries from Footprint's own projects; we will compute the carbon footprint on client side:

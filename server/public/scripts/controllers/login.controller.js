@@ -50,6 +50,10 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
       // console.log(f);
       $('#fileNameOut').html('');
       $('#fileNameOut').append(f.name);
+
+      if (!f.name.includes('csv')) {
+        $('#fileNameOut').append('&emsp;<span style="color:goldenrod;">We recommend using a CSV file.</span>');
+      }
     });
 
     // $('#tool1').text(`hi there \n you silly goose`);
@@ -370,7 +374,17 @@ vm.registerUser = function() {
 };
 
 
-
+vm.contactModal = function (ev, i) {
+  // userService.getProjects.selectedIndex = i;
+  $mdDialog.show({
+    controller: 'contactController as cc',
+    templateUrl: 'views/templates/contact.html',
+    parent: angular.element(document.body),
+    targetEvent: ev,
+    clickOutsideToClose: true,
+   //  scope: $scope // **** the magic line **** // Well, actually the line that breaks the nav bar. Shoot.
+  });
+};
 
 
 
