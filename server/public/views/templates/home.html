@@ -56,7 +56,7 @@
             <md-radio-group ng-model="data.type">
               <md-radio-button value="Metric" class="md-primary">
                 Metric
-                <md-tooltip md-delay=10>
+                <md-tooltip md-delay=10 direction="right">
                   <!-- Hmm, the first delay is still long.. -->
 
                   <!-- NOTE: We'll have to put its direction to Right when there's not enough room on the bottom: -->
@@ -205,3 +205,5 @@
     </div>
   </md-content>
 </div>
+
+<div ng-include="'/views/partials/footer.html'"></div>

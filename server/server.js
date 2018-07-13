@@ -17,6 +17,7 @@ var donorRouter = require('./routes/new-routes/donor.router'); // so far, useles
 var footprintRouter = require('./routes/new-routes/footprints.router.js');
 var projectRouter = require('./routes/new-routes/projects.router.js');
 var userRouter2 = require('./routes/new-routes/user.router.js');
+var forgotRouter = require('./routes/new-routes/forgot.router.js');
 
 var port = process.env.PORT || 3000;
 
@@ -48,7 +49,9 @@ app.use('/csv', csvRouter);
 app.use('/donor', donorRouter);
 app.use('/footprints', footprintRouter);
 app.use('/project', projectRouter);
-// app.use('/user2', userRouter2);
+app.use('/user2', userRouter2); // Ok i was wrong, this is decidedly Not expendable
+app.use('/forgot', forgotRouter);
+
 
 // Catch all bucket, must be last!
 app.use('/', indexRouter);

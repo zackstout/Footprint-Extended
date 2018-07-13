@@ -23,9 +23,11 @@ hr {
 .md-tooltip {
     height: auto !important;
     /*width: auto !important;*/
-
-
 }
+
+
+
+
 
 table td {
   font-size: 16px;
@@ -188,8 +190,6 @@ div:focus {
 }
 
 
-
-
 header {
   font-size: 32px;
   font-weight: 600;
@@ -201,6 +201,32 @@ header {
   background-repeat: no-repeat;
   background-size: cover;
   /* padding: 15px; */
+}
+
+.awards {
+  background-image: url("/images/awards.png");
+  height: 120px;
+}
+
+@media only screen and (max-width: 990px) {
+    .myFooter {
+        margin-top: 330px !important;
+    }
+}
+
+.myFooter {
+  height: 170px;
+  background-image: url("/images/earthforfootprint.png");
+  margin-top: 300px;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.myFooter2 {
+  height: 170px;
+  background-image: url("/images/earthforfootprint.png");
+  text-align: center;
+  padding-top: 50px;
 }
 
 #entryForm {

@@ -5,25 +5,23 @@ myApp.controller('forgotController', function (UserService, $location, $http) {
 
   let vm = this;
 
-  vm.user = '';
-  vm.email = '';
+  vm.email1 = '';
   vm.email2 = '';
   vm.errorMsg = '';
 
   vm.subForgot = function() {
     // Validation:
-    if (vm.user == '' || vm.email1 == '' || vm.email2 == '') {
+    if (vm.email1 == '' || vm.email2 == '') {
       vm.errorMsg = "Please fill out all fields.";
 
     } else if (vm.email1 != vm.email2) {
       vm.errorMsg = "Emails do not match.";
     } else {
       vm.errorMsg = '';
-      console.log(vm.user, vm.email1);
+      console.log(vm.email1);
 
       // We should go through a service but who cares!
-      $http.post('/user/forgot', {
-        user: vm.user,
+      $http.post('/forgot/initiate', {
         email: vm.email1
       }).then(function(res) {
         console.log(res);

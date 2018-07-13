@@ -78,14 +78,17 @@
 - [x] Add total to donut chart. (or at least make it visible somewhere). Ok it's showing below.
  - [ ] No styling yet.
 - [ ] Implement forgot password.
+  - [ ] Ok Will needs to provide his PW to authenticate nodemailer, which is working.
 
 
 - [ ] Make sure line chart of FP's footprint does not disappear on Trial Upload.
-- [ ] Put the trademark footer. 2018 Footprint GBC. All rights reserved. 1717 Broadway. Also link to Facebook page. facebook.com/footprintproject. Also link to footprintproject.org. Check out our field projects.
+- [x] Put the trademark footer. 2018 Footprint GBC. All rights reserved. 1717 Broadway.
+  - [ ] Also link to Facebook page. facebook.com/footprintproject. Also link to footprintproject.org. Check out our field projects.
+  - [ ] Contact us. Footprintproject.org. will@footprintproject.org
+
 - [ ] Make sure Will can upload from admin page.
 - [ ] Play with New Logo.
   - [ ] Text should be light gray... and should be bigger.
-- [ ] Contact us. Footprintproject.org. will@footprintproject.org
 
 August 6th, Pitch deck.
 
@@ -124,6 +127,7 @@ August 6th, Pitch deck.
 
 ## Quality of Life Improvements:
 ### Simpler:
+- [ ] This is finicky but scrolling to top and bottom, the cushion doesn't see the image. It looks bad.
 - [ ] Clicking X on modals closes them
 - [ ] The lower shadow on hover over a button (e.g. AWS) is a nice touch.
 - [ ] Add response to user when footprint or project has been successfully posted/edited.

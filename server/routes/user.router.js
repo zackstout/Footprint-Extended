@@ -1,5 +1,7 @@
+
 var express = require('express');
 var router = express.Router();
+
 
 // Handles Ajax request for user information if user is authenticated
 router.get('/', function(req, res) {
@@ -33,10 +35,6 @@ router.get('/logout', function(req, res) {
 
 
 
-
-router.post('/forgot', function(req, res) {
-  console.log("BODY HERE: ", req.body);
-});
 
 
 module.exports = router;
