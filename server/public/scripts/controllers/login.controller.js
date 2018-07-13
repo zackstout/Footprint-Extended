@@ -22,16 +22,11 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
   vm.hide = false;
   vm.showHelp = false;
 
-  // var icon = document.getElementById('helpIcon');
-  // console.log(icon);
-
   vm.hoverHelp = function(ev) {
-    // console.log(ev);
     vm.showHelp = true;
   };
 
   vm.unhoverHelp = function(ev) {
-    // console.log(ev);
     vm.showHelp = false;
   };
 
@@ -55,10 +50,10 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
         $('#fileNameOut').append('&emsp;<span style="color:goldenrod;">We recommend using a CSV file.</span>');
       }
     });
-
-    // $('#tool1').text(`hi there \n you silly goose`);
-
   });
+
+
+  // ===============================================================================================
 
 
   // OUTSOURCE TO CSV SERVICE (we use it twice)
@@ -100,43 +95,7 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
     }
   };
 
-
-// Can't remember -- is this being used??
-
-  // vm.ExcelToJSON = function() {
-  //   var f = document.getElementById('file').files[0];
-  //
-  //   // this.parseExcel = function(file) {
-  //   var reader = new FileReader();
-  //
-  //   reader.onload = function(e) {
-  //     var data = reader.result;
-  //     var workbook = XLSX.read(data, {
-  //       type: 'binary'
-  //     });
-  //
-  //     workbook.SheetNames.forEach(function(sheetName) {
-  //       // Here is your object
-  //       var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-  //       var json_object = JSON.stringify(XL_row_object);
-  //       console.log(json_object);
-  //
-  //     });
-  //
-  //   };
-  //
-  //   reader.onerror = function(ex) {
-  //     console.log(ex);
-  //   };
-  //
-  //   reader.readAsBinaryString(f);
-  // };
-  // };
-
-
-
-
-
+  // ===============================================================================================
 
 
   vm.user_total_kg = 0;
@@ -172,11 +131,11 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
         }
       }
     });
-
     vm.user_total_kg = cleanNumber((x.living + x.shipping + x.travel).toFixed(2));
-
-
   };
+
+
+  // ===============================================================================================
 
 
   function cleanNumber(n) {
@@ -203,6 +162,9 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
   }
 
 
+  // ===============================================================================================
+
+
   vm.total_kg = 0;
   // Moved these 2 to FPFP controller:
 
@@ -213,7 +175,6 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
       let living = response.living;
       let shipping = response.shipping;
       let travel = response.travel;
-
 
       new Chart(document.getElementById("doughnut-chart"), {
         type: 'doughnut',
@@ -236,16 +197,15 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
       });
 
       vm.total_kg = cleanNumber((living + shipping + travel).toFixed(2));
-      // var ctx = document.getElementById('doughnut-chart').getContext('2d');
-      // ctx.fillText('hi THERE YOU SILLY GOOSE ARE YOU THERE CAN YOU SEE ME', 50, 150, 150);
 
     });
-
-
   };
 
-
   vm.donutDataSet();
+
+
+  // ===============================================================================================
+
 
   // gets the data for the landing page lineChart displaying footprints carbon impact
   vm.lineChart = function(){
@@ -292,17 +252,11 @@ myApp.controller('LoginController', function ($http, $location, $timeout, $filte
 };
 
 
-
 // NOTE: Controller sometimes loads when there is no data for this:
 vm.lineChart();
 
 
-
-
-
-
-
-
+// ===============================================================================================
 
 
 // Moving to Auth controller:
@@ -374,6 +328,9 @@ vm.registerUser = function() {
 };
 
 
+// ===============================================================================================
+
+
 vm.contactModal = function (ev, i) {
   // userService.getProjects.selectedIndex = i;
   $mdDialog.show({
@@ -382,12 +339,9 @@ vm.contactModal = function (ev, i) {
     parent: angular.element(document.body),
     targetEvent: ev,
     clickOutsideToClose: true,
-   //  scope: $scope // **** the magic line **** // Well, actually the line that breaks the nav bar. Shoot.
+    //  scope: $scope // **** the magic line **** // Well, actually the line that breaks the nav bar. Shoot.
   });
 };
-
-
-
 
 
 // ??????? (same as with DDC, what is going on here??) -- all three functions are called from Submit click...

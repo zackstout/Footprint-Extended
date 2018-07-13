@@ -1,10 +1,33 @@
 
 myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserService, $http, $location, $anchorScroll, $timeout) {
-
   console.log('CalcController created');
   var vm = this;
 
   vm.allDone = false;
+
+  vm.overspecHover = false;
+
+  vm.hoverHelp = function(ev) {
+    vm.overspecHover = true;
+  };
+
+  vm.unhoverHelp = function(ev) {
+    vm.overspecHover = false;
+  };
+
+  // All on the client, so this is fine:
+  vm.progress = 0;
+
+  // Inputs:
+  vm.size = 400;
+  vm.hours = 20;
+  vm.load = 80;
+  vm.costPerLiter = 1.55;
+  vm.overspec = 10;
+  vm.dayPower = 75;
+  vm.budget = 3.25;
+
+  vm.dailyLitersKnown = 0;
 
   vm.toHome = function() {
     $location.path('/home');
@@ -12,6 +35,8 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
 
   // almost working: the problem is we aren't clearing out userObject on logout:
   vm.userAuthenticated = UserService.userObject.userName != undefined;
+
+  // ===============================================================================================
 
   //Hmm I wonder whether ng-changes can be chained, so that changing inputs could change one output, whose change could trigger other changes. Probably!
   // NO! Thwarted! "The ng-change event is only triggered if there is a actual change in the input value, and not if the change was made from a JavaScript."
@@ -39,29 +64,8 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
     return res;
   }
 
-  vm.overspecHover = false;
+  // ===============================================================================================
 
-  vm.hoverHelp = function(ev) {
-    vm.overspecHover = true;
-  };
-
-  vm.unhoverHelp = function(ev) {
-    vm.overspecHover = false;
-  };
-
-  // All on the client, so this is fine:
-  vm.progress = 0;
-
-  // Inputs:
-  vm.size = 400;
-  vm.hours = 20;
-  vm.load = 80;
-  vm.costPerLiter = 1.55;
-  vm.overspec = 10;
-  vm.dayPower = 75;
-  vm.budget = 3.25;
-
-  vm.dailyLitersKnown = 0;
 
   // Submit function -- should prob just split into 4:
   vm.submit = function(prog, event) {
@@ -83,7 +87,6 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
 
     }
 
-
     if (prog >= 3) {
       // Need to grab the data here, and hide results until click:
       vm.allDone = true;
@@ -103,11 +106,8 @@ myApp.controller('CalcController', function ($scope, anchorSmoothScroll, UserSer
       };
 
       UserService.uploadTransition(data);
-
     }
 
-    // var card1 = document.getElementById('card1');
-    // card1.classList.add("card1");
   };
 
 

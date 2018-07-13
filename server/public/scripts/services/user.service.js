@@ -17,13 +17,11 @@ myApp.service('UserService', function ($http, $location){
   self.selectedProjectFootprints = [];
   self.newProject = false;
 
-
   self.country = '';
   self.name = '';
   self.types = [];
 
-
-  self.successfulUpload = false;
+  // self.successfulUpload = false;
 
   let observerCallbacks = [];
 
@@ -52,6 +50,10 @@ myApp.service('UserService', function ($http, $location){
   const MI_TO_KM = 1.609344;
   const TON_MI_TO_TONNE_KM = 1.460;
 
+
+  // ===============================================================================================
+
+
   // THE MAIN 3 bits of functionality (computing parsed CSVs):
   // Ok applying .toFixed breaks the Trial upload, and doesn't even solve our problem.
   self.changeToImperial = function(csv) {
@@ -65,6 +67,8 @@ myApp.service('UserService', function ($http, $location){
     csv.sea = parseInt((csv.sea * TON_MI_TO_TONNE_KM));
     return csv;
   };
+
+  // ===============================================================================================
 
   // moved to FPs:
   self.computeFootprint = function(footprint) {
@@ -94,6 +98,20 @@ myApp.service('UserService', function ($http, $location){
     return result;
   };
 
+
+
+  self.computeTrialFootprint = function(footprint) {
+
+    footprint.train = footprint.train_travel;
+    footprint.freight_train = footprint.train_shipping;
+
+    var data = self.computeFootprint(footprint);
+    return self.groupByCategory(data);
+
+  };
+
+  // ===============================================================================================
+
   self.groupByCategory = function(footprint) {
     var result = {};
     // console.log(footprint);
@@ -106,6 +124,7 @@ myApp.service('UserService', function ($http, $location){
   };
 
 
+  // ===============================================================================================
 
 
   var fpfp = {};
@@ -133,10 +152,9 @@ myApp.service('UserService', function ($http, $location){
       console.log('UserService -- getuser -- failure: ', response);
       $location.path("/home");
     });
-  }, //End get user function
-  // WHY DOES IT WANT A COMMA HERE???
+  };
 
-  //Function that logs out user
+
   self.logout = function() {
     console.log('UserService -- logout');
 
@@ -147,9 +165,10 @@ myApp.service('UserService', function ($http, $location){
       window.location.href = '/#/home';
       // $location.path("/home");
     });
-  }; //End of Logout Function /// what is the error???
+  };
 
 
+  // ===============================================================================================
 
 
   // Oh isn't that so much more pleasant to the eye?
@@ -160,12 +179,16 @@ myApp.service('UserService', function ($http, $location){
     //   .catch(err => console.log(err));
   };
 
-
-
-
-
-
-
+  self.getFootprintsFootprint = function() {
+    return $http.get('/admin2/footprints_footprint').then(function(response) {
+      self.footprintsFootprint = response.data;
+      //ahhhhh yes back to basics over here, chris reminds me that we need to pass this returned value into the next function:
+      var data = self.computeFootprint(self.footprintsFootprint[0]);
+      return self.groupByCategory(data);
+    }).catch(function(err) {
+      console.log('oh noooooo', err);
+    });
+  };
 
   self.uploadTransition = function(data) {
     // Check whether user is logged in:
@@ -181,6 +204,7 @@ myApp.service('UserService', function ($http, $location){
   };
 
 
+  // ===============================================================================================
 
 
   // moved to projects:
@@ -196,9 +220,7 @@ myApp.service('UserService', function ($http, $location){
 
 
 
-
-
- // ----------------------------------- the difficiult ones: -----------------------------------
+  // ===============================================================================================
 
 
 
@@ -218,17 +240,18 @@ myApp.service('UserService', function ($http, $location){
   };
 
 
-// NOTE: Going to need to enforce unique project names!
+  // NOTE: Going to need to enforce unique project names!
   self.getProjectIdFromName = function(name) {
     return $http.get('/project/getid/' + name).then(function(res) {
-      console.log(res);
+      console.log("PROJECT ID FROM NAME IS ", res);
 
-      // YES, THIS WORKS: -- JUST NEED TYPES AND COUNTRY
       self.clickedProject = res.data.rows[0];
+
+      self.clickedProject.typeIds = res.data.rows.map(row => row.type_id);
+
       self.getProjectFootprints(self.clickedProject.id).then(res2 => {
         notifyObservers();
         return res;
-
       });
     });
   };
@@ -237,10 +260,11 @@ myApp.service('UserService', function ($http, $location){
   // moved to FPs:
   //gets the footprints for selected project
   self.getProjectFootprints = function (id, newFp=false){
+    // console.log();
     return $http.get('/project/project_footprints/'+ id).then(function (response) {
-
+      // self.clickedProject =
       self.selectedProjectFootprints = response.data.rows;
-      console.log("FOOTPRINTS ARE...", self.selectedProjectFootprints, " for id no. ", id, " of footprint ", self.clickedProject);
+      console.log("FOOTPRINTS ARE...", self.selectedProjectFootprints, " for id no. ", id, ", project is", self.clickedProject);
 
       return self.selectedProjectFootprints;
     }).catch(function (err) {
@@ -250,14 +274,10 @@ myApp.service('UserService', function ($http, $location){
 
 
 
+  // ===============================================================================================
 
 
 
-
-
-
-
-  // moved to admin:
   //gets all the users for admin page
   self.adminGetUsers = function () {
     // console.log('Getting users for admin');
@@ -274,41 +294,11 @@ myApp.service('UserService', function ($http, $location){
   };
 
 
-
-  // not too sure what these 2 are doing:
-
-  self.getFootprintsFootprint = function() {
-    return $http.get('/admin2/footprints_footprint').then(function(response) {
-      self.footprintsFootprint = response.data;
-      //ahhhhh yes back to basics over here, chris reminds me that we need to pass this returned value into the next function:
-      var data = self.computeFootprint(self.footprintsFootprint[0]);
-      return self.groupByCategory(data);
-    }).catch(function(err) {
-      console.log('oh noooooo', err);
-    });
-  };
-
-
-
-  self.computeTrialFootprint = function(footprint) {
-
-    footprint.train = footprint.train_travel;
-    footprint.freight_train = footprint.train_shipping;
-
-    var data = self.computeFootprint(footprint);
-    return self.groupByCategory(data);
-
-  };
-
-
-
+  // ===============================================================================================
 
 
   // Seems like we need to know whether it's called from Dash or Projects. If from projects we'll have to Notify controller:
 
-
-  // MOVED TO projects:
-  //This uploads the data for a new project:
   self.sendProject = function(user){
     var project = user;
     project.project = self.countryIn; // poorly named as "countryIn"; is really the types.
@@ -331,14 +321,10 @@ myApp.service('UserService', function ($http, $location){
   };
 
 
-
-
   // (3) EDITING A FP:
-  //This function sends edited footprints to the DB.
   self.sendEdits = function (dataIn, parsed) {
     var data = dataIn.data;
     var footprintInfo = dataIn.project;
-    // console.log(parsed);
 
     // Mutate it directly:
     if (parsed.type === 'English') {
@@ -348,7 +334,7 @@ myApp.service('UserService', function ($http, $location){
     parsed.projectInfo = footprintInfo;
     self.sendEditsOut(parsed);
 
-  }; //End send function
+  };
 
   self.sendEditsOut = function (csvSend) {
     $http.put('/project/project_edit', csvSend).then(function (response) {
@@ -357,4 +343,4 @@ myApp.service('UserService', function ($http, $location){
     });
   };
 
-}); //End of UserService
+});

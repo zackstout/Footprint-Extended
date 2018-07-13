@@ -1,3 +1,4 @@
+
 myApp.controller('UserController', function (UserService, $mdDialog, $http, $filter, donutService, $location, $scope) {
   console.log('UserController created');
   var vm = this;
@@ -8,12 +9,14 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
   vm.selectedIndex = UserService.userProjects.selectedIndex;
   vm.lineData = [];
   vm.sliceBy = 'abc';
+
   //this is for the list of user projects
   vm.showButton=false;
   vm.dashBarShow = false;
   vm.dashDonutShow = false;
 
   vm.dashDonut = function() {
+
     vm.dashBarShow = false;
     vm.dashDonutShow = true;
   };
@@ -27,38 +30,41 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
     $location.path('/calc');
   };
 
+  // ===============================================================================================
 
   // ---------- NAV BAR: ----------
 
   // Add a new footprint modal:
-   vm.upload = function (ev, i) {
-     // userService.getProjects.selectedIndex = i;
-     $mdDialog.show({
-       controller: 'FootprintUploadController as ddc',
-       templateUrl: 'views/templates/footprintUpload.html',
-       parent: angular.element(document.body),
-       targetEvent: ev,
-       clickOutsideToClose: true,
+  vm.upload = function (ev, i) {
+    // userService.getProjects.selectedIndex = i;
+    $mdDialog.show({
+      controller: 'FootprintUploadController as ddc',
+      templateUrl: 'views/templates/footprintUpload.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose: true,
       //  scope: $scope // **** the magic line **** // Well, actually the line that breaks the nav bar. Shoot.
-     });
-   };
+    });
+  };
 
-   //Add new project modal:
-   vm.newProject = function (ev, i) {
+  //Add new project modal:
+  vm.newProject = function (ev, i) {
 
-     $mdDialog.show({
-       controller: 'ProjectDialogController as pdc',
-       templateUrl: 'views/templates/projectdialog.html',
-       parent: angular.element(document.body),
-       targetEvent: ev,
-       clickOutsideToClose: true
-     });
-   };
-
-
+    $mdDialog.show({
+      controller: 'ProjectDialogController as pdc',
+      templateUrl: 'views/templates/projectdialog.html',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  };
 
 
+  // ===============================================================================================
 
+  //====================
+  //LINE:
+  //====================
 
   // gets the data for the DASHBOARD lineChart displaying org's carbon impact
   vm.lineChart = function () {
@@ -105,10 +111,9 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
   });
 };
 
-//gets users projects
-vm.userService.getProjects(vm.userObject.id);
-//dashboard dialog
+// ===============================================================================================
 
+vm.userService.getProjects(vm.userObject.id);
 
 vm.hide = function () {
   $mdDialog.hide();
@@ -131,6 +136,7 @@ vm.showProject = function (ev, i) {
 };
 
 
+// ===============================================================================================
 
 //====================
 //BARS:
@@ -191,6 +197,8 @@ vm.submitBarQuery = function(view, particular) {
 };
 
 
+// ===============================================================================================
+
 //====================
 //DONUTS:
 //====================
@@ -250,6 +258,9 @@ var myChart;
 var types = ['Health', "Food/Nutrition", "Education", 'Non-Food Items (NFI)', "Shelter", "Conflict", "Migration/Camp Management", "Faith-based", "Research", "Governance", "Business/Entrepreneur", "Donor"];
 
 
+// ===============================================================================================
+
+
 // I THINK EMMA WAS RIGHT -- WE COULD JUST CHANGE THE QUERY TO GRAB THE NAME:
 // SHOULD MOVE TH\ESE INTO SERVICE, JUST COPY PASTAING TO PROJECT CONTROLLER:
 var countries = [];
@@ -262,9 +273,12 @@ function getAllCountries() {
 }
 
 getAllCountries().then(function(res) {
-  // console.log(res);
   countries = res;
 });
+
+
+// ===============================================================================================
+
 
 // Still should break into a few smaller functions:
 function sanitize(slice, resp) {
@@ -305,7 +319,6 @@ function sanitize(slice, resp) {
     }
 
     // Run the carbon impact calculator for each element of cleanedThings:
-    // REFACTOR WITH MAP:
     var resu = cleanedThings.map(x => UserService.computeFootprint(x));
 
     var results = [];
@@ -374,6 +387,7 @@ function sanitize(slice, resp) {
 });
 }
 
+// ===============================================================================================
 
 
 //call if they view by CATEGORY:
@@ -413,8 +427,9 @@ function viewByCategory(resp) {
 
   //send the sanitized array through the proper sliceBy function:
   sanitize(vm.sliceBy, resp);
-} // end viewByCategory
+}
 
+// ===============================================================================================
 
 vm.lineChart();
 
@@ -430,6 +445,4 @@ vm.navigate = function(){
   $location.path('/admin');
 };
 
-
 });
-//end of user controller

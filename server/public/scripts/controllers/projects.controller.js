@@ -18,29 +18,30 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
     vm.userProjects = UserService.userProjects;
     vm.clickedProject = UserService.clickedProject;
     vm.projectFootprints = UserService.selectedProjectFootprints;
+
+    vm.clickedProject.names = vm.clickedProject.typeIds.map(id => types[id - 1]);
+    vm.clickedProject.country = countries[vm.clickedProject.country_id];
   };
 
   UserService.registerObserverCallback(newProject);
 
 
-  vm.hoverFootprint = function(ev) {
-    var id = ev.target.parentElement.id;
-    var real_id = parseInt(id.slice(id.indexOf('_') + 1));
-    // console.log(real_id);
+  // ===============================================================================================
 
-    if (!isNaN(real_id)) {
-      UserService.getFootprint(real_id);
-    }
-  };
 
   // Gets the footprints for selected project
   vm.getProjectFootprints = function (id) {
-    UserService.getProjectFootprints(id, false).then(function(response){
+    console.log('projecjt controller getting for id', id);
+    UserService.getProjectFootprints(id).then(function(response){
       vm.projectFootprints = UserService.selectedProjectFootprints;
     }).catch(function (error) {
       console.log(error, 'error getting footprints for selected project');
     });
   };
+
+
+
+  // ===============================================================================================
 
 
   // To get country and types for display:
@@ -64,6 +65,7 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
     });
   };
 
+  // ===============================================================================================
 
   // click function for selecting project to view
   vm.changeSelected = function() {
@@ -81,15 +83,27 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
   vm.showSelected();
 
 
+  // ===============================================================================================
+
 
   //this is for when the project is selected from projects page instead of from dashboard
   vm.showAnotherProject = function (ev, i) {
     UserService.userProjects.selectedIndex = i;
 
+    // Ahh, this was issue, we were changing vm.clickedProject instead of UserService.clickedProject.....:
+    // Not sure why we need *both* here, and only one in User controller.. (when we click a Project from Dashboard).
     vm.clickedProject = UserService.userProjects[i];
+    UserService.clickedProject = UserService.userProjects[i];
+
+
+    console.log('hi there', vm.clickedProject); // this is correct
     vm.getProjectFootprints(vm.clickedProject.id);
     vm.clickedProject.country = countries[vm.clickedProject.country_id];
   };
+
+
+  // ===============================================================================================
+
 
   //Opens edit dialog box.
   vm.editModal = function(event, index) {
@@ -119,6 +133,9 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
   vm.hide = function(){
     $mdDialog.hide();
   };
+
+
+  // ===============================================================================================
 
 
   // CHANGE COLORS HERE (need this custom object hack):
@@ -161,6 +178,20 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
       console.log('hi there');
     });
 
+  };
+
+
+  // ===============================================================================================
+
+
+  vm.hoverFootprint = function(ev) {
+    var id = ev.target.parentElement.id;
+    var real_id = parseInt(id.slice(id.indexOf('_') + 1));
+    // console.log(real_id);
+
+    if (!isNaN(real_id)) {
+      UserService.getFootprint(real_id);
+    }
   };
 
 });

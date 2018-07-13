@@ -1,5 +1,6 @@
+
 myApp.controller('FootprintUploadController', function ($http, UserService, csvService, $mdDialog, $interval, $scope, $location) {
-  console.log('DashboardDialogController created');
+  console.log('DashboardDialogController created', UserService.clickedProject); // why is this only being set for the first one???
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
@@ -19,6 +20,7 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
   // Check whether activated from Dashboard or Project page:
   let loc = $location.$$url == '/user' ? 'user' : 'project';
 
+  // ===============================================================================================
 
   // OUTSOURCE TO PROJECTS SERVICE ?
   vm.getUserProjects = function() {
@@ -30,9 +32,9 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
     });
   };
 
-
   vm.getUserProjects();
 
+  // ===============================================================================================
 
   $(document).ready(() => {
     $('#file').change(() => {
@@ -41,10 +43,13 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
       $('#fileName').html('');
       $('#fileName').append(f.name);
 
-
+      if (!f.name.includes('csv')) {
+        $('#fileName').append('&emsp;<span style="color:goldenrod;">We recommend using a CSV file.</span>');
+      }
     });
   });
 
+  // ===============================================================================================
 
   // OUTSOURCE TO CSV SERVICE (copied from LC)
   //This function carries out the CSV upload.
@@ -72,71 +77,24 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
       var r = new FileReader();
 
       r.onloadend = function (e) {
-
         var data = e.target.result;
-
-        // console.log(UserService.clickedProject);
-        // console.log(UserService.getProjectFootprints(UserService.clickedProject.id));
 
         csvService.parseFootprint(data).then(function(res) {
 
-          // console.log($scope, scope);
-          // console.log(res);
-          // if (res.living == 0 && res.shipping == 0 && res.travel == 0) {
-          //   $('#errorOutput').html('Sorry, we could not process your file.');
-          // } else {
-          // UserService.successfulUpload = true;
-          // UserService.uploadWorked();
-
           console.log(data, res, loc, UserService.clickedProject, vm.user.project);
-
-          // Yeah, THIS DOES  NOT WORK:
-          // let idOfProj = UserService.getProjectIdFromName(vm.user.project);
-
-
-
-          // console.log("PROJECT ID IS ", idOfProj);
-
           // WELL what I'm tempted to do is write function to get project where project.name = $1 and then REQUIRE unique project names...Otherwise have to store ID in the dropdown, it seems.
 
-
           if (loc === 'project') {
-            // console.log();
           //   // This refreshes the page user is looking at. Would probably be better to direct to new Project and then refresh *its* footprints:
-
               UserService.getProjectIdFromName(vm.user.project).then(res => {
-                console.log(res);
-                // let proj = res.data.rows[0]; // Only care about first one, since we will require unique project names
-                // UserService.clickedProject = proj;
-                // UserService.getProjectFootprints(UserService.clickedProject.id).then(res => {
-                //   // notifyObservers();
-                // });
+                console.log(UserService.clickedProject); // this has the data we need.
+
               });
-              // vm.userProjects = res;
-
           }
-
-
-
-
-
-
-
-
-
-          // csvService.updateFootprints();
-          // $scope.$emit('submitFootprint', 'hi');
-          // console.log($scope);
-          // scope.pc.getProjectFootprints();
-          // }
         });
       };
       r.readAsBinaryString(f);
 
     }
-
-
   };  //End CSV upload
-
-
 }); //End Dialog controller

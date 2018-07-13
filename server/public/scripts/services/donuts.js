@@ -42,6 +42,8 @@ myApp.service('donutService', function($http, $location, UserService) {
   self.getFpDividedByPeriod = curryDivisions('/chart/footprints_footprint_by_period');
   self.getUserFpDividedByPeriod = curryDivisions('/chart/footprint_by_period');
 
+  // ===============================================================================================
+
 
   // Definitely need this for drawing the user's customized donut chart:
   self.getDonut = function(view, particular, slice) {

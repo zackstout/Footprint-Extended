@@ -1,3 +1,4 @@
+
 myApp.controller('headerController', function(UserService, $location) {
   console.log('header controller created');
   var vm = this;

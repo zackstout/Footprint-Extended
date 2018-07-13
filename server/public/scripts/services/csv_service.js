@@ -25,7 +25,6 @@ myApp.service('csvService', function ($http, $location, UserService) {
       propane: 0,
       organization: ''
     };
-    
 
     // Must be a clever way to condense this...Loop through keys of csv object? Would need index of the key...
     for (var i = 0; i < arrayOfNums.length; i++) {
@@ -59,11 +58,7 @@ myApp.service('csvService', function ($http, $location, UserService) {
   };
 
 
-
-
-
-
-
+  // ===============================================================================================
 
 
 
@@ -112,9 +107,7 @@ myApp.service('csvService', function ($http, $location, UserService) {
   };
 
 
-
-
-
+  // ===============================================================================================
 
 
   // (2) LOGGED IN USER's UPLOAD:
@@ -149,6 +142,8 @@ myApp.service('csvService', function ($http, $location, UserService) {
     vm.projectOut.userType = sendData;
   };
 
+
+  // ===============================================================================================
 
 
   // Post new FP to DB:

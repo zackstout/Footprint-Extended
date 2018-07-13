@@ -33,16 +33,10 @@ myApp.controller('AdminController', function (UserService, $http) {
             }
           }
         }
-        // console.log(vm.computedFps);
       }).catch(function(err) {
-        // console.log(err);
+        console.log(err);
       });
     }
 
     checkAdminRoute();
-
-
-    //for page load, is displayed on DOM
-    // gettingUsers();
-
 });

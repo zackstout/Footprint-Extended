@@ -19,7 +19,7 @@
 
           <md-input-container>
             <md-select ng-model="ddc.user.project">
-              <md-option ng-repeat="project in ddc.userProjects" ng-value="project.name">{{project.name}}</md-option>
+              <md-option ng-repeat="(id, project) in ddc.userProjects" ng-selected="project.id == ddc.userService.clickedProject.id" ng-value="project.name">{{project.name}}</md-option>
             </md-select>
             <!-- <input ng-model="user.projectName"> -->
           </md-input-container>

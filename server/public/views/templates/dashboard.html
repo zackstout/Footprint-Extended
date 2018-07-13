@@ -16,6 +16,7 @@
     <div id="dashline" flex="70">
       <h2>TOTAL CARBON FOOTPRINT</h2>
 
+
       <canvas id="linechart" width="400" height="225"></canvas>
       <!-- <canvas id="line-chart" width="400" height="225"></canvas> -->
     </div>
@@ -24,7 +25,7 @@
       <h2>YOUR PROJECTS</h2>
       <md-card id="recent" class="projectsDiv">
         <!-- why isn't this working??? -->
-        <h3 ng-repeat="userProject in uc.userService.userProjects | orderBy: userProject.id">
+        <h3 ng-repeat="userProject in uc.userService.userProjects">
           {{userProject.id}}
           <md-button aria-label=" " ng-click="uc.showProject($event, $index)" layout-align="left">{{userProject.name}}</md-button>
         </md-button>
@@ -40,7 +41,7 @@
 <br>
 <hr>
 
-<h1 layout layout-align="center center">VISUALIZE YOUR IMPACT</h1>
+<h1 layout layout-align="center center" style="margin-bottom:39px;">VISUALIZE YOUR IMPACT</h1>
 
 
 
@@ -63,7 +64,7 @@
 <!-- DONUTS: -->
 <div id="dashdonut" ng-show="uc.dashDonutShow" layout="row" flex>
   <div layout="column" flex="15">
-    <h2>TARGET YOUR IMPACT, CUSTOMIZE YOUR VIEW</h2>
+    <!-- <h2>TARGET YOUR IMPACT, CUSTOMIZE YOUR VIEW</h2> -->
     <div>
       <h3>VIEW BY:
       </h3>
@@ -135,7 +136,8 @@
 <!-- BARS: -->
 <div id="dashbar" ng-show="uc.dashBarShow" layout="row" flex>
   <div layout="column" flex="15">
-    <h2>VIEW IMPACT BY CATEGORY OF USE</h2>
+    <!-- The asymmetry bothers me (other with no text) but it's visually better...: -->
+    <h2>TARGET YOUR IMPACT</h2>
     <div>
       <h3>VIEW BY:
       </h3>
