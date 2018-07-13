@@ -23,7 +23,6 @@ var transporter = nodemailer.createTransport({
 
 
 
-
 // Kick off the forgot password process:
 router.post('/initiate', function(req, res) {
   console.log("BODY HERE: ", req.body);
@@ -42,7 +41,6 @@ router.post('/initiate', function(req, res) {
     }
 
   });
-
 
   var mailOptions = {
     from: 'zackstout@gmail.com',
@@ -99,39 +97,6 @@ router.get('/newPassword', function(req, res, next) {
 });
 
 
-
-// Handles POST request with new user data
-router.post('/', function(req, res, next) {
-
-  var saveUser = {
-    username: req.body.username,
-    password: encryptLib.encryptPassword(req.body.password),
-    organization: req.body.organization,
-    name: req.body.name,
-    position: req.body.position
-  };
-  // console.log('new user:', saveUser);
-
-  pool.connect(function(err, client, done) {
-    if(err) {
-      console.log("Error connecting: ", err);
-      res.sendStatus(500);
-    }
-    client.query("INSERT INTO users (username, password, organization, name, position) VALUES ($1, $2, $3, $4, $5) RETURNING id;",
-    [saveUser.username, saveUser.password, saveUser.organization, saveUser.name, saveUser.position],
-    function (err, result) {
-      client.end();
-
-      if(err) {
-        console.log("Error inserting data: ", err);
-        res.sendStatus(500);
-      } else {
-        res.sendStatus(201);
-      }
-    });
-  });
-
-});
 
 
 function makeRandomString(len) {

@@ -12,6 +12,10 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
   vm.user = {};
   vm.data = {};
 
+  vm.hide = function() {
+    $mdDialog.hide();
+  };
+
   // Check whether activated from Dashboard or Project page:
   let loc = $location.$$url == '/user' ? 'user' : 'project';
 

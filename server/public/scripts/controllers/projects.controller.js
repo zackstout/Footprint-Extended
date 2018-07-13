@@ -15,19 +15,15 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
 
   // Put service in charge of updating vm.projectFootprints: (called whenver notifyObservers is called, yes?)
   let newProject = function() {
-
     vm.userProjects = UserService.userProjects;
     vm.clickedProject = UserService.clickedProject;
-    console.log('PROJECT IS ', vm.clickedProject);
     vm.projectFootprints = UserService.selectedProjectFootprints;
-
   };
 
   UserService.registerObserverCallback(newProject);
 
 
   vm.hoverFootprint = function(ev) {
-    // console.log(ev.target.parentElement.id);
     var id = ev.target.parentElement.id;
     var real_id = parseInt(id.slice(id.indexOf('_') + 1));
     // console.log(real_id);
@@ -39,12 +35,8 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
 
   // Gets the footprints for selected project
   vm.getProjectFootprints = function (id) {
-    // UserService.newProject = false;
-
     UserService.getProjectFootprints(id, false).then(function(response){
       vm.projectFootprints = UserService.selectedProjectFootprints;
-      // console.log(vm.projectFootprints);
-      //add alert for catch
     }).catch(function (error) {
       console.log(error, 'error getting footprints for selected project');
     });
@@ -64,15 +56,11 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
   // called on ng-init
   vm.init = function() {
     getAllCountries().then(function(res) {
-      // console.log(res);
       countries = res;
 
       // We're off by one: this should be the fix:
       countries.unshift(0);
-      console.log("COUNTRIES 1", countries);
-
       vm.clickedProject.country = countries[vm.clickedProject.country_id];
-
     });
   };
 
@@ -80,23 +68,17 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
   // click function for selecting project to view
   vm.changeSelected = function() {
     vm.clickedProject = UserService.clickedProject;
-
-    console.log("HEY I'M THE PROJECT", vm.clickedProject);
-    // viewNewProj();
   };
 
   //function for displaying selected project
   vm.showSelected = function() {
-
     vm.changeSelected();
     vm.getProjectFootprints(vm.clickedProject.id);
     vm.clickedProject.country = countries[vm.clickedProject.country_id];
-
   };
 
   // Ohh that may have been the problem. Loading in *this* controller for the Nav triggered this code every time.
   vm.showSelected();
-
 
 
 
@@ -107,8 +89,6 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
     vm.clickedProject = UserService.userProjects[i];
     vm.getProjectFootprints(vm.clickedProject.id);
     vm.clickedProject.country = countries[vm.clickedProject.country_id];
-
-
   };
 
   //Opens edit dialog box.
@@ -122,7 +102,7 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
       targetEvent: event,
       clickOutsideToClose: true
     });
-  };//End edit dialog box function.
+  };
 
   vm.deleteModal = function (event, index) {
     vm.userService.userObj.selectedIndex = index;
@@ -143,7 +123,6 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
 
   // CHANGE COLORS HERE (need this custom object hack):
   vm.deleteThis = function(ev, x) {
-    // $mdThemingProvider('warn');
 
     var confirm = $mdDialog.confirm({
       // thanks SO <3:
@@ -165,7 +144,6 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
 
 
     $mdDialog.show(confirm).then(function() {
-
 
       $http.delete('/footprints/delete/' + x).then(function(response) {
 

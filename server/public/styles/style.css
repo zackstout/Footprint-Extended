@@ -209,15 +209,26 @@ header {
 }
 
 @media only screen and (max-width: 990px) {
-    .myFooter {
-        margin-top: 330px !important;
+    .contactUs {
+        margin-top: 350px !important;
     }
 }
+
+
+.contactBtn {
+  background-color: teal;
+  color: lightGray;
+}
+
+.contactBtn:hover {
+  color: white;
+}
+
 
 .myFooter {
   height: 170px;
   background-image: url("/images/earthforfootprint.png");
-  margin-top: 300px;
+  margin-top: 35px;
   text-align: center;
   padding-top: 50px;
 }
@@ -442,10 +453,16 @@ tr:nth-child(odd) td { background: #b0bec5; }
 
 
 
+.contactUs {
+  margin-top: 270px;
+}
+
+
+
 #logo {
   position: relative;
-  top: -120px;
-  height: 400px;
+  top: 25px;
+  height: 100px;
   width: auto;
   overflow: hidden;
 }

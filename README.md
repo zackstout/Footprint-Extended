@@ -73,7 +73,8 @@
 - [x] Popup FAQ like on footprintproject.io site (this will be easy with md-tooltip.   ... This was overly hasty).
   - [x] Aha, finally found the hack to make `md-tooltip` work with multi-lines (need to use `!important` in the css).
   - [ ] Should probably put similar one on the Footprint upload modal.
-  - [ ] Also, it's a big issue that they don't work if they don't have enough height space.
+  - [ ] Also, it's a BIG issue that they don't work if they don't have enough height space.
+  - [ ] Would also be nice to get the width of their hover-activation element constrained.
 - [ ] Give diesel higher priority in CSV.
 - [x] Add total to donut chart. (or at least make it visible somewhere). Ok it's showing below.
  - [ ] No styling yet.
@@ -87,8 +88,7 @@
   - [ ] Contact us. Footprintproject.org. will@footprintproject.org
 
 - [ ] Make sure Will can upload from admin page.
-- [ ] Play with New Logo.
-  - [ ] Text should be light gray... and should be bigger.
+- [x] Add new Logo (edited color to charcoal).
 
 August 6th, Pitch deck.
 
@@ -108,7 +108,8 @@ August 6th, Pitch deck.
 
 - [ ] Non-metric CSV is not correct. (just get rid of dates columns?)
 - [ ] Do not show options for chart query unless it contains data -- don't even display it as an option in the dropdown. (Alert user if there is no data (i.e. identify all of those errors -- "cannot read property plane of undefined", for example))?
-- [ ] Disallow user from entering two projects of same name (creates `md-duplicate` error) -- ask if they instead want to view that project.
+- [x] Disallow user from entering two projects of same name (creates `md-duplicate` error)
+  - [ ] ask if they instead want to view that project.
 - [ ] Disallow user from entering two footprints of the same month for one project.
 - [ ] Set up Admin page to display all relevant data.
 - [ ] Update `databasesetup.sql` file to reflect changes to db structure. (Shit I forgot what they were...)

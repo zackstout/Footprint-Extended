@@ -7,10 +7,12 @@ myApp.controller('ProjectDialogController', function (UserService, csvService, $
     vm.selected = [];
     vm.user = {}; // Initialize empty object for modelling
 
-
     // Check where we came from:
     let loc = $location.$$url == '/user' ? 'user' : 'project';
 
+    vm.hide = function() {
+      $mdDialog.hide();
+    };
 
     // Handle checkboxes:
     vm.change = function (item, active) {
@@ -32,18 +34,25 @@ myApp.controller('ProjectDialogController', function (UserService, csvService, $
         $('#error').html("Please select a type.");
       }
       else {
-        // UserService.newProject = true;
-        vm.userService.countryIn = vm.selected;
-        vm.userService.sendProject(vm.user);
-        $mdDialog.hide();
 
-        // this is already called by sendProject:
-        // UserService.getProjects().then(function() {
-        //   window.location.href = '/#/projects';
-        //
-        // });
-        // vm.userService.newProject = true;
+        // Final piece of validation:
+        UserService.getuser(); // probably wrong way to do this -- i bet it returns a value.
+        UserService.getProjects(UserService.userObject.id).then(res => {
+          console.log(res);
+          let usedAlready = false;
+          res.forEach(proj => {
+            if (proj.name == vm.user.projectName) {
+              usedAlready = true;
+            }
+          });
+          if (usedAlready) {
+            $('#error').html("That project name is already in use.");
+          } else {
+            vm.userService.countryIn = vm.selected;
+            vm.userService.sendProject(vm.user);
+            $mdDialog.hide();
+          }
+        });
       }
     };
-
 });
