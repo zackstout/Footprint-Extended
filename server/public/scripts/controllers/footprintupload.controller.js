@@ -69,52 +69,78 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
     } else {
 
       // Final piece of validation:
-      UserService.getProjectFootprints(vm.user.project.id).then(res => {
-        console.log(res);
-        let usedAlready = true;
-        res.forEach(fp => {
-          console.log(fp);
-          // if (proj.name == vm.user.projectName) {
-          //   usedAlready = true;
-          // }
-        });
-        if (usedAlready) {
-          $('#errorOutput').html("That project name is already in use.");
-        } else {
-          csvService.sendUser(vm.user);
-          csvService.dataType = vm.data;
-          $mdDialog.hide();
-          console.log(vm.data.type);
-          $('#errorOutput').html('');
+      console.log("project", vm.user.project);
+      UserService.getProjectIdFromNamePure(vm.user.project).then(result => {
+        console.log(result);
 
-          var f = document.getElementById('file').files[0];
-          var r = new FileReader();
-
-          r.onloadend = function (e) {
-            var data = e.target.result;
-
-            csvService.parseFootprint(data).then(function(res) {
-
-              console.log(data, res, loc, UserService.clickedProject, vm.user.project);
-              // WELL what I'm tempted to do is write function to get project where project.name = $1 and then REQUIRE unique project names...Otherwise have to store ID in the dropdown, it seems.
-
-              if (loc === 'project') {
-                //   // This refreshes the page user is looking at. Would probably be better to direct to new Project and then refresh *its* footprints:
-                UserService.getProjectIdFromName(vm.user.project).then(res => {
-                  console.log(UserService.clickedProject); // this has the data we need.
-
-                });
-              }
-            });
-          };
-          r.readAsBinaryString(f);
-
+        if (result.data.rows.length > 0) {
+          // Need to do some validation here. That's what gave rise to the refactoring and the weird csvService is not defined error.
         }
+        const project_id = result.data.rows[0].id;
+
+        UserService.getProjectFootprints(project_id).then(res => {
+          // console.log(res, vm.user.selectedMonth, vm.user.selectedYear);
+
+          // Convert to proper date format:
+          let month_index = (vm.months.indexOf(vm.user.selectedMonth) + 1).toString(); // Odd we had to coerce to string..
+          if (month_index.length == 1) month_index = '0' + month_index;
+
+          let date = `${vm.user.selectedYear}-${month_index}`;
+
+          let usedAlready = false;
+          res.forEach(fp => {
+            if (fp.period.includes(date)) usedAlready = true;
+          });
+
+          console.log(date, usedAlready);
+
+          if (usedAlready) {
+            $('#errorOutput').html("You've already uploaded a footprint for that month.");
+          } else {
+
+            var f = document.getElementById('file').files[0];
+            var r = new FileReader();
+
+            handleUpload(vm.user, vm.data, f, r);
+
+          }
+        });
       });
-
-
-
 
     }
   };  //End CSV upload
+
+
+
+
+  function handleUpload(user, data, file, reader) {
+    csvService.sendUser(user);
+    csvService.dataType = data;
+    $mdDialog.hide();
+    $('#errorOutput').html('');
+
+    reader.onloadend = function (e) {
+      var data = e.target.result;
+
+      csvService.parseFootprint(data).then(function(res) {
+
+        console.log(data, res, loc, UserService.clickedProject, vm.user.project);
+        // WELL what I'm tempted to do is write function to get project where project.name = $1 and then REQUIRE unique project names...Otherwise have to store ID in the dropdown, it seems.
+
+        if (loc === 'project') {
+          //   // This refreshes the page user is looking at. Would probably be better to direct to new Project and then refresh *its* footprints:
+          UserService.getProjectIdFromName(vm.user.project).then(res => {
+            console.log(UserService.clickedProject); // this has the data we need.
+
+          });
+        }
+      });
+    };
+
+    reader.readAsBinaryString(file);
+
+  }
+
+
+
 }); //End Dialog controller

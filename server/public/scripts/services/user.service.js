@@ -279,6 +279,13 @@ myApp.service('UserService', function ($http, $location){
   };
 
 
+  self.getProjectIdFromNamePure = function(name) {
+    return $http.get('/project/getid/' + name).then(function(res) {
+      return res;
+    });
+  };
+
+
   // moved to FPs:
   //gets the footprints for selected project
   self.getProjectFootprints = function (id, newFp=false){

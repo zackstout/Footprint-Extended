@@ -92,6 +92,8 @@
 - [x] Give diesel higher priority in CSV (just moved it to first cols).
 - [x] Non-metric CSV is now correct. (just get rid of dates columns? Yep)
 - [x] Add Success alert for Contact us.
+- [x] Disallow user from entering two footprints of the same month for one project.
+  - [ ] Ask if they want to edit.
 
 ## Next Steps:
 
@@ -113,7 +115,7 @@
 - [ ] Implement forgot password.
 
 - [ ] Do not show options for chart query unless it contains data -- don't even display it as an option in the dropdown. (Alert user if there is no data (i.e. identify all of those errors -- "cannot read property plane of undefined", for example))?
-- [ ] Disallow user from entering two footprints of the same month for one project.
+
 - [ ] Update `databasesetup.sql` file to reflect changes to db structure.
 - [ ] Mess with the font.. Make it look better, sleeker.
 
