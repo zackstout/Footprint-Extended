@@ -95,9 +95,11 @@
 - [x] Disallow user from entering two footprints of the same month for one project.
   - [ ] Ask if they want to edit.
 - [x] More validation for forgot password, and alerts for success/failure.
+
 - [x] Final-ish step for forgot password: `res.redirect`. Overall a great exercise, learning about route params with Angular `routeProvider`. I think it's there, now, except for adding proper site name and email address. (same for Contact)
 - [x] New footprint from dash (needs to update chart)
 - [x] User's info-over-time line chart buggy. Make sure that line chart UPDATES when user enters a new footprint.
+- [x] Update `databasesetup.sql` file to reflect changes to db structure.
 
 
 ## Next Steps:
@@ -113,7 +115,6 @@
 
 ### Top priority:
 
-- [ ] Update `databasesetup.sql` file to reflect changes to db structure.
 - [ ] Display TOTALS FOR ALL CHARTS! (on dashboard)
 - [ ] One solution for footprints/hovering (tooltip not working and generally kind of sucking) -- make it scroll like the projects, so that hovering reveals its info below. That might look fine.
 

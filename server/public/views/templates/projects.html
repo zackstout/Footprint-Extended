@@ -1,3 +1,4 @@
+
 <div ng-include="'views/partials/nav.html'"></div>
 
 <div class="whole" ng-init="pc.init()">
@@ -21,91 +22,102 @@
 
   <div layout="row" id="projects">
 
-    <div flex="70">
-      <!-- <div flex="60" layout="row" layout-align="center center"> -->
+    <div flex="70" >
       <table id="footprintsTable">
         <h2>UPLOADED PERIODS</h2>
-        <tr>
-          <!-- will add footprint in a moment -->
-          <th>PERIOD</th>
-          <th>EDIT</th>
-          <th>DELETE</th>
+        <tbody>
+          <tr>
+            <!-- Lol: -->
+            <!-- will add footprint in a moment -->
+            <th>PERIOD</th>
+            <th>EDIT</th>
+            <th>DELETE</th>
 
-        </tr>
-        <tr  ng-repeat="projectFootprint in pc.projectFootprints" ng-mouseleave="pc.hovering = false" ng-mouseover="pc.hoverFootprint($event)" class="footprint-row" id="footprint_{{projectFootprint.id}}">
+          </tr>
+          <tr  ng-repeat="projectFootprint in pc.projectFootprints" ng-mouseleave="pc.hovering = false" ng-mouseover="pc.hoverFootprint($event)" class="footprint-row" id="footprint_{{projectFootprint.id}}">
 
-          <md-tooltip md-delay=10 ng-show="pc.hovering">
-            <!-- Hmm, the first delay is still long.. -->
-            <!-- NOTE: We'll have to put its direction to Right when there's not enough room on the bottom: -->
+            <td>{{projectFootprint.period | date: "MMM yyyy"}}</td>
+            <td><md-button class="md-raised md-primary" ng-click="pc.editModal($event, $index)">Edit</md-button></td>
+            <td>
+              <md-button class="md-raised md-warn ng-click=" ng-click="pc.deleteThis($event, projectFootprint.id)">Delete</md-button>
+            </td>
 
-            <div class="">
-              hi
-            </div>
-            <div class="">
-              there
-            </div>
-            <div class="">
-              clown
-            </div>
+          </tr>
+        </tbody>
 
-            <!-- <table width="300px">
-              <thead>
-                <th>Travel</th>
-                <th>Living</th>
-                <th>Shipping</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Car: {{pc.car}} <i>km</i></td>
-                  <td>Hotel: {{pc.hotel}} <i>room-days</i></td>
-                  <td>Air: {{pc.air}} <i>tonne-km</i></td>
-                </tr>
-                <tr>
-                  <td>Train: {{pc.train}} <i>km</i></td>
-                  <td>Gas: {{pc.fuel}} <i>m<sup>3</sup></i></td>
-                  <td>Train: {{pc.freight_train}} <i>tonne-km</i></td>
-                </tr>
-                <tr>
-                  <td>Plane: {{pc.plane}} <i>km</i></td>
-                  <td>Electricity: {{pc.grid}} <i>kWh</i></td>
-                  <td>Truck: {{pc.truck}} <i>tonne-km</i></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td>Propane: {{pc.propane}} <i>kWh</i></td>
-                  <td>Sea: {{pc.sea}} <i>tonne-km</i></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table> -->
-
-          </md-tooltip>
-
-
-          <td>{{projectFootprint.period | date: "MMM yyyy"}}</td>
-          <td><md-button class="md-raised md-primary" ng-click="pc.editModal($event, $index)">Edit</md-button></td>
-          <td>
-            <md-button class="md-raised md-warn ng-click=" ng-click="pc.deleteThis($event, projectFootprint.id)">Delete</md-button>
-          </td>
-
-        </tr>
       </table>
     </div>
     <div flex="30">
-      <h2>YOUR PROJECTS</h2>
 
-      <md-card id="recent" class="projectsDiv">
-        <!-- <p>View project uploads</p> -->
-        <h3 ng-repeat="userProject in pc.userProjects">
-        <!-- <h3 ng-repeat="userProject in pc.userProjects | orderBy: 'userProject.id'"> -->
+        <h2>YOUR PROJECTS</h2>
+        <div layout="row" >
 
-          <md-button ng-click="pc.showAnotherProject($event, $index)" layout-align="left">{{userProject.name}}</md-button>
+        <md-card id="recent" class="projectsDiv">
+          <h3 ng-repeat="userProject in pc.userProjects">
 
-        </h3>
-        <!-- {{pc.projectFootprints}} -->
-      </md-card>
+            <md-button ng-click="pc.showAnotherProject($event, $index)" layout-align="left">{{userProject.name}}</md-button>
+
+          </h3>
+        </md-card>
+      </div>
+
+      <br><br>
+      <div layout="row" class="footprintOutput">
+        <table>
+          <thead>
+            <th>Column</th>
+            <th>Value</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Electricity</td>
+              <td>{{pc.hovered.electricity}} <i>kWh</i></td>
+            </tr>
+            <tr>
+              <td>Propane</td>
+              <td>{{pc.hovered.propane}} <i>kWh</i></td>
+            </tr>
+            <tr>
+              <td>Fuel</td>
+              <td>{{pc.hovered.fuel}} <i>kWh</i></td>
+            </tr>
+            <tr>
+              <td>Hotel</td>
+              <td>{{pc.hovered.hotel}} <i>kWh</i></td>
+            </tr>
+            <tr>
+              <td>Air</td>
+              <td>{{pc.hovered.air}} <i>kWh</i></td>
+            </tr>
+            <tr>
+              <td>Truck</td>
+              <td>{{pc.hovered.truck}} <i>kWh</i></td>
+            </tr>
+            <tr>
+              <td>Freight Train</td>
+              <td>{{pc.hovered.freight_train}} <i>kWh</i></td>
+            </tr>
+            <tr>
+              <td>Sea</td>
+              <td>{{pc.hovered.sea}} <i>kWh</i></td>
+            </tr>
+            <tr>
+              <td>Plane</td>
+              <td>{{pc.hovered.plane}} <i>kWh</i></td>
+            </tr>
+            <tr>
+              <td>Car</td>
+              <td>{{pc.hovered.car}} <i>kWh</i></td>
+            </tr>
+            <tr>
+              <td>Train</td>
+              <td>{{pc.hovered.train}} <i>kWh</i></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
     </div>
-    <!-- </div> -->
 
   </div>
 </div>

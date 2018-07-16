@@ -34,13 +34,15 @@ hr {
 }
 
 
-
+.footprintOutput {
+  height: 500px !important;
+}
 
 
 
 table td {
   font-size: 16px;
-  padding:17px;
+  padding:12px;
 }
 
 table th {

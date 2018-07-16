@@ -189,17 +189,18 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
 
   // ===============================================================================================
 
-  // vm.air = 0;
-  // vm.sea = 0;
-  // vm.truck = 0;
-  // vm.freight_train = 0;
-  // vm.hotel = 0;
-  // vm.grid =0;
-  // vm.fuel=0;
-  // vm.propane =0;
-  // vm.plane =0;
-  // vm.car=0;
-  // vm.train=0;
+  vm.hovered = {};
+  vm.hovered.air = 0;
+  vm.hovered.sea = 0;
+  vm.hovered.truck = 0;
+  vm.hovered.freight_train = 0;
+  vm.hovered.hotel = 0;
+  vm.hovered.electricity = 0;
+  vm.hovered.fuel = 0;
+  vm.hovered.propane = 0;
+  vm.hovered.plane = 0;
+  vm.hovered.car = 0;
+  vm.hovered.train = 0;
 
   vm.hovering = false;
 
@@ -210,20 +211,20 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
     // console.log(real_id);
 
     if (!isNaN(real_id)) {
-      // UserService.getFootprint(real_id).then(footprint => {
-      //   // console.log(footprint);
-      //   vm.air = footprint.data.rows[0].air;
-      //   vm.sea = footprint.data.rows[0].sea;
-      //   vm.truck = footprint.data.rows[0].truck;
-      //   vm.freight_train = footprint.data.rows[0].freight_train;
-      //   vm.hotel = footprint.data.rows[0].hotel;
-      //   vm.grid =footprint.data.rows[0].grid;
-      //   vm.fuel=footprint.data.rows[0].fuel;
-      //   vm.propane =footprint.data.rows[0].propane;
-      //   vm.plane =footprint.data.rows[0].plane;
-      //   vm.car=footprint.data.rows[0].car;
-      //   vm.train=footprint.data.rows[0].train;
-      // });
+      UserService.getFootprint(real_id).then(footprint => {
+        // console.log(footprint);
+        vm.hovered.air = footprint.data.rows[0].air;
+        vm.hovered.sea = footprint.data.rows[0].sea;
+        vm.hovered.truck = footprint.data.rows[0].truck;
+        vm.hovered.freight_train = footprint.data.rows[0].freight_train;
+        vm.hovered.hotel = footprint.data.rows[0].hotel;
+        vm.hovered.electricity =footprint.data.rows[0].grid; // changing the name tripped me up here. When will I learn
+        vm.hovered.fuel=footprint.data.rows[0].fuel;
+        vm.hovered.propane =footprint.data.rows[0].propane;
+        vm.hovered.plane =footprint.data.rows[0].plane;
+        vm.hovered.car=footprint.data.rows[0].car;
+        vm.hovered.train=footprint.data.rows[0].train;
+      });
 
     }
   };

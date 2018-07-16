@@ -1,84 +1,116 @@
 -- Once you have created the project-footprint database, use the following queries to create tables and populate the initial static tables:
 
 CREATE TABLE "users" (
-    "id" serial PRIMARY key NOT NULL,
-    "username" varchar(50) NOT NULL UNIQUE,
-    "password" varchar(240) NOT NULL,
-    "organization" varchar(50) NOT NULL UNIQUE,
-    "name" varchar (50),
-    "position" varchar (50)
+  "id" serial PRIMARY key NOT NULL,
+  "username" varchar(50) NOT NULL UNIQUE,
+  "password" varchar(240) NOT NULL,
+  "organization" varchar(50) NOT NULL UNIQUE,
+  "name" varchar (50),
+  "position" varchar (50)
 );
 
 CREATE TABLE "countries" (
-    "id" serial PRIMARY key NOT NULL,
-    "name" varchar(50) NOT NULL UNIQUE
+  "id" serial PRIMARY key NOT NULL,
+  "name" varchar(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE "types" (
-    "id" serial PRIMARY key NOT NULL,
-    "name" varchar(50) NOT NULL UNIQUE
+  "id" serial PRIMARY key NOT NULL,
+  "name" varchar(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE "projects" (
-    "id" serial PRIMARY key NOT NULL,
-    "name" varchar(100) NOT NULL,
-    "user_id" INT REFERENCES "users" ON DELETE CASCADE NOT NULL,
-    "country_id" INT REFERENCES "countries" NOT NULL
-);  
+  "id" serial PRIMARY key NOT NULL,
+  "name" varchar(100) NOT NULL,
+  "user_id" INT REFERENCES "users" ON DELETE CASCADE NOT NULL,
+  "country_id" INT REFERENCES "countries" NOT NULL
+);
 
 CREATE TABLE "project_type" (
-    "id" serial PRIMARY KEY NOT NULL,
-    "project_id" INT REFERENCES "projects" ON DELETE CASCADE NOT NULL,
-    "type_id" INT REFERENCES "types" NOT NULL
+  "id" serial PRIMARY KEY NOT NULL,
+  "project_id" INT REFERENCES "projects" ON DELETE CASCADE NOT NULL,
+  "type_id" INT REFERENCES "types" NOT NULL
 );
 
 CREATE TABLE "footprints" (
-    "id" serial PRIMARY KEY NOT NULL,
-    "period" date NOT NULL,
-    "project_id" INT REFERENCES "projects" ON DELETE CASCADE NOT NULL
+  "id" serial PRIMARY KEY NOT NULL,
+  "period" date NOT NULL,
+  "project_id" INT REFERENCES "projects" ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE "living" (
-    "id" serial PRIMARY key NOT NULL,
-    "hotel" INT,
-    "fuel" INT,
-    "grid" INT,
-    "propane" INT,
-    "footprint_id" INT REFERENCES "footprints" ON DELETE CASCADE NOT NULL
+  "id" serial PRIMARY key NOT NULL,
+  "hotel" INT,
+  "fuel" INT,
+  "grid" INT,
+  "propane" INT,
+  "footprint_id" INT REFERENCES "footprints" ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE "travel" (
-    "id" serial PRIMARY key NOT NULL,
-    "plane" INT,
-    "car" INT,
-    "train" INT,
-    "footprint_id" INT REFERENCES "footprints" ON DELETE CASCADE NOT NULL
+  "id" serial PRIMARY key NOT NULL,
+  "plane" INT,
+  "car" INT,
+  "train" INT,
+  "footprint_id" INT REFERENCES "footprints" ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE "shipping" (
-    "id" serial PRIMARY key NOT NULL,
-    "air" INT,
-    "truck" INT,
-    "sea" INT,
-    "freight_train" INT,
-    "footprint_id" INT REFERENCES "footprints" ON DELETE CASCADE NOT NULL
+  "id" serial PRIMARY key NOT NULL,
+  "air" INT,
+  "truck" INT,
+  "sea" INT,
+  "freight_train" INT,
+  "footprint_id" INT REFERENCES "footprints" ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE "trial_footprints" (
-	  "id" serial PRIMARY KEY,
-	  "organization" varchar(50),
-    "plane" INT,
-    "car" INT,
-    "train" INT,
-    "hotel" INT,
-    "fuel" INT,
-    "grid" INT,
-    "propane" INT,
-    "air" INT,
-    "sea" INT,
-    "truck" INT,
-    "freight_train" INT
-	);
+  "id" serial PRIMARY KEY,
+  "organization" varchar(50),
+  "plane" INT,
+  "car" INT,
+  "train" INT,
+  "hotel" INT,
+  "fuel" INT,
+  "grid" INT,
+  "propane" INT,
+  "air" INT,
+  "sea" INT,
+  "truck" INT,
+  "freight_train" INT
+);
+
+CREATE TABLE "forgot_password" (
+  "id" serial PRIMARY key NOT NULL,
+  "secret_code" varchar(100) NOT NULL,
+  "user_id" INT REFERENCES "users" NOT NULL,
+  "expires" INT NOT NULL
+);
+
+CREATE TABLE "user_transitions" (
+  "id" serial PRIMARY key NOT NULL,
+  "size" INT NOT NULL,
+  "hours" INT NOT NULL,
+  "load" INT NOT NULL,
+  "costPerLiter" FLOAT NOT NULL,
+  "overspec" INT NOT NULL,
+  "dayPower" INT NOT NULL,
+  "budget" FLOAT NOT NULL,
+  "userId" INT REFERENCES "users" NOT NULL
+);
+
+CREATE TABLE "trial_transitions" (
+  "id" serial PRIMARY key NOT NULL,
+  "size" INT NOT NULL,
+  "hours" INT NOT NULL,
+  "load" INT NOT NULL,
+  "costPerLiter" FLOAT NOT NULL,
+  "overspec" INT NOT NULL,
+  "dayPower" INT NOT NULL,
+  "budget" FLOAT NOT NULL
+);
+
+
 
 INSERT INTO "types" ("name") VALUES ('Health');
 INSERT INTO "types" ("name") VALUES ('Food/Nutrition');
@@ -349,7 +381,7 @@ INSERT INTO "countries" ("name") VALUES ('Wallis and Futuna');
 
 INSERT INTO "users" ("username", "password", "organization", "name", "position") VALUES ('will@footprintproject.org','$2a$10$rIu3wsOUycXc9Jn1Jp8ZfeZsJhYvQ4XcsUKL5n/xhw6GUSOI/betC', 'Footprint', 'Will Heegaard', 'CEO and Founder');
 
--- The following is dummy data, please use in order to demo the application. 
+-- The following is dummy data, please use in order to demo the application.
 -- All User passwords are what is in the following quotes, "1"
 
 INSERT INTO "users" ("username", "password", "organization", "name", "position") VALUES ('mark@arc.org','$2a$10$ZbLZG3j66euD1LQY2dRx0ef/lBG/z8OgJa.EVKu.fuZDJOvKbZeje', 'American Refugee Committee', 'Mark Johnson', 'Monitoring Evaluation Coordinator');
@@ -529,4 +561,3 @@ INSERT INTO "travel" ("plane", "car", "train", "footprint_id") VALUES (30, 40, 4
 INSERT INTO "travel" ("plane", "car", "train", "footprint_id") VALUES (305, 40, 13, 34);
 INSERT INTO "travel" ("plane", "car", "train", "footprint_id") VALUES (21, 40, 13, 35);
 INSERT INTO "travel" ("plane", "car", "train", "footprint_id") VALUES (380, 876, 13, 36);
-
