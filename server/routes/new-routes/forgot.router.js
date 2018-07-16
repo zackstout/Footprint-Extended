@@ -16,39 +16,52 @@ var transporter = nodemailer.createTransport({
 });
 
 
-
-// Wait.... We can't just trust the user to enter the right user name. If we do, they could just change the password for any user.
-// Does this mean we need to ask for an email on registration? Yeah i think it does.
-// I guess technically we are: their username is tagged as "Email" on regitstration. We could just change "Username" to say "Email" on home page.
-
-
-
 // Kick off the forgot password process:
 router.post('/initiate', function(req, res) {
   console.log("BODY HERE: ", req.body);
 
-  console.log(makeRandomString(20));
-
-  const websitename = 'localhost:3000';
-
+  const websitename = 'www.google.com';
   const secretCode = makeRandomString(45);
+  const currentTime = Math.floor(new Date() / 1000);
+  const expirationTime = currentTime + 60 * 60; // one hour in the future
 
-  // Update database to save user's secret code:
-  pool.connect(function(err, client, done) {
-    if(err) {
-      console.log("Error connecting: ", err);
+  // Update database to save user's secret code (after getting their ID based on email/username):
+  pool.connect(function (err, db, done) {
+    if (err) {
+      console.log('Error connecting', err);
       res.sendStatus(500);
-    }
+    } else {
+      var queryText = 'SELECT id FROM users WHERE username=$1;';
 
+      db.query(queryText, [req.body.email], function (errorMakingQuery, result) {
+        if (errorMakingQuery) {
+          console.log('Error with country GET', errorMakingQuery);
+        } else {
+          let user_id = result.rows[0].id;
+
+          var queryText2 = 'INSERT INTO "forgot_password" (secret_code, user_id, expires) VALUES ($1, $2, $3);';
+
+          db.query(queryText2, [secretCode, user_id, expirationTime], function(err, result2) {
+            if (err) {
+              console.log(err);
+            } else {
+              res.sendStatus(201);
+            }
+          });
+        }
+      });
+    }
   });
+
 
   var mailOptions = {
     from: 'zackstout@gmail.com',
     to: req.body.email,
     subject: 'New Password Confirmation',
-    
+
     // Hmm, this doesn't appear to be working...:
-    html: `Thanks for using Footprint! <br/>Please follow this link to create a new password: <a href="${websitename}/forgot/newPassword?seretCode=${secretCode}">${websitename}/forgot/newPassword?seretCode=${secretCode}</a>.`
+    // Oh, the only issue was with using 'localhost' -- works with a real link:
+    html: `Thanks for using Footprint! <br/>Please follow this link to create a new password: <a href="${websitename}/forgot/newPassword?secretCode=${secretCode}">${websitename}/forgot/newPassword?secretCode=${secretCode}</a>.`
   };
 
   transporter.sendMail(mailOptions, function(error, info){
@@ -70,16 +83,39 @@ router.get('/newPassword', function(req, res, next) {
   console.log("issa secret! ... ", secretCode);
 
   // Make a Select query to check whether this code is still live. GET the user ID.
-  pool.connect(function(err, client, done) {
-    if(err) {
+  pool.connect(function (err, db, done) {
+    if (err) {
       console.log("Error connecting: ", err);
       res.sendStatus(500);
     }
+    else {
+      var queryText = 'SELECT * FROM forgot_password WHERE secret_code = $1;';
+      db.query(queryText, [secretCode], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('Error with country GET', errorMakingQuery);
+          res.sendStatus(501);
+        } else {
 
+          if (result.rows.length == 0) {
+            res.sendFile(path.resolve(__dirname, '../../public/views/templates/alerts/forgot_invalid.html'));
+          } else {
+            const currentTime = Math.floor(new Date() / 1000);
+            const expirationTime = result.rows[0].expires;
+
+            if (currentTime < expirationTime) {
+              res.sendFile(path.resolve(__dirname, '../../public/views/templates/forgotNew.html'));
+
+            } else {
+              res.sendFile(path.resolve(__dirname, '../../public/views/templates/alerts/forgot_invalid.html'));
+            }
+          }
+        }
+      });
+    }
   });
 
-// Hmmmm this isn't hooking up to its controller like the Register one is... probably because that has an href..:
-  res.sendFile(path.resolve(__dirname, '../../public/views/templates/forgotNew.html'));
+  // Hmmmm this isn't hooking up to its controller like the Register one is... probably because that has an href..:
 });
 
 
@@ -122,7 +158,7 @@ function makeRandomString(len) {
 router.post('/contact', function (req, res) {
   var mailOptions = {
     from: req.body.email,
-    to: 'hi',// WILL'S EMAIL GOES HERE,
+    to: 'zackstout@gmail.com',// WILL'S EMAIL GOES HERE,
     subject: req.body.subject,
     text: req.body.message
   };
@@ -130,8 +166,10 @@ router.post('/contact', function (req, res) {
   transporter.sendMail(mailOptions, function(error, info){
     if (error) {
       console.log(error);
+      res.sendStatus(500);
     } else {
       console.log('Email sent: ' + info.response);
+      res.sendStatus(201);
     }
   });
 

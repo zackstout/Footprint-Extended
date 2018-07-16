@@ -25,6 +25,15 @@ hr {
     /*width: auto !important;*/
 }
 
+.md-tooltip table th {
+  font-size: 13px !important;
+}
+
+.md-tooltip table td {
+  font-size: 13px !important;
+}
+
+
 
 
 
@@ -90,8 +99,20 @@ div:focus {
   outline: none;
 }
 
+header:focus {
+  outline: none;
+}
+
+.myFooter:focus {
+  outline: none;
+}
+
+.myFooter2:focus {
+  outline: none;
+}
+
 .carbonButton {
-  background-color: teal;
+  background-color: #80cbc4;
   border-radius: 10px;
   width: 30%;
   height: 120px;
@@ -105,7 +126,7 @@ div:focus {
 .carbonButton:hover {
   cursor: pointer;
   /*background-color: lightpink;*/
-  color: #90a4ae;
+  color: white;
 }
 
 .green {

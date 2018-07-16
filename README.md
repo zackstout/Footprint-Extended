@@ -1,5 +1,15 @@
 # Project Footprint: Extended
 
+## Built With:
+- Node.js
+- Express
+- PostgreSQL
+- AngularJS
+- Angular Material
+- Chart.js
+- node-mailer
+- Passport
+
 ## Changes made:
 ### April:
 - [x] Refactored CSV parsing and footprint computation to minimize code-duplication. (Consolidated trial upload, footprint upload and footprint edit to follow one set of functions.)
@@ -31,7 +41,7 @@
   - Add source 0.0.0.0/0 to 5432 rule. Use a database name that exists when connecting from Postico. (or you don't have to???)
   - OK we FINALLY got there: simply followed [these helpful steps](https://medium.com/@harrison0723/beginners-guide-to-aws-beanstalk-using-node-js-d061bb4b8755) to allow Beanstalk app access to the database, and allowed access to the database from anywhere so that Postico can hook onto it. Then we had to put our data inside the "ebdb" database, rather than the "postgres" database.
 
-### July:
+### June:
 - [x] Lock out submit button until have chosen metric/non, submitted org name, and submitted a file.
 - [x] Click on top header takes you back home.
 - [x] "Check out our impact." "Now try it for your organization." "Carbon footprint" => "footprint"
@@ -50,13 +60,10 @@
 - [x] Cleaned up login failure messages.
 - [x] Make delete button easier to read (angular Material makes harder than it should be).
 - [x] When user submits new project, go to that screen immediately (more observers).
-
-(Was I really overthinking things with the observers stuff? I don't think so -- I don't think a change in the service's value would automatically eb changed in a controller that was looking at it. You have to tell the controller: "look at it now!")
-
 - [x] Issue discovered: Project is added to DB if it has no types, but will NOT show up in our query for all of a user's projects. Easiest fix is validate for a type, which we probably want anyway.
 - [x] Organization name can now be changed and saved to DB (this was a casualty of the recent refactoring).
 
-
+### July:
 - [x] Clicking X on modals closes them
 - [x] New project from dash (no observer needed)
 - [x] New project from projects (seems observer needed -- so could just observe new project, change clickedProject)
@@ -67,8 +74,8 @@
 - [x] Add total to donut chart. (or at least make it visible somewhere). Ok it's showing below.
  - [ ] No styling yet.
 - [x] Added trademark footer and facebook icon.
-   - [ ] Link to other FP page -- check out our field projects (??) -- make Contact Us button functional. (Almost there.)
-   - [ ] Don't forget to add Facebook icon to Dashboard footer.
+   - [x] Link to other FP page -- check out our field projects (??) -- make Contact Us button functional. (Almost there.)
+   - [x] Don't forget to add Facebook icon to Dashboard footer.
 - [x] Add new Logo (edited color to charcoal).
 - [x] Disallow user from entering two projects of same name (creates `md-duplicate` error)
   - [ ] ask if they instead want to view that project.
@@ -77,28 +84,48 @@
 - [x] Add a scroller to the Projects list, so it doesn't get too long.
 - [x] Add recommendation to use CSV to footprint upload validation (x2).
 - [x] New footprint from projects (needs to change to Project, and update Project-footprints)
-  - [ ] OH -- ALSO NEED TO CHANGE QUERY TO DEAL WITH MULTIPLE-WORD PROJECT NAMES (do we??).
 
+- [x] Make sure line chart of FP's footprint does not disappear on Trial Upload.
+- [x] Make sure Will can upload from admin page.
+- [x] Remove more blue outlines with hover: `outline: none`.
+- [x] Add ` isMetric` field to Footprints table (for hover feature) and alter data-chain to enable this.
+- [x] Give diesel higher priority in CSV (just moved it to first cols).
+- [x] Non-metric CSV is now correct. (just get rid of dates columns? Yep)
+- [x] Add Success alert for Contact us.
 
 ## Next Steps:
+
+### To discuss:
+- The field projects pictures don't seem to look good...
+- Having trouble finding place to put link to [other site](footprintproject.org).
+- Should footer click direct to footprintproject.org?
+- Facebook link broken (mentioned)
+- Forgot password will take a bit more
+- Not too sure whether CSV properly emphasizes Diesel stuff. Not too sure how the data-models map onto each other either...
+- Contact success could be after validation or after email is sent....
+
 ### Top priority:
 - [ ] New footprint from dash (needs to update chart)
 - [ ] User's info-over-time line chart buggy. Make sure that line chart UPDATES when user enters a new footprint.
-- [ ] Give diesel higher priority in CSV.
-- [ ] Non-metric CSV is not correct. (just get rid of dates columns?)
+
+- [ ] Better validation UI for registration (already database is enforcing unique username).
+
 - [ ] Implement forgot password.
-- [ ] Make sure line chart of FP's footprint does not disappear on Trial Upload.
-- [ ] Make sure Will can upload from admin page.
-- [ ] Set up Admin page to display all relevant data.
+
 - [ ] Do not show options for chart query unless it contains data -- don't even display it as an option in the dropdown. (Alert user if there is no data (i.e. identify all of those errors -- "cannot read property plane of undefined", for example))?
 - [ ] Disallow user from entering two footprints of the same month for one project.
 - [ ] Update `databasesetup.sql` file to reflect changes to db structure.
 - [ ] Mess with the font.. Make it look better, sleeker.
 
+- [ ] diplay TOTLAS FOR ALL CHARTS! (on dashboard)
+- [ ] One solution for footprints/hovering (tooltip not working and generally kind of sucking) -- make it scroll like the projects, so that hovering reveals its info below. That might look fine.
+
 ### Known Bugs:
 - [ ] Sometimes hovering over project names on side-dash makes them invisible???
 - [ ] Sometimes hovering over bar chart switches values???
 - [ ] The divided-by input dropdown sometimes displays two values???
+- [ ] Odd bug where queries for Project name by ID aren't finding certain projects ....
+
 
 ### Transition Tool:
 - [ ] I don't think size of solar grid is appropriately sensitive to overspec/dayPower.
@@ -107,13 +134,14 @@
 - [ ] Follow Emma's idea: wrap calc page with a Start button, and walk user through inputs one by one.
 - [ ] Stitch the two tools together so that one upload can take care of all the calculations.
 
+
 ### Quality of Life Improvements:
 - [ ] This is finicky but scrolling to top and bottom, the cushion doesn't see the image. It looks bad.
 - [ ] The lower shadow on hover over a button (e.g. AWS) is a nice touch.
 - [ ] Make background color on home screen uniform.
-- [ ] Add ` isMetric` field to Footprints table (for hover feature).
 - [ ] Overall line chart should include gaps for non-uploaded months (otherwise it's prettier, but misleading).
 - [ ] Would be nice to fix the page refresh issue (cacheing, etc.). (IDEA: We could use localStorage!)
 - [ ] Let user view current CSV when editing or deleting -- or for that matter, show them on hover on the page or something.
 - [ ] Add animations for the user-customizable charts, to ensure that there's not so much gaping white space before charts are generated. Move two large buttons to two tabs on the left when user clicks one.
 - [ ] Issue: Trial run card now looks bad on narrower screens.
+- [ ] Set up Admin page to display all relevant data.

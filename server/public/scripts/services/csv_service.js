@@ -9,7 +9,9 @@ myApp.service('csvService', function ($http, $location, UserService) {
   // Should include an "is-metric" property:
   vm.masterParse = function(data) {
     // console.log(ExcelToJSON(data));
-    var dataNums = data.slice(data.lastIndexOf('kWh'), data.indexOf(',,,,,,,,,,'));
+
+    // I SHOULD HAVE KNOWN THIS WOULD GET ME! THIS KWH!
+    var dataNums = data.slice(data.lastIndexOf('km'), data.indexOf(',,,,,,,,,,'));
     var arrayOfNums = dataNums.split(',');
     var csv = {
       plane: 0,
@@ -30,30 +32,29 @@ myApp.service('csvService', function ($http, $location, UserService) {
     for (var i = 0; i < arrayOfNums.length; i++) {
       var num = arrayOfNums[i];
       if (i % 11 == 1 && num !== '') {
-        csv.plane += Number(num);
-      } else if (i % 11 == 2 && num !== '') {
-        csv.car += Number(num);
-      } else if (i % 11 == 3 && num !== '') {
-        csv.train_travel += Number(num);
-      } else if (i % 11 == 4 && num !== '') {
-        csv.air += Number(num);
-      } else if (i % 11 == 5 && num !== '') {
-        csv.train_shipping += Number(num);
-      } else if (i % 11 == 6 && num !== '') {
-        csv.truck += Number(num);
-      } else if (i % 11 == 7 && num !== '') {
-        csv.sea += Number(num);
-      } else if (i % 11 == 8 && num !== '') {
-        csv.hotel += Number(num);
-      } else if (i % 11 == 9 && num !== '') {
-        csv.fuel += Number(num);
-      } else if (i % 11 == 10 && num !== '') {
         csv.grid += Number(num);
-      } else if (i % 11 == 0 && num !== '' && i > 1) {
+      } else if (i % 11 == 2 && num !== '') {
         csv.propane += Number(num);
+      } else if (i % 11 == 3 && num !== '') {
+        csv.fuel += Number(num);
+      } else if (i % 11 == 4 && num !== '') {
+        csv.hotel += Number(num);
+      } else if (i % 11 == 5 && num !== '') {
+        csv.air += Number(num);
+      } else if (i % 11 == 6 && num !== '') {
+        csv.train_shipping += Number(num);
+      } else if (i % 11 == 7 && num !== '') {
+        csv.truck += Number(num);
+      } else if (i % 11 == 8 && num !== '') {
+        csv.sea += Number(num);
+      } else if (i % 11 == 9 && num !== '') {
+        csv.plane += Number(num);
+      } else if (i % 11 == 10 && num !== '') {
+        csv.car += Number(num);
+      } else if (i % 11 == 0 && num !== '' && i > 1) {
+        csv.train_travel += Number(num);
       }
     }
-
     return csv;
   };
 
@@ -107,6 +108,9 @@ myApp.service('csvService', function ($http, $location, UserService) {
   };
 
 
+
+
+
   // ===============================================================================================
 
 
@@ -124,6 +128,7 @@ myApp.service('csvService', function ($http, $location, UserService) {
       UserService.changeToImperial(csvIn);
     }
 
+    vm.projectOut.typeOfData = vm.dataType.type;
     vm.projectOut.dataIn.push(csvIn);
     // IT OCCURS TO ME IT'S ONLY SHOWING IT NULL BECAUSE IT UPDATES AFTER IT HAS POSTED, SO IT'S EMPTY. CHECK THE DB.
     // console.log("parseFootprint 2: ", vm.projectOut);
@@ -145,7 +150,7 @@ myApp.service('csvService', function ($http, $location, UserService) {
 
   // ===============================================================================================
 
-
+  // Why the hell is it called postProjects?
   // Post new FP to DB:
   vm.postProjects = function (proj) {
     console.log('postin', proj);

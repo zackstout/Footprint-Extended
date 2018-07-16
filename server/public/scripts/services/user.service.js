@@ -173,11 +173,22 @@ myApp.service('UserService', function ($http, $location){
 
   // Oh isn't that so much more pleasant to the eye?
   self.getFootprint = function(id) {
-    console.log('hello', id);
-    // $http.get('/footprints/footprint')
-    //   .then(res => console.log(res))
-    //   .catch(err => console.log(err));
+    // console.log('hello', id);
+    return $http.get('/footprints/footprint/' + id)
+    .then(res => {
+      // console.log(res);
+      return res;
+    })
+    .catch(err => console.log(err));
   };
+
+
+
+
+  // ===============================================================================================
+
+
+
 
   self.getFootprintsFootprint = function() {
     return $http.get('/admin2/footprints_footprint').then(function(response) {
@@ -189,6 +200,11 @@ myApp.service('UserService', function ($http, $location){
       console.log('oh noooooo', err);
     });
   };
+
+
+  // ===============================================================================================
+
+
 
   self.uploadTransition = function(data) {
     // Check whether user is logged in:
@@ -243,15 +259,21 @@ myApp.service('UserService', function ($http, $location){
   // NOTE: Going to need to enforce unique project names!
   self.getProjectIdFromName = function(name) {
     return $http.get('/project/getid/' + name).then(function(res) {
-      console.log("PROJECT ID FROM NAME IS ", res);
+      console.log("PROJECT IS ", res, " FROM NAME ", name);
 
       self.clickedProject = res.data.rows[0];
 
       self.clickedProject.typeIds = res.data.rows.map(row => row.type_id);
 
+      self.clickedProject.typeIds = _.uniq(self.clickedProject.typeIds); // Takes care of repetition issue for existing same-named projects.
+
+      // ODD ISSUE -- some of our projects aren't coming back by Name????
+
       self.getProjectFootprints(self.clickedProject.id).then(res2 => {
+
         notifyObservers();
         return res;
+
       });
     });
   };

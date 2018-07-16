@@ -9,6 +9,23 @@ var pool = require('../../modules/pool.js');
 
 var months = ['January', "February", 'March', "April", 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+router.get('/footprint/:id', (req, res) => {
+  if (req.isAuthenticated()) {
+    pool.connect((err, db, done) => {
+      if (err) res.sendStatus(500);
+      else {
+        const queryText = 'SELECT hotel, fuel, grid, propane, train, plane, car, freight_train, air, sea, truck FROM footprints JOIN shipping ON footprints.id=shipping.footprint_id JOIN living ON footprints.id=living.footprint_id JOIN travel ON footprints.id=travel.footprint_id WHERE footprints.id = $1;';
+        db.query(queryText, [req.params.id], (errQuery, resQuery) => {
+          if (errQuery) console.log(errQuery);
+          else {
+            done();
+            res.send(resQuery);
+          }
+        });
+      }
+    });
+  }
+});
 
 // Delete a footprint:
 router.delete('/delete/:id', function (req, res) {
@@ -66,6 +83,8 @@ router.post('/project_submit', function (req, res) {
   if (req.isAuthenticated()) {
     var info = req.body.userInfo;
     var dataIn = req.body.dataIn;
+    var typeOfData = req.body.typeOfData;
+
     console.log("INFO: ", info, "DATA: ", dataIn);
     pool.connect(function (err, db, done) {
       if (err) {
@@ -90,8 +109,8 @@ router.post('/project_submit', function (req, res) {
             }
 
             var per = info[1].selectedYear + '-' + month + '-01';
-            queryText = 'INSERT INTO "footprints" ("period", "project_id") VALUES ($1, $2) RETURNING "id";';
-            db.query(queryText, [per, result.rows[0].id], function (err, result) {
+            queryText = 'INSERT INTO "footprints" ("period", "project_id", "metric") VALUES ($1, $2, $3) RETURNING "id";';
+            db.query(queryText, [per, result.rows[0].id, typeOfData == 'Metric'], function (err, result) {
               if (err) {
                 console.log(err);
               } else {

@@ -8,7 +8,7 @@
       <canvas id="doughnut-chart" width="400" height="225"></canvas>
       <span layout layout-align="center center">{{lc.total_kg}} kg CO<sub>2</sub></span>
     </div>
-    <div flex id="linehome" ng-hide="lc.hide">
+    <div flex id="linehome">
       <canvas id="line-chart" width="400" height="225"></canvas>
     </div>
   </div>
@@ -34,10 +34,10 @@
             </md-input-container>
 
             <div class="downloadTemplates">
-              <a href="./assets/footprint_template_real_nonmetric.csv" id="nonmetric" download="footprint_template.csv">Download Non-Metric CSV</a>
+              <a href="./assets/footprint_template_imperial.csv" id="nonmetric" download="footprint_template_imperial.csv">Download Non-Metric CSV</a>
               <br>
               <!-- <a href="./assets/footprint_template_real.csv" download="footprint_template_metric.csv">Download Metric CSV</a> -->
-              <a href="./assets/footprint_template_real.csv" id="metric" download="footprint_template_real2.csv">Download Metric CSV</a>
+              <a href="./assets/footprint_template_metric.csv" id="metric" download="footprint_template_metric.csv">Download Metric CSV</a>
 
             </div>
 
@@ -60,7 +60,7 @@
                   <!-- Hmm, the first delay is still long.. -->
 
                   <!-- NOTE: We'll have to put its direction to Right when there's not enough room on the bottom: -->
-                  <table width="300px">
+                  <table width="180px" >
                     <thead>
                       <th>Travel</th>
                       <th>Living</th>
@@ -74,7 +74,7 @@
                       </tr>
                       <tr>
                         <td>Train  (<i>km</i>)</td>
-                        <td>Gas  (<i>m<sup>3</sup></i>)</td>
+                        <td>Gas  (<i>litres</i>)</td>
                         <td>Train  (<i>tonne-km</i>)</td>
                       </tr>
                       <tr>
@@ -114,7 +114,7 @@
                       </tr>
                       <tr>
                         <td>Train  (<i>mi</i>)</td>
-                        <td>Gas  (<i>therms</i>)</td>
+                        <td>Gas  (<i>gallons</i>)</td>
                         <td>Train  (<i>tonne-mi</i>)</td>
                       </tr>
                       <tr>
@@ -149,16 +149,12 @@
         <p ng-hide="lc.userNut">Your data will appear here!</p>
         <canvas flex ng-show="lc.userNut" id="userDonut" width="300" height="300"></canvas>
         <span layout layout-align="center center" ng-show="lc.userNut">{{lc.user_total_kg}} kg CO<sub>2</sub></span>
-
       </div>
-
     </div>
-
-
 
     <br>
     <div layout layout-align="center center" ng-show="lc.showHelp">
-      If you're using Excel, if prompted to choose how to separate the data, select "By Comma." Please save your file as a CSV!
+      Please save your file as (or export to) a CSV!
     </div>
 
     <br><hr>
@@ -205,8 +201,6 @@
     </div>
 
 
-
-
 <!-- Don't forget that now the margin-top is tied to this instead of the footer: -->
     <div class="contactUs">
       <hr>
@@ -218,7 +212,6 @@
 
   </md-content>
 </div>
-
 
 
 

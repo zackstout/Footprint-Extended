@@ -23,9 +23,18 @@ myApp.controller('contactController', function ($mdDialog, $http) {
         message: vm.message
       };
 
+      $mdDialog.show({
+        templateUrl: '/views/templates/alerts/contactSuccess.html',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true
+      });
+
       // Using this router because has the nodemailer stuff:
       $http.post('/forgot/contact', vm.messageInfo)
-        .then(res => console.log(res))
+        .then(res => {
+          console.log(res);
+
+        })
         .catch(err => console.log(err));
     }
   };

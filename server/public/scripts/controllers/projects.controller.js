@@ -1,3 +1,4 @@
+
 myApp.controller('ProjectController', function ($http, UserService, csvService, $mdDialog, $interval, $scope) {
   console.log('ProjectController created');
   var vm = this;
@@ -19,8 +20,13 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
     vm.clickedProject = UserService.clickedProject;
     vm.projectFootprints = UserService.selectedProjectFootprints;
 
-    vm.clickedProject.names = vm.clickedProject.typeIds.map(id => types[id - 1]);
-    vm.clickedProject.country = countries[vm.clickedProject.country_id];
+    // NOTE: ONLY doing this stuff if we've just submitted a new FOOTPRINT:
+    if (vm.clickedProject.typeIds) {
+      vm.clickedProject.names = vm.clickedProject.typeIds.map(id => types[id - 1]);
+      vm.clickedProject.country = countries[vm.clickedProject.country_id];
+      console.log(vm.clickedProject);
+    }
+
   };
 
   UserService.registerObserverCallback(newProject);
@@ -183,14 +189,42 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
 
   // ===============================================================================================
 
+  // vm.air = 0;
+  // vm.sea = 0;
+  // vm.truck = 0;
+  // vm.freight_train = 0;
+  // vm.hotel = 0;
+  // vm.grid =0;
+  // vm.fuel=0;
+  // vm.propane =0;
+  // vm.plane =0;
+  // vm.car=0;
+  // vm.train=0;
+
+  vm.hovering = false;
 
   vm.hoverFootprint = function(ev) {
+    vm.hovering = true;
     var id = ev.target.parentElement.id;
     var real_id = parseInt(id.slice(id.indexOf('_') + 1));
     // console.log(real_id);
 
     if (!isNaN(real_id)) {
-      UserService.getFootprint(real_id);
+      // UserService.getFootprint(real_id).then(footprint => {
+      //   // console.log(footprint);
+      //   vm.air = footprint.data.rows[0].air;
+      //   vm.sea = footprint.data.rows[0].sea;
+      //   vm.truck = footprint.data.rows[0].truck;
+      //   vm.freight_train = footprint.data.rows[0].freight_train;
+      //   vm.hotel = footprint.data.rows[0].hotel;
+      //   vm.grid =footprint.data.rows[0].grid;
+      //   vm.fuel=footprint.data.rows[0].fuel;
+      //   vm.propane =footprint.data.rows[0].propane;
+      //   vm.plane =footprint.data.rows[0].plane;
+      //   vm.car=footprint.data.rows[0].car;
+      //   vm.train=footprint.data.rows[0].train;
+      // });
+
     }
   };
 
