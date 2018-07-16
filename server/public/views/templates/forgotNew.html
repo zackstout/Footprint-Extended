@@ -1,15 +1,22 @@
 
-<div class="forgotNewWrap" style="padding:20px;margin:15px;">
+<div ng-controller="forgotController as fc" class="forgotNewWrap" style="padding:20px;margin:15px;">
   <p style="color:red">
     {{fc.errorMsgNew}}
   </p>
   <p>
-    Success! Enter new password: <input type="text" name="" ng-model="fc.password1">
+    Success! Enter new password:
   </p>
 
-  <p>
-    Confirm password: <input type="text" name="" ng-model="fc.password2">
-  </p>
+  <md-input-container style="margin:15px;">
+    <label>Password</label>
+    <input type="password" ng-model="fc.password1">
+  </md-input-container>
+  <br>
+  <md-input-container style="margin:15px;">
+    <label>Confirm Password</label>
+    <input type="password" ng-model="fc.password2">
+  </md-input-container>
+  <br>
+  <md-button class="md-primary md-raised" ng-click="fc.subNewPassword()">Submit</md-button>
 
-  <md-button style="background-color:teal" ng-click="fc.subNewPassword()">Submit</md-button>
 </div>

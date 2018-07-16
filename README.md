@@ -94,6 +94,9 @@
 - [x] Add Success alert for Contact us.
 - [x] Disallow user from entering two footprints of the same month for one project.
   - [ ] Ask if they want to edit.
+- [x] More validation for forgot password, and alerts for success/failure.
+- [x] Final-ish step for forgot password: `res.redirect`. Overall a great exercise, learning about route params with Angular `routeProvider`. I think it's there, now, except for adding proper site name and email address. (same for Contact)
+
 
 ## Next Steps:
 
@@ -110,20 +113,13 @@
 - [ ] New footprint from dash (needs to update chart)
 - [ ] User's info-over-time line chart buggy. Make sure that line chart UPDATES when user enters a new footprint.
 
-- [ ] Better validation UI for registration (already database is enforcing unique username).
-
 - [ ] Implement forgot password.
 
-- [ ] Do not show options for chart query unless it contains data -- don't even display it as an option in the dropdown. (Alert user if there is no data (i.e. identify all of those errors -- "cannot read property plane of undefined", for example))?
-
 - [ ] Update `databasesetup.sql` file to reflect changes to db structure.
-- [ ] Mess with the font.. Make it look better, sleeker.
-
-- [ ] diplay TOTLAS FOR ALL CHARTS! (on dashboard)
+- [ ] Display TOTALS FOR ALL CHARTS! (on dashboard)
 - [ ] One solution for footprints/hovering (tooltip not working and generally kind of sucking) -- make it scroll like the projects, so that hovering reveals its info below. That might look fine.
 
 ### Known Bugs:
-- [ ] Sometimes hovering over project names on side-dash makes them invisible???
 - [ ] Sometimes hovering over bar chart switches values???
 - [ ] The divided-by input dropdown sometimes displays two values???
 - [ ] Odd bug where queries for Project name by ID aren't finding certain projects ....
@@ -140,7 +136,10 @@
 ### Quality of Life Improvements:
 - [ ] This is finicky but scrolling to top and bottom, the cushion doesn't see the image. It looks bad.
 - [ ] The lower shadow on hover over a button (e.g. AWS) is a nice touch.
+- [ ] Mess with the font.. Make it look better, sleeker.
 - [ ] Make background color on home screen uniform.
+- [ ] Do not show options for chart query unless it contains data -- don't even display it as an option in the dropdown. (Alert user if there is no data (i.e. identify all of those errors -- "cannot read property plane of undefined", for example))?
+- [ ] Better validation UI for registration (already database is enforcing unique username).
 - [ ] Overall line chart should include gaps for non-uploaded months (otherwise it's prettier, but misleading).
 - [ ] Would be nice to fix the page refresh issue (cacheing, etc.). (IDEA: We could use localStorage!)
 - [ ] Let user view current CSV when editing or deleting -- or for that matter, show them on hover on the page or something.

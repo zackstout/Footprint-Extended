@@ -10,8 +10,8 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'zackstout@gmail.com',
-    pass: 'encounter'
+    user: process.env.GOOGLE_EMAIL,
+    pass: process.env.GOOGLE_PASSWORD
   }
 });
 
@@ -36,18 +36,24 @@ router.post('/initiate', function(req, res) {
       db.query(queryText, [req.body.email], function (errorMakingQuery, result) {
         if (errorMakingQuery) {
           console.log('Error with country GET', errorMakingQuery);
+          res.sendStatus(500);
         } else {
-          let user_id = result.rows[0].id;
+          // console.log(result);
+          if (result.rows[0]) {
+            const user_id = result.rows[0].id;
+            var queryText2 = 'INSERT INTO "forgot_password" (secret_code, user_id, expires) VALUES ($1, $2, $3);';
 
-          var queryText2 = 'INSERT INTO "forgot_password" (secret_code, user_id, expires) VALUES ($1, $2, $3);';
+            db.query(queryText2, [secretCode, user_id, expirationTime], function(err, result2) {
+              if (err) {
+                console.log(err);
+              } else {
+                res.sendStatus(201);
+              }
+            });
+          } else {
+            res.send('No user');
+          }
 
-          db.query(queryText2, [secretCode, user_id, expirationTime], function(err, result2) {
-            if (err) {
-              console.log(err);
-            } else {
-              res.sendStatus(201);
-            }
-          });
         }
       });
     }
@@ -104,7 +110,10 @@ router.get('/newPassword', function(req, res, next) {
             const expirationTime = result.rows[0].expires;
 
             if (currentTime < expirationTime) {
-              res.sendFile(path.resolve(__dirname, '../../public/views/templates/forgotNew.html'));
+              // res.sendFile(path.resolve(__dirname, '../../public/views/templates/forgotNew.html'));
+
+              // Cool, this is what we needed to get the controller hooked up to it:
+              res.redirect(`/#/forgotNew/${result.rows[0].user_id}`);
 
             } else {
               res.sendFile(path.resolve(__dirname, '../../public/views/templates/alerts/forgot_invalid.html'));
@@ -119,19 +128,26 @@ router.get('/newPassword', function(req, res, next) {
 });
 
 
-
-
 // The final stage, user gets to update their password:
 router.post('/newPassword', function(req, res, next) {
 
   // Update user's password.
-  pool.connect(function(err, client, done) {
+  pool.connect(function(err, db, done) {
     if(err) {
       console.log("Error connecting: ", err);
       res.sendStatus(500);
+    } else {
+      var queryText = 'UPDATE users SET password=$1 WHERE users.id=$2;';
+      db.query(queryText, [req.body.password, req.body.user_id], function (errorMakingQuery, result) {
+        done();
+        if (errorMakingQuery) {
+          console.log('Error with country GET', errorMakingQuery);
+          res.sendStatus(501);
+        } else {
+          res.sendStatus(200);
+        }
+      });
     }
-
-
 
   });
 });

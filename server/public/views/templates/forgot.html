@@ -4,14 +4,16 @@
   <p style="color:red">
     {{fc.errorMsg}}
   </p>
-
-  <p>
-    Email: <input type="text" name="" ng-model="fc.email1">
-  </p>
-
-  <p>
-    Confirm email: <input type="text" name="" ng-model="fc.email2">
-  </p>
-
-  <md-button style="background-color:teal" ng-click="fc.subForgot()">Submit</md-button>
+  <h4 style="margin-bottom:20px; text-decoration: underline;">Forgot Password:</h4>
+  <md-input-container style="margin:15px;">
+    <label>Email</label>
+    <input ng-model="fc.email1">
+  </md-input-container>
+  <br>
+  <md-input-container style="margin:15px;">
+    <label>Confirm Email</label>
+    <input ng-model="fc.email2">
+  </md-input-container>
+  <br>
+  <md-button class="md-primary md-raised" ng-click="fc.subForgot()">Submit</md-button>
 </div>

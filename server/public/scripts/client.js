@@ -9,33 +9,26 @@ myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
     .when('/home', {
       templateUrl: '/views/templates/home.html',
       controller: 'LoginController as lc',
-      // controller: 'TrialController as tc',
-      // Other part of home page will be FPFP controller.
     })
     .when('/register', {
       templateUrl: '/views/templates/register.html',
       controller: 'LoginController as lc',
-      // controller: 'AuthController as ac',
     })
-    .when('/forgotNew', {
+    .when('/forgotNew/:id', {
       templateUrl: '/views/templates/forgotNew.html',
       controller: 'forgotController as fc',
-      // controller: 'AuthController as ac',
     })
     .when('/calc', {
       templateUrl: '/views/templates/calc2.html',
       controller: 'CalcController as cc',
-      // controller: 'AuthController as ac',
     })
     .when('/forgot', {
       templateUrl: '/views/templates/forgot.html',
       controller: 'forgotController as fc',
-      // controller: 'AuthController as ac',
     })
     .when('/user', {
       templateUrl: '/views/templates/dashboard.html',
       controller: 'UserController as uc',
-      // controller: 'DashboardController as dc',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();

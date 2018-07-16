@@ -4,6 +4,7 @@ node_modules/
 *.log
 *.logs
 .vscode/
+.env
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
