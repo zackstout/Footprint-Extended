@@ -28,6 +28,11 @@ myApp.controller('forgotController', function (UserService, $location, $http, $m
       $http.post('/forgot/newPassword', data)
         .then(res => {
           console.log(res);
+          $mdDialog.show({
+            templateUrl: '/views/templates/alerts/new_password_success.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose: true
+          });
         })
         .catch(err => console.log(err));
     }

@@ -66,9 +66,24 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
   //LINE:
   //====================
 
+  let newChart = function() {
+    vm.lineChart();
+  };
+  UserService.registerObserverCallback(newChart);
+
+
+
+  let lineChart;
+
+
   // gets the data for the DASHBOARD lineChart displaying org's carbon impact
   vm.lineChart = function () {
     donutService.getUserFpDividedByPeriod().then(function (response) {
+
+      if (lineChart) {
+        lineChart.destroy();
+      }
+
       vm.lineData = response;
       var month = '';
       var sum = 0;
@@ -85,8 +100,9 @@ myApp.controller('UserController', function (UserService, $mdDialog, $http, $fil
         periodArray.push(month);
       }
 
+
       // Replace with our chart-making function:
-      new Chart(document.getElementById("linechart"), {
+      lineChart = new Chart(document.getElementById("linechart"), {
         type: 'line',
         data: {
           labels: periodArray,

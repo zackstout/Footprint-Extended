@@ -138,7 +138,7 @@ router.post('/newPassword', function(req, res, next) {
       res.sendStatus(500);
     } else {
       var queryText = 'UPDATE users SET password=$1 WHERE users.id=$2;';
-      db.query(queryText, [req.body.password, req.body.user_id], function (errorMakingQuery, result) {
+      db.query(queryText, [encryptLib.encryptPassword(req.body.password), req.body.user_id], function (errorMakingQuery, result) {
         done();
         if (errorMakingQuery) {
           console.log('Error with country GET', errorMakingQuery);

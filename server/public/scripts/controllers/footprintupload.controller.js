@@ -133,6 +133,14 @@ myApp.controller('FootprintUploadController', function ($http, UserService, csvS
             console.log(UserService.clickedProject); // this has the data we need.
 
           });
+        } else {
+          // We want to refresh the chart
+          console.log('chart get yo ass goin');
+          // let drawNewChart = function() {
+          //   console.log('les go');
+          // };
+          // UserService.registerObserverCallback(drawNewChart);
+          UserService.drawNewChart();
         }
       });
     };

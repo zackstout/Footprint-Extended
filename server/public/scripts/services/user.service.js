@@ -35,6 +35,12 @@ myApp.service('UserService', function ($http, $location){
     });
   }
 
+  self.drawNewChart = function() {
+    console.log('servie drawin');
+    notifyObservers();
+  };
+
+
   const PLANE_CONVERSION = 0.18026;
   const CAR_CONVERSION = 0.18568;
   const TRAIN_CONVERSION = 0.01225;

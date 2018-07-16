@@ -96,6 +96,8 @@
   - [ ] Ask if they want to edit.
 - [x] More validation for forgot password, and alerts for success/failure.
 - [x] Final-ish step for forgot password: `res.redirect`. Overall a great exercise, learning about route params with Angular `routeProvider`. I think it's there, now, except for adding proper site name and email address. (same for Contact)
+- [x] New footprint from dash (needs to update chart)
+- [x] User's info-over-time line chart buggy. Make sure that line chart UPDATES when user enters a new footprint.
 
 
 ## Next Steps:
@@ -110,10 +112,6 @@
 - Contact success could be after validation or after email is sent....
 
 ### Top priority:
-- [ ] New footprint from dash (needs to update chart)
-- [ ] User's info-over-time line chart buggy. Make sure that line chart UPDATES when user enters a new footprint.
-
-- [ ] Implement forgot password.
 
 - [ ] Update `databasesetup.sql` file to reflect changes to db structure.
 - [ ] Display TOTALS FOR ALL CHARTS! (on dashboard)

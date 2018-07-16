@@ -29,6 +29,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 // ========================== IMPORTANT ========================== //
 // NOTE: use this for localhost:
 app.use(express.static('./server/public'));
+
 // And use this for live version on AWS:
 // app.use(express.static('./public'));
 
