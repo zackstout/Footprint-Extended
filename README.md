@@ -79,12 +79,10 @@
 - [x] Add new Logo (edited color to charcoal).
 - [x] Disallow user from entering two projects of same name (creates `md-duplicate` error)
   - [ ] ask if they instead want to view that project.
-
 - [x] Auto-select the current project when Uploading new footprint from projects page. (had to update everyone's clickedProject -- messy architecture).
 - [x] Add a scroller to the Projects list, so it doesn't get too long.
 - [x] Add recommendation to use CSV to footprint upload validation (x2).
 - [x] New footprint from projects (needs to change to Project, and update Project-footprints)
-
 - [x] Make sure line chart of FP's footprint does not disappear on Trial Upload.
 - [x] Make sure Will can upload from admin page.
 - [x] Remove more blue outlines with hover: `outline: none`.
@@ -95,15 +93,13 @@
 - [x] Disallow user from entering two footprints of the same month for one project.
   - [ ] Ask if they want to edit.
 - [x] More validation for forgot password, and alerts for success/failure.
-
 - [x] Final-ish step for forgot password: `res.redirect`. Overall a great exercise, learning about route params with Angular `routeProvider`. I think it's there, now, except for adding proper site name and email address. (same for Contact)
 - [x] New footprint from dash (needs to update chart)
 - [x] User's info-over-time line chart buggy. Make sure that line chart UPDATES when user enters a new footprint.
 - [x] Update `databasesetup.sql` file to reflect changes to db structure.
-
+- [x] One solution for footprints/hovering (tooltip not working and generally kind of sucking) -- make it scroll like the projects, so that hovering reveals its info below. That might look fine. Even without scrolling, looks pretty decent.
 
 ## Next Steps:
-
 ### To discuss:
 - The field projects pictures don't seem to look good...
 - Having trouble finding place to put link to [other site](footprintproject.org).
@@ -114,15 +110,14 @@
 - Contact success could be after validation or after email is sent....
 
 ### Top priority:
-
+- [ ] Security for Forgot password -- don't let user just go to that URL and change anyone's PW...
+  - Should be easy fix: instead of going to '/:id', go to '/:secretCode', and then do a GET route for the relevant user.
 - [ ] Display TOTALS FOR ALL CHARTS! (on dashboard)
-- [ ] One solution for footprints/hovering (tooltip not working and generally kind of sucking) -- make it scroll like the projects, so that hovering reveals its info below. That might look fine.
 
 ### Known Bugs:
 - [ ] Sometimes hovering over bar chart switches values???
 - [ ] The divided-by input dropdown sometimes displays two values???
-- [ ] Odd bug where queries for Project name by ID aren't finding certain projects ....
-
+- [ ] Odd bug where queries for Project name by ID aren't finding certain projects .... (!!!) Footprint Upload line 79.
 
 ### Transition Tool:
 - [ ] I don't think size of solar grid is appropriately sensitive to overspec/dayPower.
@@ -130,7 +125,6 @@
 - [ ] Add animations for the diesel-to-solar calculator.
 - [ ] Follow Emma's idea: wrap calc page with a Start button, and walk user through inputs one by one.
 - [ ] Stitch the two tools together so that one upload can take care of all the calculations.
-
 
 ### Quality of Life Improvements:
 - [ ] This is finicky but scrolling to top and bottom, the cushion doesn't see the image. It looks bad.
