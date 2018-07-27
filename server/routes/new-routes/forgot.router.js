@@ -7,12 +7,16 @@ var encryptLib = require('../../modules/encryption');
 
 var nodemailer = require('nodemailer');
 
+// Ok, i guess the problem was that we weren't using dotenv..... But it worked before?!
+var dotenv = require('dotenv').config();
+
+// WHY ISN'T PROCESS.ENV WORKING FOR THIS ANYMORE??
 var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: process.env.GOOGLE_EMAIL,
     pass: process.env.GOOGLE_PASSWORD
-  }
+  },
 });
 
 
@@ -59,7 +63,6 @@ router.post('/initiate', function(req, res) {
     }
   });
 
-
   var mailOptions = {
     from: 'zackstout@gmail.com',
     to: req.body.email,
@@ -79,7 +82,6 @@ router.post('/initiate', function(req, res) {
   });
 
 });
-
 
 
 // Handles request for HTML file (once successfully followed link from email):
@@ -113,7 +115,7 @@ router.get('/newPassword', function(req, res, next) {
               // res.sendFile(path.resolve(__dirname, '../../public/views/templates/forgotNew.html'));
 
               // Cool, this is what we needed to get the controller hooked up to it:
-              res.redirect(`/#/forgotNew/${result.rows[0].user_id}`);
+              res.redirect(`/#/forgotNew/${result.rows[0].secret_code}`);
 
             } else {
               res.sendFile(path.resolve(__dirname, '../../public/views/templates/alerts/forgot_invalid.html'));
@@ -128,32 +130,43 @@ router.get('/newPassword', function(req, res, next) {
 });
 
 
+// NOTE huge security risk, have to use their code as the parameter rather than the user name.
 // The final stage, user gets to update their password:
 router.post('/newPassword', function(req, res, next) {
 
+  console.log(req.body);
   // Update user's password.
   pool.connect(function(err, db, done) {
     if(err) {
       console.log("Error connecting: ", err);
       res.sendStatus(500);
     } else {
-      var queryText = 'UPDATE users SET password=$1 WHERE users.id=$2;';
-      db.query(queryText, [encryptLib.encryptPassword(req.body.password), req.body.user_id], function (errorMakingQuery, result) {
-        done();
+      var queryText = 'SELECT user_id as id from forgot_password where secret_code = $1;';
+      db.query(queryText, [req.body.secret_code], function (errorMakingQuery, result) {
+        // done();
         if (errorMakingQuery) {
-          console.log('Error with country GET', errorMakingQuery);
+          console.log('Error with first query', errorMakingQuery);
           res.sendStatus(501);
         } else {
-          res.sendStatus(200);
+          console.log("id is....", result.rows[0].id);
+          const newPass = encryptLib.encryptPassword(req.body.password);
+          const user_id = result.rows[0].id;
+          var queryText2 = `UPDATE users SET password=$1 WHERE users.id=$2;`;
+          db.query(queryText2, [newPass, user_id], function (errorMakingQuery, result2) {
+            done();
+            if (errorMakingQuery) {
+              console.log('Error with second query', errorMakingQuery);
+              res.sendStatus(501);
+            } else {
+              res.sendStatus(200);
+            }
+          });
         }
       });
     }
 
   });
 });
-
-
-
 
 
 function makeRandomString(len) {
@@ -166,15 +179,12 @@ function makeRandomString(len) {
 }
 
 
-
-
-
 // This should be pretty straightforward:
 
 router.post('/contact', function (req, res) {
   var mailOptions = {
     from: req.body.email,
-    to: 'zackstout@gmail.com',// WILL'S EMAIL GOES HERE,
+    to: 'info@footprintproject.org',// WILL'S EMAIL GOES HERE,
     subject: req.body.subject,
     text: req.body.message
   };
@@ -190,9 +200,6 @@ router.post('/contact', function (req, res) {
   });
 
 });
-
-
-
 
 
 module.exports = router;

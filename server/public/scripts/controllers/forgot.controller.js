@@ -23,8 +23,10 @@ myApp.controller('forgotController', function (UserService, $location, $http, $m
       // console.log('location is ', $location);
       let data = {
         password: vm.password1,
-        user_id: $location.$$url.substring($location.$$url.lastIndexOf('/') + 1)
+        secret_code: $location.$$url.substring($location.$$url.lastIndexOf('/') + 1)
       };
+
+      console.log(data);
       $http.post('/forgot/newPassword', data)
         .then(res => {
           console.log(res);
