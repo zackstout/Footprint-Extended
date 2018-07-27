@@ -98,20 +98,17 @@
 - [x] User's info-over-time line chart buggy. Make sure that line chart UPDATES when user enters a new footprint.
 - [x] Update `databasesetup.sql` file to reflect changes to db structure.
 - [x] One solution for footprints/hovering (tooltip not working and generally kind of sucking) -- make it scroll like the projects, so that hovering reveals its info below. That might look fine. Even without scrolling, looks pretty decent.
+- [x] Forgot password is working. Don't forget you need to include `dotenv` to access `process.env`, and you need to `heroku config:set GOOGLE_EMAIL=****` and same for password to tell Heroku about them.
+- [x] Security for Forgot password -- don't let user just go to that URL and change anyone's PW...
+  - Should be easy fix: instead of going to '/:id', go to '/:secretCode', and then do a GET route for the relevant user.
 
 ## Next Steps:
 ### To discuss:
 - The field projects pictures don't seem to look good...
-- Having trouble finding place to put link to [other site](footprintproject.org).
-- Should footer click direct to footprintproject.org?
-- Facebook link broken (mentioned)
-- Forgot password will take a bit more
 - Not too sure whether CSV properly emphasizes Diesel stuff. Not too sure how the data-models map onto each other either...
 - Contact success could be after validation or after email is sent....
 
 ### Top priority:
-- [ ] Security for Forgot password -- don't let user just go to that URL and change anyone's PW...
-  - Should be easy fix: instead of going to '/:id', go to '/:secretCode', and then do a GET route for the relevant user.
 - [ ] Display TOTALS FOR ALL CHARTS! (on dashboard)
 
 ### Known Bugs:

@@ -24,7 +24,7 @@ var transporter = nodemailer.createTransport({
 router.post('/initiate', function(req, res) {
   console.log("BODY HERE: ", req.body);
 
-  const websitename = 'https://frozen-lake-72610.herokuapp.com/'; // URL GOES HERE
+  const websitename = 'https://frozen-lake-72610.herokuapp.com'; // URL GOES HERE
   const secretCode = makeRandomString(45);
   const currentTime = Math.floor(new Date() / 1000);
   const expirationTime = currentTime + 60 * 60; // one hour in the future
