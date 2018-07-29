@@ -252,14 +252,15 @@ myApp.service('UserService', function ($http, $location){
     return $http.get('project/userprojects/' + id).then(function (response) {
       self.userProjects = response.data;
 
-      // ahhhhh Yes the problem is this isn't being ordered correctly:
-      self.userProjects.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+      // NICE, to reorder, all we have to change is this:
+      self.userProjects.sort((a, b) => parseInt(b.id) - parseInt(a.id));
 
       return self.userProjects;
     }).catch(function (err) {
       console.log('problem getting projects', err);
     });
   };
+
 
 
   // NOTE: Going to need to enforce unique project names!
@@ -301,6 +302,9 @@ myApp.service('UserService', function ($http, $location){
       self.selectedProjectFootprints = response.data.rows;
       console.log("FOOTPRINTS ARE...", self.selectedProjectFootprints, " for id no. ", id, ", project is", self.clickedProject);
 
+
+      // To reverse order:
+      self.selectedProjectFootprints = self.selectedProjectFootprints.reverse();
       return self.selectedProjectFootprints;
     }).catch(function (err) {
       console.log('problem getting project footprints', err);

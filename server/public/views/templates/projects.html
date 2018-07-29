@@ -53,7 +53,7 @@
         <div layout="row" >
 
         <md-card id="recent" class="projectsDiv">
-          <h3 ng-repeat="userProject in pc.userProjects">
+          <h3 ng-repeat="userProject in pc.userProjects | orderBy: '-id'">
 
             <md-button ng-click="pc.showAnotherProject($event, $index)" layout-align="left">{{userProject.name}}</md-button>
 

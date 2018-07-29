@@ -6,6 +6,7 @@ var pool = require('../../modules/pool.js');
 var encryptLib = require('../../modules/encryption');
 
 var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
 
 // Ok, i guess the problem was that we weren't using dotenv..... But it worked before?!
 var dotenv = require('dotenv').config();
@@ -18,6 +19,16 @@ var transporter = nodemailer.createTransport({
     pass: process.env.GOOGLE_PASSWORD
   },
 });
+
+// var transporter = nodemailer.createTransport(smtpTransport({
+//     host: 'footprintproject.org', //mail.example.com (your server smtp)
+//     // port: 465, //2525 (specific port)
+//     secureConnection: true, //true or false
+//     auth: {
+//         user: process.env.GOOGLE_EMAIL, //user@mydomain.com
+//         pass: process.env.GOOGLE_PASSWORD //password from specific user mail
+//     }
+// }));
 
 
 // Kick off the forgot password process:

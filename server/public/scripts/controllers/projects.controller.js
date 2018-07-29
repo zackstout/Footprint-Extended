@@ -92,10 +92,11 @@ myApp.controller('ProjectController', function ($http, UserService, csvService, 
   // ===============================================================================================
 
 
+
   //this is for when the project is selected from projects page instead of from dashboard
   vm.showAnotherProject = function (ev, i) {
     UserService.userProjects.selectedIndex = i;
-
+    // console.log(ev);
     // Ahh, this was issue, we were changing vm.clickedProject instead of UserService.clickedProject.....:
     // Not sure why we need *both* here, and only one in User controller.. (when we click a Project from Dashboard).
     vm.clickedProject = UserService.userProjects[i];

@@ -26,7 +26,7 @@
       <md-card id="recent" class="projectsDiv">
         <!-- why isn't this working??? -->
         <h3 ng-repeat="userProject in uc.userService.userProjects">
-          {{userProject.id}}
+          <!-- {{userProject.id}} -->
           <md-button aria-label=" " ng-click="uc.showProject($event, $index)" layout-align="left">{{userProject.name}}</md-button>
         </md-button>
       </h3>

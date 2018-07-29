@@ -110,6 +110,8 @@
 
 ### Top priority:
 - [ ] Display TOTALS FOR ALL CHARTS! (on dashboard)
+- [ ] Figure out custom SMTP for nodemailer.
+- [ ] Some trickiness with `orderBy` and `$index`...
 
 ### Known Bugs:
 - [ ] Sometimes hovering over bar chart switches values???
