@@ -101,6 +101,9 @@
 - [x] Forgot password is working. Don't forget you need to include `dotenv` to access `process.env`, and you need to `heroku config:set GOOGLE_EMAIL=****` and same for password to tell Heroku about them.
 - [x] Security for Forgot password -- don't let user just go to that URL and change anyone's PW...
   - Should be easy fix: instead of going to '/:id', go to '/:secretCode', and then do a GET route for the relevant user.
+- [x] Some trickiness with `orderBy` and `$index`... Ok, we just changed the service functions to alter order.
+- [x] Only showing "check for validation code" once email has been sent.
+  - [ ] Should send custom alert if email failed.
 
 ## Next Steps:
 ### To discuss:
@@ -111,7 +114,7 @@
 ### Top priority:
 - [ ] Display TOTALS FOR ALL CHARTS! (on dashboard)
 - [ ] Figure out custom SMTP for nodemailer.
-- [ ] Some trickiness with `orderBy` and `$index`...
+- [ ] Totals on projects page should be sticky to top after you scroll past them.
 
 ### Known Bugs:
 - [ ] Sometimes hovering over bar chart switches values???

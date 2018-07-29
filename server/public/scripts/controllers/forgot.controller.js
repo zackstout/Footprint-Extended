@@ -41,8 +41,6 @@ myApp.controller('forgotController', function (UserService, $location, $http, $m
   };
 
 
-
-
   vm.subForgot = function() {
     // Validation:
     if (vm.email1 == '' || vm.email2 == '') {

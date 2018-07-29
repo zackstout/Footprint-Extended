@@ -61,8 +61,29 @@ router.post('/initiate', function(req, res) {
             db.query(queryText2, [secretCode, user_id, expirationTime], function(err, result2) {
               if (err) {
                 console.log(err);
+                res.sendStatus(500);
               } else {
-                res.sendStatus(201);
+                //
+                var mailOptions = {
+                  from: 'zackstout@gmail.com',
+                  to: req.body.email,
+                  subject: 'New Password Confirmation',
+
+                  // Hmm, this doesn't appear to be working...:
+                  // Oh, the only issue was with using 'localhost' -- works with a real link:
+                  html: `Thanks for using Footprint! <br/>Please follow this link to create a new password: <a href="${websitename}/forgot/newPassword?secretCode=${secretCode}">${websitename}/forgot/newPassword?secretCode=${secretCode}</a>.`
+                };
+
+                transporter.sendMail(mailOptions, function(error, info){
+                  if (error) {
+                    console.log(error);
+                    res.sendStatus(500);
+                  } else {
+                    console.log('Email sent: ' + info.response);
+                    res.sendStatus(201);
+
+                  }
+                });
               }
             });
           } else {
@@ -74,23 +95,7 @@ router.post('/initiate', function(req, res) {
     }
   });
 
-  var mailOptions = {
-    from: 'zackstout@gmail.com',
-    to: req.body.email,
-    subject: 'New Password Confirmation',
 
-    // Hmm, this doesn't appear to be working...:
-    // Oh, the only issue was with using 'localhost' -- works with a real link:
-    html: `Thanks for using Footprint! <br/>Please follow this link to create a new password: <a href="${websitename}/forgot/newPassword?secretCode=${secretCode}">${websitename}/forgot/newPassword?secretCode=${secretCode}</a>.`
-  };
-
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
-  });
 
 });
 
