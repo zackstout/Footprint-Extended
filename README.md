@@ -1,4 +1,5 @@
 # Project Footprint: Extended
+A carbon analytics calculator targeted toward humanitarian organizations. Track your progress and visualize your impact to glean actionable insights. Check out the [live demo](https://frozen-lake-72610.herokuapp.com/).
 
 ## Built With:
 - Node.js
